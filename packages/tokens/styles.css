@@ -1,13 +1,13 @@
 /* ─────────────────────────────────────────────────────────────────────────
- * Cashflow Design System — global entry point
+ * Design tokens — global entry point
  *
  * Consumers link THIS one file. It is an @import manifest only; every token
  * and font lives in the files below. Order matters: fonts → raw ramps →
  * semantic aliases → type → spacing → base element styles.
  * ──────────────────────────────────────────────────────────────────────── */
-@import "tokens/fonts.css";
-@import "tokens/colors.css";
-@import "tokens/semantic.css";
-@import "tokens/typography.css";
-@import "tokens/spacing.css";
-@import "tokens/base.css";
+@import "./src/fonts.css";
+@import "./src/colors.css";
+@import "./src/semantic.css";
+@import "./src/typography.css";
+@import "./src/spacing.css";
+@import "./src/base.css";
