@@ -1,29 +1,21 @@
 {
-  "name": "cashflow-design-system",
-  "version": "0.1.0",
-  "description": "Portable design system for Cashflow — tokens, components, foundations, and a UI-kit recreation.",
-  "license": "SEE LICENSE FILE",
+  "name": "@connoradams/designsystem-monorepo",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": {
-    "./styles.css": "./styles.css"
+  "packageManager": "pnpm@10.29.3",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "typecheck": "turbo run typecheck",
+    "storybook": "pnpm --filter @connoradams/storybook dev",
+    "changeset": "changeset",
+    "release": "turbo run build && changeset publish"
   },
-  "files": [
-    "styles.css",
-    "tokens/",
-    "components/",
-    "assets/",
-    "templates/",
-    "foundations/",
-    "SKILL.md",
-    "README.md"
-  ],
-  "keywords": [
-    "design-system",
-    "design-tokens",
-    "cashflow",
-    "css-custom-properties",
-    "react-components"
-  ],
-  "homepage": "https://github.com/Connor-Adams/cashflow"
+  "devDependencies": {
+    "turbo": "^2.1.0",
+    "typescript": "^5.6.0",
+    "@changesets/cli": "^2.27.0"
+  }
 }
