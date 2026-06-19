@@ -1,19 +1,38 @@
-import React from 'react'
+import * as React from 'react'
+
+export type ButtonVariant =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'ghost'
+  | 'destructive'
+  | 'danger'
+  | 'link'
+
+export type ButtonSize = 'sm' | 'default' | 'lg' | 'icon'
 
 /**
- * Cashflow Button. Variants map to the app's CVA button: solid oxblood
- * primary, neutral secondary/outline/ghost, and a tinted destructive. All
- * colors reach through the semantic token layer — no raw hex.
+ * Primary action control. Solid oxblood `primary` for the main CTA; neutral
+ * `secondary`/`outline`/`ghost` for everything else; tinted `destructive` for
+ * delete actions. Greyscale by default — oxblood is precious. All colors reach
+ * through the semantic token layer — no raw hex.
  */
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Visual treatment. Default solid oxblood. */
+  variant?: ButtonVariant
+  /** Control height. `icon` is a 40×40 square. */
+  size?: ButtonSize
+}
 
-const SIZES = {
+const SIZES: Record<ButtonSize, React.CSSProperties> = {
   sm: { height: 36, padding: '0 12px', fontSize: 'var(--text-body)' },
   default: { height: 40, padding: '0 16px', fontSize: 'var(--text-body)' },
   lg: { height: 44, padding: '0 32px', fontSize: 'var(--text-body-lg)' },
   icon: { height: 40, width: 40, padding: 0, fontSize: 'var(--text-body)' },
 }
 
-function variantStyle(variant) {
+function variantStyle(variant: ButtonVariant): React.CSSProperties {
   switch (variant) {
     case 'secondary':
       return { background: 'var(--card)', color: 'var(--foreground)', border: '1px solid var(--border)' }
@@ -37,7 +56,7 @@ function variantStyle(variant) {
   }
 }
 
-function hoverBg(variant) {
+function hoverBg(variant: ButtonVariant): string {
   switch (variant) {
     case 'secondary': return 'var(--muted)'
     case 'outline':
@@ -58,18 +77,18 @@ export function Button({
   style,
   children,
   ...props
-}) {
+}: ButtonProps): React.JSX.Element {
   const [hover, setHover] = React.useState(false)
-  const sz = SIZES[size] || SIZES.default
+  const sz = SIZES[size] ?? SIZES.default
   const base = variantStyle(variant)
-  const merged = {
+  const merged: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
     whiteSpace: 'nowrap',
     borderRadius: 'var(--radius-lg)',
-    fontWeight: 'var(--weight-semibold)',
+    fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
     fontFamily: 'var(--font-sans)',
     lineHeight: 1,
     cursor: disabled ? 'not-allowed' : 'pointer',
