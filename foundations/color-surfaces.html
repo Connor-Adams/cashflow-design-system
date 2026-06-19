@@ -1,0 +1,20 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Surfaces & text" subtitle="background · card · muted · foreground · border" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;padding:20px;background:var(--background);font-family:var(--font-sans)}
+  .row{display:flex;gap:12px}
+  .tile{flex:1;border-radius:var(--radius-lg);border:1px solid var(--border);padding:14px;display:flex;flex-direction:column;gap:6px}
+  .lab{font-size:12px;font-weight:600}
+  .v{font-size:11px;font-family:var(--font-mono);color:var(--muted-foreground)}
+  .sw{height:26px;border-radius:6px;border:1px solid var(--border)}
+</style></head>
+<body>
+  <div class="row">
+    <div class="tile" style="background:var(--background)"><div class="sw" style="background:var(--background)"></div><span class="lab">Background</span><span class="v">--background</span></div>
+    <div class="tile" style="background:var(--card)"><div class="sw" style="background:var(--card)"></div><span class="lab">Card</span><span class="v">--card</span></div>
+    <div class="tile" style="background:var(--card)"><div class="sw" style="background:var(--muted)"></div><span class="lab">Muted</span><span class="v">--muted</span></div>
+    <div class="tile" style="background:var(--card)"><div class="sw" style="background:var(--foreground)"></div><span class="lab" style="color:var(--foreground)">Foreground</span><span class="v">--foreground</span></div>
+    <div class="tile" style="background:var(--card)"><div class="sw" style="background:var(--muted-foreground)"></div><span class="lab" style="color:var(--muted-foreground)">Muted text</span><span class="v">--muted-foreground</span></div>
+  </div>
+</body></html>

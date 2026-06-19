@@ -1,0 +1,20 @@
+<!-- @dsCard group="Brand" viewport="700x170" name="Motion & texture" subtitle="Living-gradient backdrop · skeleton shimmer · 150–700ms" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;padding:20px;background:var(--background);font-family:var(--font-sans)}
+  .row{display:flex;gap:14px}
+  .tile{flex:1;height:104px;border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;position:relative;background:var(--card)}
+  .cap{position:absolute;left:12px;bottom:10px;font-size:12px;color:var(--foreground);font-weight:600;z-index:2}
+  .sub{position:absolute;left:12px;bottom:-8px;font-size:11px;color:var(--muted-foreground)}
+  .living{position:absolute;inset:0;background-image:radial-gradient(60% 55% at 18% 22%,color-mix(in oklch,var(--gradient-hero-from) 24%,transparent),transparent 70%),radial-gradient(55% 55% at 82% 78%,color-mix(in oklch,var(--gradient-hero-to) 22%,transparent),transparent 70%);background-size:180% 180%,180% 180%;background-repeat:no-repeat;animation:drift 24s ease-in-out infinite}
+  @keyframes drift{0%{background-position:0% 50%,100% 50%}50%{background-position:100% 50%,0% 50%}100%{background-position:0% 50%,100% 50%}}
+  .shimWrap{padding:16px;display:flex;flex-direction:column;gap:10px}
+  .bar{height:12px;border-radius:6px}
+</style></head>
+<body>
+  <div class="row">
+    <div class="tile"><div class="living"></div><span class="cap">Living gradient · dashboard only, 24s loop</span></div>
+    <div class="tile"><div class="shimWrap"><div class="bar skeleton-shimmer" style="width:50%"></div><div class="bar skeleton-shimmer"></div><div class="bar skeleton-shimmer" style="width:66%"></div></div><span class="cap" style="bottom:8px">Skeleton shimmer · 1.6s sweep</span></div>
+  </div>
+</body></html>

@@ -1,0 +1,95 @@
+/* ─────────────────────────────────────────────────────────────────────────
+ * Cashflow — raw color ramps
+ *
+ * The primitive palette. Components NEVER reach for these directly; they go
+ * through the semantic layer (semantic.css). Zinc is the greyscale workhorse;
+ * oxblood is the signature brand + money-out + danger-adjacent color; green is
+ * money-in; alert-red is "stop" red (kept distinct from oxblood); amber is
+ * caution only. The hero gradient (warm orange → pink) is the one moment of
+ * warmth, used at low opacity.
+ * ──────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Greyscale (zinc) — the workhorse */
+  --zinc-50:  #FAFAFA;
+  --zinc-100: #F4F4F5;
+  --zinc-200: #E4E4E7;
+  --zinc-300: #D4D4D8;
+  --zinc-400: #A1A1AA;
+  --zinc-500: #71717A;
+  --zinc-600: #52525B;
+  --zinc-700: #3F3F46;
+  --zinc-800: #27272A;
+  --zinc-900: #18181B;
+  --zinc-950: #09090B;
+
+  /* Oxblood — signature + money-out + danger-adjacent */
+  --oxblood-50:  #FBEDEE;
+  --oxblood-100: #F6D6D9;
+  --oxblood-200: #E9A8AF;
+  --oxblood-300: #DA7B85;
+  --oxblood-400: #C44E5B;
+  --oxblood-500: #9B2D3A;   /* PRIMARY */
+  --oxblood-600: #82252F;
+  --oxblood-700: #661C26;
+  --oxblood-800: #4A141B;
+  --oxblood-900: #2E0C10;
+
+  /* Alert red — danger / destructive ONLY (distinct from the oxblood brand) */
+  --alert-200: #FECACA;
+  --alert-400: #F87171;
+  --alert-600: #DC2626;
+  --alert-700: #C81E1E;
+
+  /* Green — money-in / positive */
+  --green-100: #D1FAE5;
+  --green-200: #7DDCAE;
+  --green-300: #35BE83;
+  --green-500: #0FA06C;
+  --green-600: #0A875D;
+  --green-700: #086F4C;
+
+  /* Amber — warning / caution ONLY (not a brand color) */
+  --amber-w-100: #FEF3C7;
+  --amber-w-300: #F5C451;
+  --amber-w-500: #D9A441;
+  --amber-w-700: #B45309;
+
+  /* Hero gradient — warm orange → pink. The one moment of warmth. */
+  --gradient-hero: linear-gradient(135deg, #FF7847, #E84393); /* @kind color */
+  --gradient-hero-from: #FF7847;
+  --gradient-hero-to:   #E84393;
+
+  /* Chart categorical extra */
+  --chart-steel: #5EA8E0;
+
+  /* Categorical avatar identity colors (single source of truth for LetterAvatar) */
+  --avatar-1:  #5B8DEF;
+  --avatar-2:  #7C5CFF;
+  --avatar-3:  #10B981;
+  --avatar-4:  #F59E0B;
+  --avatar-5:  #EF4444;
+  --avatar-6:  #06B6D4;
+  --avatar-7:  #EC4899;
+  --avatar-8:  #84CC16;
+  --avatar-9:  #0EA5E9;
+  --avatar-10: #A855F7;
+  --avatar-11: #F97316;
+  --avatar-12: #14B8A6;
+  --avatar-on-light: var(--zinc-50);   /* light text on dark/saturated bg */
+  --avatar-on-dark:  var(--zinc-900);  /* dark text on light bg */
+
+  /* Gradient variants of each slot — same hash slot, diagonal blend into an
+   * analogous hue for a livelier identity chip. LetterAvatar uses these. */
+  --avatar-grad-1:  linear-gradient(135deg, #5B8DEF, #7C5CFF); /* @kind color */
+  --avatar-grad-2:  linear-gradient(135deg, #7C5CFF, #A855F7); /* @kind color */
+  --avatar-grad-3:  linear-gradient(135deg, #10B981, #14B8A6); /* @kind color */
+  --avatar-grad-4:  linear-gradient(135deg, #FBB740, #F97316); /* @kind color */
+  --avatar-grad-5:  linear-gradient(135deg, #F87171, #EC4899); /* @kind color */
+  --avatar-grad-6:  linear-gradient(135deg, #22D3EE, #0EA5E9); /* @kind color */
+  --avatar-grad-7:  linear-gradient(135deg, #EC4899, #A855F7); /* @kind color */
+  --avatar-grad-8:  linear-gradient(135deg, #A3E635, #10B981); /* @kind color */
+  --avatar-grad-9:  linear-gradient(135deg, #38BDF8, #5B8DEF); /* @kind color */
+  --avatar-grad-10: linear-gradient(135deg, #C084FC, #EC4899); /* @kind color */
+  --avatar-grad-11: linear-gradient(135deg, #FB923C, #EF4444); /* @kind color */
+  --avatar-grad-12: linear-gradient(135deg, #2DD4BF, #06B6D4); /* @kind color */
+}

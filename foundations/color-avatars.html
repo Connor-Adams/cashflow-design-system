@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Avatar palette" subtitle="12 categorical identity colors, hashed per counterparty" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;padding:20px;background:var(--card);font-family:var(--font-sans)}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .av{width:46px;height:46px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+  .meta{margin-top:14px;font-size:12px;color:var(--muted-foreground)}
+  .meta b{color:var(--foreground)}
+</style></head>
+<body>
+  <div class="row">
+    <div class="av" style="background:var(--avatar-grad-1);color:var(--avatar-on-light)">A</div>
+    <div class="av" style="background:var(--avatar-grad-2);color:var(--avatar-on-light)">B</div>
+    <div class="av" style="background:var(--avatar-grad-3);color:var(--avatar-on-dark)">C</div>
+    <div class="av" style="background:var(--avatar-grad-4);color:var(--avatar-on-dark)">D</div>
+    <div class="av" style="background:var(--avatar-grad-5);color:var(--avatar-on-light)">E</div>
+    <div class="av" style="background:var(--avatar-grad-6);color:var(--avatar-on-dark)">F</div>
+    <div class="av" style="background:var(--avatar-grad-7);color:var(--avatar-on-light)">G</div>
+    <div class="av" style="background:var(--avatar-grad-8);color:var(--avatar-on-dark)">H</div>
+    <div class="av" style="background:var(--avatar-grad-9);color:var(--avatar-on-light)">I</div>
+    <div class="av" style="background:var(--avatar-grad-10);color:var(--avatar-on-light)">J</div>
+    <div class="av" style="background:var(--avatar-grad-11);color:var(--avatar-on-light)">K</div>
+    <div class="av" style="background:var(--avatar-grad-12);color:var(--avatar-on-dark)">L</div>
+  </div>
+  <div class="meta"><b>--avatar-grad-1…12</b> — a hash of the counterparty name picks a slot, so the same merchant always gets the same gradient</div>
+</body></html>

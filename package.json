@@ -1,0 +1,29 @@
+{
+  "name": "cashflow-design-system",
+  "version": "0.1.0",
+  "description": "Portable design system for Cashflow — tokens, components, foundations, and a UI-kit recreation.",
+  "license": "SEE LICENSE FILE",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./styles.css": "./styles.css"
+  },
+  "files": [
+    "styles.css",
+    "tokens/",
+    "components/",
+    "assets/",
+    "templates/",
+    "foundations/",
+    "SKILL.md",
+    "README.md"
+  ],
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "cashflow",
+    "css-custom-properties",
+    "react-components"
+  ],
+  "homepage": "https://github.com/Connor-Adams/cashflow"
+}

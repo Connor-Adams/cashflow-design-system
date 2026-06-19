@@ -1,0 +1,39 @@
+/* ─────────────────────────────────────────────────────────────────────────
+ * Cashflow — typography tokens
+ *
+ * Primary face: Avenir Next (substituted here with Mulish — see fonts.css).
+ * Base line-height 1.45, weight 400, antialiased, optimizeLegibility.
+ *
+ * The type scale runs display-lg → body-sm. Sizes/line-heights/tracking are
+ * the values lifted from the app's Tailwind `@theme`. Each step is exposed as
+ * three vars: --text-<step> (size), --text-<step>-lh (line-height),
+ * --text-<step>-ls (letter-spacing).
+ * ──────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Font families */
+  --font-sans: 'Mulish', 'Avenir Next', 'Segoe UI Variable Display',
+    'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo,
+    'Liberation Mono', monospace;
+
+  /* Base */
+  --leading-base: 1.45;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Type scale — size / line-height / letter-spacing */
+  --text-display-lg: 3.25rem;   --text-display-lg-lh: 3.5rem;   --text-display-lg-ls: -0.02em;
+  --text-display:    2.25rem;   --text-display-lh:    2.5rem;   --text-display-ls:    -0.02em;
+  --text-display-sm: 2rem;      --text-display-sm-lh: 2rem;     --text-display-sm-ls: -0.02em;
+  --text-headline-lg: 1.875rem; --text-headline-lg-lh: 2.25rem; --text-headline-lg-ls: -0.01em;
+  --text-headline:    1.5rem;   --text-headline-lh:    1.75rem; --text-headline-ls:    -0.01em;
+  --text-headline-sm: 1rem;     --text-headline-sm-lh: 1.25rem; --text-headline-sm-ls: 0em;
+  --text-body-lg: 1rem;         --text-body-lg-lh: 1.25rem;     --text-body-lg-ls: 0em;
+  --text-body:    0.875rem;     --text-body-lh:    1.0625rem;   --text-body-ls:    0em;   /* default */
+  --text-body-sm: 0.75rem;      --text-body-sm-lh: 0.9375rem;   --text-body-sm-ls: 0em;
+
+  /* Eyebrow / label convention: uppercase 0.72rem semibold muted */
+  --text-label: 0.72rem;
+}

@@ -1,0 +1,18 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Elevation & borders" subtitle="One light --shadow · hairline --border · cards stay flat" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;padding:24px;background:var(--background);font-family:var(--font-sans)}
+  .row{display:flex;gap:20px;align-items:center}
+  .card{flex:1;height:80px;border-radius:var(--radius-lg);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted-foreground)}
+  .b{border:1px solid var(--border)}
+  .s{box-shadow:var(--shadow)}
+  .both{border:1px solid var(--border);box-shadow:var(--shadow)}
+</style></head>
+<body>
+  <div class="row">
+    <div class="card b">border only<br>--border</div>
+    <div class="card s">shadow only<br>--shadow</div>
+    <div class="card both"><div style="text-align:center"><b style="color:var(--foreground)">Card default</b><br>border + shadow</div></div>
+  </div>
+</body></html>

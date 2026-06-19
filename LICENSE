@@ -1,0 +1,19 @@
+LICENSE — ACTION REQUIRED
+=========================
+
+This design system distills the look and feel of the Cashflow product. Per the
+project README, the upstream Cashflow repository
+(https://github.com/Connor-Adams/cashflow) is **source-available for review only,
+not open-source**.
+
+Before publishing this repository with an open-source license (e.g. MIT or
+Apache-2.0), confirm with the upstream owner that you have the right to
+redistribute these tokens, components, and brand assets. Do NOT assume MIT
+applies just because this file is a placeholder.
+
+Once cleared, replace this file with your chosen license text. Common choices:
+
+  - MIT          — simplest, most permissive
+  - Apache-2.0   — permissive + explicit patent grant
+
+Until then, treat this repository as: Copyright (c) 2026 — all rights reserved.

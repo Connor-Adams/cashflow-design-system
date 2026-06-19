@@ -1,0 +1,55 @@
+<!-- @dsCard group="Brand" viewport="700x380" name="Logo mark" subtitle="Solid wordmark with a hero-gradient underline" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;padding:24px;background:var(--card);font-family:var(--font-sans);color:var(--foreground)}
+  .grid{display:flex;flex-direction:column;gap:22px}
+  .row{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+  .chip{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .chip span{font-size:11px;font-family:var(--font-mono);color:var(--muted-foreground)}
+  .rule{height:1px;background:var(--border);border:0;margin:0}
+  .onbg{padding:16px;border-radius:var(--radius-lg);background:var(--oxblood-900)}
+  .mono{padding:16px;border-radius:var(--radius-lg);background:var(--zinc-100)}
+
+  /* Wordmark: solid type with the hero gradient as an underline accent. */
+  .word{position:relative;display:inline-block;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--foreground);padding-bottom:.18em}
+  .word:not(.plain)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:.1em;border-radius:99px;background:var(--gradient-hero)}
+  .word.plain{padding-bottom:0}
+</style></head>
+<body>
+<div class="grid">
+
+  <!-- Horizontal lockup: coin mark + integrated wordmark -->
+  <div class="row">
+    <img src="../assets/logo/cashflow-mark.svg" width="46" height="46" alt="Cashflow" />
+    <div class="word" style="font-size:42px">Cashflow</div>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- App icon sizes -->
+  <div class="row">
+    <div class="chip"><img src="../assets/logo/cashflow-mark.svg" width="72" height="72" alt="" /><span>icon · 72</span></div>
+    <div class="chip"><img src="../assets/logo/cashflow-mark.svg" width="44" height="44" alt="" /><span>icon · 44</span></div>
+    <div class="chip"><img src="../assets/logo/cashflow-mark.svg" width="28" height="28" alt="" /><span>favicon · 28</span></div>
+    <div class="chip"><div class="onbg"><img src="../assets/logo/cashflow-mark.svg" width="44" height="44" alt="" /></div><span>on oxblood-900</span></div>
+    <div class="chip"><div class="mono"><img src="../assets/logo/cashflow-mark.svg" width="44" height="44" alt="" /></div><span>on zinc-100</span></div>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- Standalone wordmark, small -->
+  <div class="row">
+    <div class="word" style="font-size:26px">Cashflow</div>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- Safe variant: plain all-type wordmark for favicons / tiny contexts -->
+  <div class="row">
+    <div class="word plain" style="font-size:30px">Cashflow</div>
+    <span style="font-size:11px;font-family:var(--font-mono);color:var(--muted-foreground)">safe variant · no arrows, for small sizes</span>
+  </div>
+
+</div>
+</body></html>

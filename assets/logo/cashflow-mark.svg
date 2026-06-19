@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Cashflow">
+  <defs>
+    <linearGradient id="cf-hero" x1="10" y1="12" x2="38" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF7847"></stop>
+      <stop offset="1" stop-color="#E84393"></stop>
+    </linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="24" fill="#9B2D3A"></circle>
+  <g fill="none" stroke="url(#cf-hero)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.6">
+    <path d="M18.5 33.5 V18.2"></path>
+    <path d="M12.8 23.6 L18.5 17.4 L24.2 23.6"></path>
+    <path d="M29.5 14.5 V29.8"></path>
+    <path d="M23.8 24.4 L29.5 30.6 L35.2 24.4"></path>
+  </g>
+</svg>

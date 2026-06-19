@@ -1,0 +1,169 @@
+/* ─────────────────────────────────────────────────────────────────────────
+ * Cashflow — semantic color tokens
+ *
+ * The layer every component reaches through. Two themes: light (default /
+ * [data-theme="light"]) and dark ([data-theme="dark"]). Dark mode is the same
+ * token layer re-pointed — never a separate stylesheet.
+ *
+ * Money semantics are load-bearing: --positive (green) = money-in,
+ * --negative (oxblood) = money-out. --danger vs --destructive are both red but
+ * deliberately separate from oxblood so "brand red" and "stop red" never blur.
+ * ──────────────────────────────────────────────────────────────────────── */
+:root,
+:root[data-theme="light"] {
+  /* Surfaces */
+  --background: var(--zinc-100);
+  --card: #FFFFFF;
+  --popover: #FFFFFF;
+  --muted: var(--zinc-100);
+
+  /* Text */
+  --foreground: var(--zinc-900);
+  --card-foreground: var(--foreground);
+  --popover-foreground: var(--foreground);
+  --muted-foreground: var(--zinc-500);
+
+  /* Brand */
+  --primary: var(--oxblood-500);
+  --primary-hover: var(--oxblood-600);
+  --primary-foreground: #FFFFFF;
+
+  /* Accent — subtle brand fill */
+  --accent: var(--oxblood-50);
+  --accent-foreground: var(--oxblood-700);
+
+  /* Links are neutral (foreground + underline on hover), never a colored hyperlink */
+  --text-link: var(--foreground);
+  --text-link-hover: var(--foreground);
+
+  /* Semantic signals */
+  --success: var(--green-600);
+  --success-bg: var(--green-100);
+  --success-foreground: var(--green-700);
+  --warning: var(--amber-w-700);
+  --warning-bg: var(--amber-w-100);
+  --warning-foreground: var(--amber-w-700);
+  --danger: var(--alert-700);
+  --danger-bg: #FCEAEA;
+  --danger-foreground: var(--alert-700);
+  --info: #1B6FA8;
+  --info-bg: #E6F1FA;
+  --info-foreground: #0E456B;
+
+  /* Money semantics */
+  --positive: var(--green-600);
+  --positive-foreground: #FFFFFF;
+  --negative: var(--oxblood-500);
+  --negative-bg: var(--oxblood-50);
+
+  /* Destructive (delete actions) — distinct from oxblood */
+  --destructive: var(--alert-600);
+  --destructive-foreground: #FFFFFF;
+
+  /* Structural */
+  --secondary: var(--zinc-100);
+  --secondary-hover: var(--zinc-200);
+  --secondary-foreground: var(--zinc-900);
+  --border: var(--zinc-200);
+  --input: var(--zinc-300);
+  --ring: var(--oxblood-500);
+
+  /* Chart palette */
+  --chart-1: var(--oxblood-500);
+  --chart-2: var(--green-600);
+  --chart-3: var(--gradient-hero-to);
+  --chart-4: var(--gradient-hero-from);
+  --chart-5: var(--zinc-400);
+  --chart-spend: var(--oxblood-500);
+  --chart-credit: var(--green-600);
+  --chart-payment: var(--zinc-500);
+  --chart-business: var(--chart-steel);
+  --chart-personal: var(--positive);
+  --chart-line-1: var(--primary);
+  --chart-line-2: var(--positive);
+  --chart-line-3: var(--chart-steel);
+  --chart-line-4: var(--destructive);
+  --chart-line-5: var(--amber-w-300);
+  --chart-line-6: var(--oxblood-300);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  /* Surfaces */
+  --background: #0A0A0B;
+  --card: #141416;
+  --popover: #1A1A1D;
+  --muted: #1F1F22;
+
+  /* Text */
+  --foreground: #EDEDEF;
+  --card-foreground: var(--foreground);
+  --popover-foreground: var(--foreground);
+  --muted-foreground: #8B8B90;
+
+  /* Brand */
+  --primary: var(--oxblood-500);
+  --primary-hover: var(--oxblood-400);
+  --primary-foreground: #FBEDEE;
+
+  /* Accent */
+  --accent: var(--oxblood-900);
+  --accent-foreground: var(--oxblood-100);
+
+  /* Links */
+  --text-link: var(--foreground);
+  --text-link-hover: var(--foreground);
+
+  /* Semantic signals */
+  --success: var(--green-300);
+  --success-bg: #0E2A1E;
+  --success-foreground: var(--green-200);
+  --warning: var(--amber-w-300);
+  --warning-bg: #3A2C00;
+  --warning-foreground: var(--amber-w-100);
+  --danger: var(--alert-400);
+  --danger-bg: #3A1517;
+  --danger-foreground: var(--alert-200);
+  --info: var(--chart-steel);
+  --info-bg: #102A3F;
+  --info-foreground: #BFDCF5;
+
+  /* Money semantics */
+  --positive: var(--green-300);
+  --positive-foreground: #06140E;
+  --negative: var(--oxblood-300);
+  --negative-bg: #2A1416;
+
+  /* Destructive */
+  --destructive: var(--alert-400);
+  --destructive-foreground: #1A0606;
+
+  /* Structural */
+  --secondary: #1F1F22;
+  --secondary-hover: #27272A;
+  --secondary-foreground: #EDEDEF;
+  --border: #242427;
+  --input: #3A3A3E;
+  --ring: var(--oxblood-400);
+
+  /* Chart palette */
+  --chart-1: var(--oxblood-300);
+  --chart-2: var(--green-300);
+  --chart-3: var(--gradient-hero-to);
+  --chart-4: var(--gradient-hero-from);
+  --chart-5: var(--zinc-400);
+  --chart-spend: var(--oxblood-300);
+  --chart-credit: var(--green-300);
+  --chart-payment: var(--zinc-400);
+  --chart-business: var(--chart-steel);
+  --chart-personal: var(--positive);
+  --chart-line-1: var(--chart-spend);
+  --chart-line-2: var(--chart-credit);
+  --chart-line-3: var(--chart-business);
+  --chart-line-4: var(--chart-4);
+  --chart-line-5: var(--amber-w-300);
+  --chart-line-6: var(--oxblood-200);
+
+  color-scheme: dark;
+}

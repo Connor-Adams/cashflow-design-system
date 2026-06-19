@@ -1,0 +1,17 @@
+<!-- @dsCard group="Type" viewport="700x200" name="Body, labels & numerals" subtitle="body default 14 · uppercase label · tabular mono numbers" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;padding:22px;background:var(--card);font-family:var(--font-sans);color:var(--foreground)}
+  .r{display:flex;align-items:baseline;gap:16px;padding:5px 0}
+  .r .t{font-weight:600;color:var(--muted-foreground);font-size:11px;font-family:var(--font-mono);width:130px;flex-shrink:0}
+  .lab{font-size:var(--text-label);text-transform:uppercase;letter-spacing:.03em;font-weight:700;color:var(--muted-foreground)}
+  .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:18px;font-weight:600}
+</style></head>
+<body>
+  <div class="r"><span class="t">body-lg · 16</span><span style="font-size:var(--text-body-lg)">Drop in your card CSVs and let rules categorize them.</span></div>
+  <div class="r"><span class="t">body · 14 (default)</span><span style="font-size:var(--text-body)">Drop in your card CSVs and let rules categorize them.</span></div>
+  <div class="r"><span class="t">body-sm · 12</span><span style="font-size:var(--text-body-sm);color:var(--muted-foreground)">Totals stay in each currency.</span></div>
+  <div class="r"><span class="t">label · 0.72</span><span class="lab">Net spend this month</span></div>
+  <div class="r"><span class="t">tabular nums</span><span class="num">$1,284.00&nbsp;&nbsp;−$84.20&nbsp;&nbsp;+$4,900.00</span></div>
+</body></html>

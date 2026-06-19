@@ -1,0 +1,34 @@
+<!-- @dsCard group="Colors" viewport="700x170" name="Money semantics" subtitle="Green = money-in, oxblood = money-out — load-bearing, never decorative" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body{margin:0;padding:20px;background:var(--card);font-family:var(--font-sans)}
+  .row{display:flex;gap:14px}
+  .tile{flex:1;border-radius:var(--radius-lg);border:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:8px}
+  .dot{width:34px;height:34px;border-radius:8px}
+  .lab{font-size:var(--text-label);text-transform:uppercase;letter-spacing:.04em;font-weight:700;color:var(--muted-foreground)}
+  .amt{font-size:1.4rem;font-weight:700;letter-spacing:-.01em}
+  .v{font-size:12px;color:var(--muted-foreground);font-family:var(--font-mono)}
+</style></head>
+<body>
+  <div class="row">
+    <div class="tile">
+      <div class="dot" style="background:var(--positive)"></div>
+      <div class="lab">Money in · positive</div>
+      <div class="amt" style="color:var(--positive)">+$4,900.00</div>
+      <div class="v">--positive · --chart-credit</div>
+    </div>
+    <div class="tile">
+      <div class="dot" style="background:var(--negative)"></div>
+      <div class="lab">Money out · negative</div>
+      <div class="amt" style="color:var(--negative)">−$84.20</div>
+      <div class="v">--negative · --chart-spend</div>
+    </div>
+    <div class="tile" style="background:var(--negative-bg)">
+      <div class="dot" style="background:var(--destructive)"></div>
+      <div class="lab">Destructive</div>
+      <div class="amt" style="color:var(--destructive)">Delete</div>
+      <div class="v">--destructive (stop-red, ≠ oxblood)</div>
+    </div>
+  </div>
+</body></html>

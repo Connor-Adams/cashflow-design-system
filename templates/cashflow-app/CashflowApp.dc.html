@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Cashflow Dashboard" description="App shell with sidebar, KPI stat row, category spend, and recent transactions — built on the Cashflow design system" -->
+<helmet>
+<script src="./ds-base.js"></script>
+</helmet>
+<div style="display:flex; min-height:100vh; background:var(--background); color:var(--foreground); font-family:var(--font-sans)">
+
+  <!-- Sidebar -->
+  <aside style="width:236px; flex:none; box-sizing:border-box; padding:20px 16px; border-right:1px solid var(--border); background:var(--card); display:flex; flex-direction:column; gap:24px">
+    <div style="display:flex; align-items:center; gap:10px; padding:0 6px">
+      <img src="../../assets/logo/cashflow-mark.svg" width="30" height="30" alt="Cashflow" />
+      <span style="font-weight:800; font-size:18px; letter-spacing:-0.02em">Cashflow</span>
+    </div>
+    <nav style="display:flex; flex-direction:column; gap:2px">
+      <a href="#" style="display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-md); background:var(--accent); color:var(--accent-foreground); font-weight:600; font-size:14px; text-decoration:none">Dashboard</a>
+      <a href="#" style="display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-md); color:var(--muted-foreground); font-weight:500; font-size:14px; text-decoration:none">Transactions</a>
+      <a href="#" style="display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-md); color:var(--muted-foreground); font-weight:500; font-size:14px; text-decoration:none">Accounts</a>
+      <a href="#" style="display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-md); color:var(--muted-foreground); font-weight:500; font-size:14px; text-decoration:none">Budgets</a>
+      <a href="#" style="display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-md); color:var(--muted-foreground); font-weight:500; font-size:14px; text-decoration:none">Reports</a>
+    </nav>
+    <div style="margin-top:auto; display:flex; align-items:center; gap:10px; padding:8px 6px">
+      <span style="width:30px; height:30px; border-radius:50%; background:var(--gradient-hero); display:inline-flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:12px">CA</span>
+      <div style="display:flex; flex-direction:column; line-height:1.2">
+        <span style="font-size:13px; font-weight:600">Connor Adams</span>
+        <span style="font-size:12px; color:var(--muted-foreground)">Household</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main style="flex:1; min-width:0; box-sizing:border-box; padding:28px 32px; display:flex; flex-direction:column; gap:20px">
+
+    <!-- Header -->
+    <header style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap">
+      <div>
+        <h1 style="margin:0 0 4px; font-size:28px; font-weight:700; letter-spacing:-0.02em">Dashboard</h1>
+        <p style="margin:0; font-size:14px; color:var(--muted-foreground)">Totals stay in each currency · Showing CAD · June 2026</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px">
+        <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.PeriodSelector" value="this-month" hint-size="160px,36px"></x-import>
+        <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.Button" variant="primary" hint-size="150px,38px">Add transaction</x-import>
+      </div>
+    </header>
+
+    <!-- KPI stat row -->
+    <section style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px">
+      <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.StatCard" label="Net worth" value="$128,400" hint="Across all accounts" delta="+2.4%" metric-kind="gain" hint-size="100%,118px"></x-import>
+      <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.StatCard" label="Income · MTD" value="$9,840" hint="vs $9,210 last month" delta="+6.8%" metric-kind="gain" hint-size="100%,118px"></x-import>
+      <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.StatCard" label="Spend · MTD" value="$4,212" hint="vs $3,980 last month" delta="+5.8%" metric-kind="spend" hint-size="100%,118px"></x-import>
+      <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.StatCard" label="Net cash flow" value="$5,628" hint="Money in minus money out" delta="+$630" metric-kind="gain" hint-size="100%,118px"></x-import>
+    </section>
+
+    <!-- Two-column: category spend + recent transactions -->
+    <section style="display:grid; grid-template-columns:5fr 7fr; gap:16px; align-items:start">
+
+      <!-- Net spend by category -->
+      <div style="border-radius:var(--radius-xl); border:1px solid var(--border); background:var(--card); box-shadow:var(--shadow); padding:18px">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:16px">
+          <div>
+            <h2 style="margin:0 0 4px; font-size:17px; font-weight:600; letter-spacing:-0.01em">Net spend by category</h2>
+            <p style="margin:0; font-size:13px; color:var(--muted-foreground)">This month · transfers excluded</p>
+          </div>
+          <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.Sparkline" data="{{ spendTrend }}" tone="negative" width="96" height="32" hint-size="96px,32px"></x-import>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px">
+          <div style="display:grid; grid-template-columns:128px 1fr 64px; align-items:center; gap:12px">
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="groceries" size="sm" hint-size="110px,22px"></x-import>
+            <span style="height:18px; border-radius:4px; background:var(--gradient-hero); width:88%; opacity:0.9"></span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-842" decimals="0" size="sm" style="text-align:right; justify-self:end" hint-size="64px,18px"></x-import>
+          </div>
+          <div style="display:grid; grid-template-columns:128px 1fr 64px; align-items:center; gap:12px">
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="dining" size="sm" hint-size="90px,22px"></x-import>
+            <span style="height:18px; border-radius:4px; background:var(--gradient-hero); width:61%; opacity:0.9"></span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-586" decimals="0" size="sm" style="text-align:right; justify-self:end" hint-size="64px,18px"></x-import>
+          </div>
+          <div style="display:grid; grid-template-columns:128px 1fr 64px; align-items:center; gap:12px">
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="transport" size="sm" hint-size="100px,22px"></x-import>
+            <span style="height:18px; border-radius:4px; background:var(--gradient-hero); width:44%; opacity:0.9"></span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-418" decimals="0" size="sm" style="text-align:right; justify-self:end" hint-size="64px,18px"></x-import>
+          </div>
+          <div style="display:grid; grid-template-columns:128px 1fr 64px; align-items:center; gap:12px">
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="subscriptions" size="sm" hint-size="118px,22px"></x-import>
+            <span style="height:18px; border-radius:4px; background:var(--gradient-hero); width:23%; opacity:0.9"></span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-214" decimals="0" size="sm" style="text-align:right; justify-self:end" hint-size="64px,18px"></x-import>
+          </div>
+          <div style="display:grid; grid-template-columns:128px 1fr 64px; align-items:center; gap:12px">
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="utilities" size="sm" hint-size="100px,22px"></x-import>
+            <span style="height:18px; border-radius:4px; background:var(--gradient-hero); width:18%; opacity:0.9"></span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-176" decimals="0" size="sm" style="text-align:right; justify-self:end" hint-size="64px,18px"></x-import>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent transactions -->
+      <div style="border-radius:var(--radius-xl); border:1px solid var(--border); background:var(--card); box-shadow:var(--shadow); padding:18px">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px">
+          <h2 style="margin:0; font-size:17px; font-weight:600; letter-spacing:-0.01em">Recent transactions</h2>
+          <a href="#" style="font-size:13px; font-weight:600; color:var(--foreground); text-decoration:none">View all</a>
+        </div>
+        <div style="display:flex; flex-direction:column">
+
+          <div style="display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--border)">
+            <span style="display:inline-flex; align-items:center; gap:10px">
+              <span style="width:30px; height:30px; border-radius:50%; background:var(--avatar-grad-4); color:var(--avatar-on-dark); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">WF</span>
+              <span style="font-size:14px; font-weight:500">Whole Foods Market</span>
+            </span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="groceries" size="sm" hint-size="100px,22px"></x-import>
+            <span style="min-width:84px; text-align:right; justify-self:end"><x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-84.2" size="sm" hint-size="80px,18px"></x-import></span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--border)">
+            <span style="display:inline-flex; align-items:center; gap:10px">
+              <span style="width:30px; height:30px; border-radius:50%; background:var(--avatar-grad-3); color:var(--avatar-on-dark); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">NW</span>
+              <span style="font-size:14px; font-weight:500">Payroll · Northwind</span>
+            </span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="income" size="sm" hint-size="90px,22px"></x-import>
+            <span style="min-width:84px; text-align:right; justify-self:end"><x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="4900" size="sm" hint-size="80px,18px"></x-import></span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--border)">
+            <span style="display:inline-flex; align-items:center; gap:10px">
+              <span style="width:30px; height:30px; border-radius:50%; background:var(--avatar-grad-7); color:var(--avatar-on-light); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">NF</span>
+              <span style="font-size:14px; font-weight:500">Netflix</span>
+            </span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="subscriptions" size="sm" hint-size="118px,22px"></x-import>
+            <span style="min-width:84px; text-align:right; justify-self:end"><x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-20.99" size="sm" hint-size="80px,18px"></x-import></span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--border)">
+            <span style="display:inline-flex; align-items:center; gap:10px">
+              <span style="width:30px; height:30px; border-radius:50%; background:var(--avatar-grad-9); color:var(--avatar-on-light); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">PR</span>
+              <span style="font-size:14px; font-weight:500">Presto Transit</span>
+            </span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="transport" size="sm" hint-size="100px,22px"></x-import>
+            <span style="min-width:84px; text-align:right; justify-self:end"><x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-12.5" size="sm" hint-size="80px,18px"></x-import></span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--border)">
+            <span style="display:inline-flex; align-items:center; gap:10px">
+              <span style="width:30px; height:30px; border-radius:50%; background:var(--avatar-grad-1); color:var(--avatar-on-light); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">HY</span>
+              <span style="font-size:14px; font-weight:500">Hydro One</span>
+            </span>
+            <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="utilities" size="sm" hint-size="100px,22px"></x-import>
+            <span style="min-width:84px; text-align:right; justify-self:end"><x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="-96.4" size="sm" hint-size="80px,18px"></x-import></span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      spendTrend: [3100, 3480, 3260, 3950, 4212, 4060, 4212],
+    }
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Transactions List" description="Full transactions screen — filter bar, sortable table with category chips and money values, and pagination — on the Cashflow design system" -->
+<helmet>
+<script src="./ds-base.js"></script>
+</helmet>
+<div style="min-height:100vh; background:var(--background); color:var(--foreground); font-family:var(--font-sans); box-sizing:border-box; padding:28px 32px; display:flex; flex-direction:column; gap:20px">
+
+  <!-- Header -->
+  <header style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap">
+    <div>
+      <h1 style="margin:0 0 4px; font-size:28px; font-weight:700; letter-spacing:-0.02em">Transactions</h1>
+      <p style="margin:0; font-size:14px; color:var(--muted-foreground)">{{ countLabel }}</p>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px">
+      <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.PeriodSelector" value="this-month" hint-size="160px,36px"></x-import>
+      <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.Button" variant="primary" hint-size="150px,38px">Add transaction</x-import>
+    </div>
+  </header>
+
+  <!-- Filter bar -->
+  <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap">
+    <div style="flex:1; min-width:220px; max-width:320px">
+      <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.Input" placeholder="Search merchant or note…" hint-size="100%,36px"></x-import>
+    </div>
+    <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.ToggleGroup" type="single" default-value="all" items="{{ typeFilters }}" size="sm" hint-size="220px,36px"></x-import>
+    <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.Combobox" options="{{ categoryOptions }}" placeholder="All categories" size="sm" hint-size="200px,32px"></x-import>
+  </div>
+
+  <!-- Table -->
+  <div style="border-radius:var(--radius-xl); border:1px solid var(--border); background:var(--card); box-shadow:var(--shadow); overflow:hidden">
+    <table style="width:100%; border-collapse:collapse; font-family:var(--font-sans)">
+      <thead>
+        <tr style="background:color-mix(in oklch, var(--muted) 45%, transparent)">
+          <th style="text-align:left; padding:11px 16px; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; font-weight:600; color:color-mix(in oklch, var(--muted-foreground) 78%, var(--primary))">Merchant</th>
+          <th style="text-align:left; padding:11px 16px; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; font-weight:600; color:color-mix(in oklch, var(--muted-foreground) 78%, var(--primary))">Category</th>
+          <th style="text-align:left; padding:11px 16px; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; font-weight:600; color:color-mix(in oklch, var(--muted-foreground) 78%, var(--primary))">Account</th>
+          <th style="text-align:right; padding:11px 16px; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; font-weight:600; color:color-mix(in oklch, var(--muted-foreground) 78%, var(--primary))">Date</th>
+          <th style="text-align:right; padding:11px 16px; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; font-weight:600; color:color-mix(in oklch, var(--muted-foreground) 78%, var(--primary))">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <sc-for list="{{ rows }}" as="row" hint-placeholder-count="7">
+          <tr style="border-top:1px solid var(--border)">
+            <td style="padding:12px 16px">
+              <span style="display:inline-flex; align-items:center; gap:10px">
+                <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.LetterAvatar" text="{{ row.merchant }}" size="sm" hint-size="30px,30px"></x-import>
+                <span style="font-size:14px; font-weight:500">{{ row.merchant }}</span>
+              </span>
+            </td>
+            <td style="padding:12px 16px">
+              <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.CategoryPill" category="{{ row.category }}" size="sm" hint-size="110px,22px"></x-import>
+            </td>
+            <td style="padding:12px 16px; font-size:13px; color:var(--muted-foreground); font-family:var(--font-mono)">{{ row.account }}</td>
+            <td style="padding:12px 16px; font-size:13px; color:var(--muted-foreground); text-align:right; white-space:nowrap">{{ row.date }}</td>
+            <td style="padding:12px 16px; text-align:right">
+              <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.AmountText" value="{{ row.amount }}" size="sm" hint-size="84px,18px"></x-import>
+            </td>
+          </tr>
+        </sc-for>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer: result count + pagination -->
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+    <span style="font-size:13px; color:var(--muted-foreground)">{{ pageLabel }}</span>
+    <x-import component-from-global-scope="CashflowDesignSystem_2cf89d.Pagination" page="{{ page }}" page-count="{{ pageCount }}" on-page-change="{{ setPage }}" hint-size="320px,34px"></x-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 3 }
+
+  renderVals() {
+    const rows = [
+      { merchant: 'Whole Foods Market', category: 'groceries', account: 'TD ••8842', date: 'Jun 18', amount: -84.20, initials: 'WF', avatarBg: 'var(--avatar-grad-4)', avatarFg: 'var(--avatar-on-dark)' },
+      { merchant: 'Payroll · Northwind', category: 'income', account: 'TD ••8842', date: 'Jun 17', amount: 4900, initials: 'NW', avatarBg: 'var(--avatar-grad-3)', avatarFg: 'var(--avatar-on-dark)' },
+      { merchant: 'Netflix', category: 'subscriptions', account: 'Amex ••3001', date: 'Jun 16', amount: -20.99, initials: 'NF', avatarBg: 'var(--avatar-grad-7)', avatarFg: 'var(--avatar-on-light)' },
+      { merchant: 'Presto Transit', category: 'transport', account: 'Amex ••3001', date: 'Jun 15', amount: -12.50, initials: 'PR', avatarBg: 'var(--avatar-grad-9)', avatarFg: 'var(--avatar-on-light)' },
+      { merchant: 'Hydro One', category: 'utilities', account: 'TD ••8842', date: 'Jun 14', amount: -96.40, initials: 'HY', avatarBg: 'var(--avatar-grad-1)', avatarFg: 'var(--avatar-on-light)' },
+      { merchant: 'The Bar Chef', category: 'dining', account: 'Amex ••3001', date: 'Jun 13', amount: -142.00, initials: 'BC', avatarBg: 'var(--avatar-grad-11)', avatarFg: 'var(--avatar-on-light)' },
+      { merchant: 'Interest · Wealthsimple', category: 'income', account: 'WS ••5120', date: 'Jun 12', amount: 38.12, initials: 'WS', avatarBg: 'var(--avatar-grad-6)', avatarFg: 'var(--avatar-on-dark)' },
+    ]
+    return {
+      rows,
+      countLabel: '312 transactions · June 2026',
+      pageLabel: 'Showing 21–27 of 312',
+      page: this.state.page,
+      pageCount: 45,
+      setPage: (p) => this.setState({ page: p }),
+      typeFilters: [
+        { value: 'all', label: 'All' },
+        { value: 'in', label: 'In' },
+        { value: 'out', label: 'Out' },
+      ],
+      categoryOptions: [
+        { value: 'groceries', label: 'Groceries' },
+        { value: 'dining', label: 'Dining' },
+        { value: 'transport', label: 'Transport' },
+        { value: 'subscriptions', label: 'Subscriptions' },
+        { value: 'utilities', label: 'Utilities' },
+        { value: 'income', label: 'Income' },
+      ],
+    }
+  }
+}
+</script>
+</body>
+</html>
