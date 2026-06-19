@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow StatCard. The KPI tile: uppercase muted label, large bold value,
@@ -11,7 +11,26 @@ import React from 'react'
  *   - 'neutral' → always muted, regardless of sign
  * Pass delta as a signed string like "+12%" or "-$340".
  */
-function parseSign(delta) {
+
+export type MetricKind = 'gain' | 'spend' | 'neutral'
+
+/**
+ * KPI tile: uppercase label, large value, optional hint, and a signed delta
+ * colored by Cashflow's money semantics. `metricKind` decides whether "up" is
+ * good: `gain` (up=green), `spend` (up=red, inverted), `neutral` (always muted).
+ */
+export interface StatCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  label: React.ReactNode
+  value: React.ReactNode
+  hint?: React.ReactNode
+  /** Signed string, e.g. "+12%" or "-$340". */
+  delta?: React.ReactNode
+  metricKind?: MetricKind
+}
+
+type DeltaTone = 'positive' | 'negative' | 'neutral'
+
+function parseSign(delta: React.ReactNode): DeltaTone {
   if (delta == null) return 'neutral'
   const t = String(delta).trim()
   const m = t.match(/([+\-−])\s*[^\d+\-−]*\d/)
@@ -23,13 +42,16 @@ function parseSign(delta) {
   return v > 0 ? 'positive' : 'negative'
 }
 
-export function resolveDeltaTone(sign, kind) {
+export function resolveDeltaTone(
+  sign: 'positive' | 'negative' | 'neutral',
+  kind: MetricKind
+): 'positive' | 'negative' | 'neutral' {
   if (kind === 'neutral' || sign === 'neutral') return 'neutral'
   if (kind === 'spend') return sign === 'positive' ? 'negative' : 'positive'
   return sign
 }
 
-const TONE_STYLE = {
+const TONE_STYLE: Record<DeltaTone, React.CSSProperties> = {
   positive: {
     background: 'color-mix(in srgb, var(--positive) 16%, transparent)',
     borderColor: 'color-mix(in srgb, var(--positive) 45%, var(--border))',
@@ -43,9 +65,9 @@ const TONE_STYLE = {
   neutral: { background: 'transparent', borderColor: 'var(--border)', color: 'var(--muted-foreground)' },
 }
 
-const ARROW = { positive: '▲', negative: '▼', neutral: '—' }
+const ARROW: Record<DeltaTone, string> = { positive: '▲', negative: '▼', neutral: '—' }
 
-export function StatCard({ label, value, hint, delta, metricKind = 'gain', className, style, ...props }) {
+export function StatCard({ label, value, hint, delta, metricKind = 'gain', className, style, ...props }: StatCardProps): React.JSX.Element {
   const sign = parseSign(delta)
   const tone = resolveDeltaTone(sign, metricKind)
   return (
@@ -66,8 +88,8 @@ export function StatCard({ label, value, hint, delta, metricKind = 'gain', class
       }}
       {...props}
     >
-      <p style={{ margin: 0, fontSize: 'var(--text-label)', fontWeight: 'var(--weight-semibold)', textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--muted-foreground)' }}>{label}</p>
-      <p style={{ margin: 0, fontSize: '1.55rem', fontWeight: 'var(--weight-bold)', letterSpacing: '-0.01em', color: 'var(--foreground)', whiteSpace: 'nowrap' }}>{value}</p>
+      <p style={{ margin: 0, fontSize: 'var(--text-label)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--muted-foreground)' }}>{label}</p>
+      <p style={{ margin: 0, fontSize: '1.55rem', fontWeight: 'var(--weight-bold)' as React.CSSProperties['fontWeight'], letterSpacing: '-0.01em', color: 'var(--foreground)', whiteSpace: 'nowrap' }}>{value}</p>
       {hint && <p style={{ margin: 0, fontSize: 'var(--text-body-sm)', lineHeight: 1.4, color: 'var(--muted-foreground)' }}>{hint}</p>}
       {delta != null && (
         <p style={{ margin: 0 }}>
@@ -82,7 +104,7 @@ export function StatCard({ label, value, hint, delta, metricKind = 'gain', class
               border: '1px solid',
               padding: '2px 6px',
               fontSize: 'var(--text-body-sm)',
-              fontWeight: 'var(--weight-semibold)',
+              fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
               ...TONE_STYLE[tone],
             }}
           >

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow Table set. A bordered, scrollable data table. Head cells are
@@ -6,7 +6,20 @@ import React from 'react'
  * compact (px-3 py-2.5). Compose: Table > TableHeader/TableBody >
  * TableRow > TableHead/TableCell.
  */
-export function Table({ className, style, maxHeight, children, ...props }) {
+
+/**
+ * Bordered, scrollable data table. Compose Table > TableHeader/TableBody >
+ * TableRow > TableHead/TableCell. Pass `maxHeight` for a scroll region.
+ */
+export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
+  maxHeight?: string
+}
+
+export interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  selected?: boolean
+}
+
+export function Table({ className, style, maxHeight, children, ...props }: TableProps): React.JSX.Element {
   return (
     <div
       data-slot="table-container"
@@ -32,15 +45,15 @@ export function Table({ className, style, maxHeight, children, ...props }) {
   )
 }
 
-export function TableHeader({ children, ...props }) {
+export function TableHeader({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>): React.JSX.Element {
   return <thead data-slot="table-header" {...props}>{children}</thead>
 }
 
-export function TableBody({ children, ...props }) {
+export function TableBody({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>): React.JSX.Element {
   return <tbody data-slot="table-body" {...props}>{children}</tbody>
 }
 
-export function TableRow({ className, style, selected, children, ...props }) {
+export function TableRow({ className, style, selected, children, ...props }: TableRowProps): React.JSX.Element {
   const [hover, setHover] = React.useState(false)
   return (
     <tr
@@ -66,7 +79,7 @@ export function TableRow({ className, style, selected, children, ...props }) {
   )
 }
 
-export function TableHead({ className, style, children, ...props }) {
+export function TableHead({ className, style, children, ...props }: React.ThHTMLAttributes<HTMLTableCellElement>): React.JSX.Element {
   return (
     <th
       data-slot="table-head"
@@ -78,7 +91,7 @@ export function TableHead({ className, style, children, ...props }) {
         textAlign: 'left',
         verticalAlign: 'middle',
         fontSize: 'var(--text-body-sm)',
-        fontWeight: 'var(--weight-semibold)',
+        fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
         textTransform: 'uppercase',
         letterSpacing: '0.02em',
         color: 'color-mix(in oklch, var(--muted-foreground) 78%, var(--primary))',
@@ -91,7 +104,7 @@ export function TableHead({ className, style, children, ...props }) {
   )
 }
 
-export function TableCell({ className, style, children, ...props }) {
+export function TableCell({ className, style, children, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>): React.JSX.Element {
   return (
     <td
       data-slot="table-cell"
