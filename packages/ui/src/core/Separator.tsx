@@ -1,10 +1,21 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow Separator. A hairline divider in --border. Horizontal by default;
  * `orientation="vertical"` for inline dividers. Optional centered `label`.
  */
-export function Separator({ orientation = 'horizontal', label, className, style, ...props }) {
+
+/**
+ * Hairline divider in `--border`. Horizontal by default; `orientation="vertical"`
+ * stretches to its flex parent's height. Pass `label` for a centered
+ * "text between rules" divider.
+ */
+export interface SeparatorProps extends React.HTMLAttributes<HTMLElement> {
+  orientation?: 'horizontal' | 'vertical'
+  label?: React.ReactNode
+}
+
+export function Separator({ orientation = 'horizontal', label, className, style, ...props }: SeparatorProps): React.JSX.Element {
   if (orientation === 'vertical') {
     return (
       <span

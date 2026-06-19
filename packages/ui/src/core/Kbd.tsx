@@ -1,10 +1,14 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow Kbd. A small keycap for keyboard shortcuts — mono, bordered, with a
  * subtle bottom edge so it reads as a physical key.
  */
-export function Kbd({ className, style, children, ...props }) {
+
+/** A keycap for keyboard shortcuts — mono, bordered, weighted bottom edge. */
+export interface KbdProps extends React.HTMLAttributes<HTMLElement> {}
+
+export function Kbd({ className, style, children, ...props }: KbdProps): React.JSX.Element {
   return (
     <kbd
       data-slot="kbd"

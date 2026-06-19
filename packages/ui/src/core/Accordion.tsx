@@ -1,15 +1,34 @@
-import React from 'react'
+import * as React from 'react'
+
+export interface AccordionItem {
+  value: string
+  title: React.ReactNode
+  content: React.ReactNode
+}
 
 /**
  * Cashflow Accordion. A stack of disclosure rows over hairline dividers.
  * `type="single"` (default) keeps one panel open; `type="multiple"` allows
  * many. Uncontrolled via `defaultValue`; pass `items` as { value, title, content }.
  */
-export function Accordion({ items = [], type = 'single', defaultValue, collapsible = true, className, style, ...props }) {
-  const initial = defaultValue != null ? (Array.isArray(defaultValue) ? defaultValue : [defaultValue]) : []
-  const [open, setOpen] = React.useState(initial)
 
-  const toggle = (value) => {
+/**
+ * Disclosure stack. `type="single"` keeps one panel open (set `collapsible`
+ * to allow closing it); `type="multiple"` allows many. Uncontrolled via
+ * `defaultValue` (string, or string[] for multiple).
+ */
+export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
+  items: AccordionItem[]
+  type?: 'single' | 'multiple'
+  defaultValue?: string | string[]
+  collapsible?: boolean
+}
+
+export function Accordion({ items = [], type = 'single', defaultValue, collapsible = true, className, style, ...props }: AccordionProps): React.JSX.Element {
+  const initial = defaultValue != null ? (Array.isArray(defaultValue) ? defaultValue : [defaultValue]) : []
+  const [open, setOpen] = React.useState<string[]>(initial)
+
+  const toggle = (value: string) => {
     setOpen((cur) => {
       const isOpen = cur.includes(value)
       if (type === 'multiple') return isOpen ? cur.filter((v) => v !== value) : [...cur, value]
@@ -31,7 +50,7 @@ export function Accordion({ items = [], type = 'single', defaultValue, collapsib
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
                 width: '100%', textAlign: 'left', border: 'none', background: 'transparent', cursor: 'pointer',
-                padding: '14px 2px', fontSize: 'var(--text-body-lg)', fontWeight: 'var(--weight-semibold)',
+                padding: '14px 2px', fontSize: 'var(--text-body-lg)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
                 color: 'var(--foreground)', fontFamily: 'var(--font-sans)',
               }}
             >

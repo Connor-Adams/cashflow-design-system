@@ -1,11 +1,19 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow Card and its sub-parts. A raised surface: white --card fill,
  * --border hairline, rounded-lg, light --shadow. The default elevation unit
  * for the whole app — keep it light.
  */
-export function Card({ className, style, children, ...props }) {
+
+/**
+ * Raised surface — the app's default elevation unit. White `--card` fill,
+ * `--border` hairline, `rounded-lg`, light `--shadow`. Compose with the
+ * sub-parts; keep elevation light (no heavy drop shadows).
+ */
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export function Card({ className, style, children, ...props }: CardProps): React.JSX.Element {
   return (
     <div
       data-slot="card"
@@ -26,7 +34,7 @@ export function Card({ className, style, children, ...props }) {
   )
 }
 
-export function CardHeader({ className, style, children, ...props }) {
+export function CardHeader({ className, style, children, ...props }: CardProps): React.JSX.Element {
   return (
     <div
       data-slot="card-header"
@@ -39,13 +47,13 @@ export function CardHeader({ className, style, children, ...props }) {
   )
 }
 
-export function CardTitle({ className, style, children, ...props }) {
+export function CardTitle({ className, style, children, ...props }: CardProps): React.JSX.Element {
   return (
     <div
       data-slot="card-title"
       className={className}
       style={{
-        fontWeight: 'var(--weight-semibold)',
+        fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
         letterSpacing: '-0.01em',
         fontSize: 'var(--text-headline-sm)',
         color: 'var(--foreground)',
@@ -58,7 +66,7 @@ export function CardTitle({ className, style, children, ...props }) {
   )
 }
 
-export function CardDescription({ className, style, children, ...props }) {
+export function CardDescription({ className, style, children, ...props }: CardProps): React.JSX.Element {
   return (
     <div
       data-slot="card-description"
@@ -71,7 +79,7 @@ export function CardDescription({ className, style, children, ...props }) {
   )
 }
 
-export function CardContent({ className, style, children, ...props }) {
+export function CardContent({ className, style, children, ...props }: CardProps): React.JSX.Element {
   return (
     <div data-slot="card-content" className={className} style={style} {...props}>
       {children}

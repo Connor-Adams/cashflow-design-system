@@ -1,19 +1,31 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow Spinner. A token-colored ring that spins. `size` in px (or a
  * named step); `tone` picks the stroke color. Inherits currentColor by default
  * so it tints to its context (e.g. inside a primary Button).
  */
-const SIZES = { sm: 14, default: 18, lg: 28 }
-const TONES = {
+
+const SIZES: Record<string, number> = { sm: 14, default: 18, lg: 28 }
+const TONES: Record<string, string> = {
   current: 'currentColor',
   primary: 'var(--primary)',
   muted: 'var(--muted-foreground)',
 }
 
-export function Spinner({ size = 'default', tone = 'current', label = 'Loading', className, style, ...props }) {
-  const px = typeof size === 'number' ? size : (SIZES[size] || SIZES.default)
+/**
+ * Indeterminate loading ring. `size` is a named step or a px number; `tone`
+ * sets the stroke (`current` inherits, so it tints inside a Button). Always
+ * carries an aria-label.
+ */
+export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
+  size?: 'sm' | 'default' | 'lg' | number
+  tone?: 'current' | 'primary' | 'muted' | (string & {})
+  label?: string
+}
+
+export function Spinner({ size = 'default', tone = 'current', label = 'Loading', className, style, ...props }: SpinnerProps): React.JSX.Element {
+  const px = typeof size === 'number' ? size : (SIZES[size] || SIZES['default']!)
   const color = TONES[tone] || tone
   return (
     <span

@@ -1,11 +1,23 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow Link. An inline anchor in --text-link with underline-on-hover.
  * `muted` for secondary links; `subtle` removes the color (foreground link
  * that only underlines on hover). Pass `external` to get the ↗ affordance.
  */
-export function Link({ muted = false, subtle = false, external = false, className, style, children, ...props }) {
+
+/**
+ * Inline text link in `--text-link`, underline on hover. `muted` for secondary
+ * links, `subtle` for a foreground-colored link, `external` appends a ↗ glyph
+ * and sets target/rel.
+ */
+export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  muted?: boolean
+  subtle?: boolean
+  external?: boolean
+}
+
+export function Link({ muted = false, subtle = false, external = false, className, style, children, ...props }: LinkProps): React.JSX.Element {
   const [hover, setHover] = React.useState(false)
   const color = subtle ? 'var(--foreground)' : muted ? 'var(--muted-foreground)' : 'var(--text-link)'
   return (
@@ -19,7 +31,7 @@ export function Link({ muted = false, subtle = false, external = false, classNam
       style={{
         color,
         fontFamily: 'var(--font-sans)',
-        fontWeight: 'var(--weight-medium)',
+        fontWeight: 'var(--weight-medium)' as React.CSSProperties['fontWeight'],
         textDecoration: hover ? 'underline' : 'none',
         textUnderlineOffset: 3,
         textDecorationColor: 'color-mix(in oklch, currentColor 45%, transparent)',
