@@ -16,6 +16,8 @@ const meta: Meta<typeof Dialog> = {
       control: 'select',
       options: ['sm', 'default', 'lg'],
     },
+    children: { control: false },
+    footer: { control: false },
   },
 }
 export default meta

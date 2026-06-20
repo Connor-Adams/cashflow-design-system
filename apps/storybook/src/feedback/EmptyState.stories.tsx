@@ -9,6 +9,9 @@ const meta: Meta<typeof EmptyState> = {
     title: 'No transactions yet',
     description: 'Connect a bank account to start importing your transactions.',
   },
+  argTypes: {
+    actions: { control: false },
+  },
 }
 export default meta
 

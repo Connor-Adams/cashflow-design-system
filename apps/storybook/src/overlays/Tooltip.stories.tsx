@@ -14,6 +14,7 @@ const meta: Meta<typeof Tooltip> = {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right'],
     },
+    children: { control: false },
   },
 }
 export default meta

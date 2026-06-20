@@ -31,6 +31,8 @@ const meta: Meta<typeof DropdownMenu> = {
       control: 'select',
       options: ['start', 'end'],
     },
+    trigger: { control: false },
+    items: { control: false },
   },
 }
 export default meta
