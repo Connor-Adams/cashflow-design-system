@@ -1,5 +1,5 @@
 import { createRef } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { CategoryBreakdown } from './CategoryBreakdown'
 
 const ROWS = [
@@ -96,5 +96,36 @@ describe('CategoryBreakdown trend sparkline', () => {
       <CategoryBreakdown rows={[{ category: 'groceries', amount: -800 }]} />,
     )
     expect(container.querySelector('[data-slot="sparkline"]')).not.toBeInTheDocument()
+  })
+})
+
+describe('CategoryBreakdown selectable rows', () => {
+  it('renders rows as non-button divs when onSelect is absent', () => {
+    render(<CategoryBreakdown rows={[{ category: 'groceries', amount: -800 }]} />)
+    expect(screen.queryByRole('button')).not.toBeInTheDocument()
+  })
+
+  it('renders each row as a button and fires onSelect with the category', () => {
+    const onSelect = vi.fn()
+    render(
+      <CategoryBreakdown
+        rows={[
+          { category: 'groceries', amount: -800 },
+          { category: 'dining', amount: -400 },
+        ]}
+        onSelect={onSelect}
+      />,
+    )
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(2)
+    fireEvent.click(buttons[0]!)
+    expect(onSelect).toHaveBeenCalledWith('groceries', { category: 'groceries', amount: -800 })
+  })
+
+  it('gives each selectable row an accessible label', () => {
+    render(
+      <CategoryBreakdown rows={[{ category: 'groceries', amount: -842 }]} onSelect={() => {}} />,
+    )
+    expect(screen.getByRole('button', { name: /groceries/i })).toBeInTheDocument()
   })
 })

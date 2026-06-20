@@ -83,11 +83,29 @@ export const CategoryBreakdown = React.forwardRef<HTMLDivElement, CategoryBreakd
           <div className="ca-category-breakdown__rows">
             {rows.map((row, i) => {
               const pct = denom > 0 ? (Math.abs(row.amount) / denom) * 100 : 0
-              return (
-                <div className="ca-category-breakdown__row" key={i}>
+              const inner = (
+                <>
                   <CategoryPill category={row.category ?? 'default'} label={row.label} color={row.color} />
                   <Progress value={pct} tone={BAR_GRADIENT} size="lg" aria-hidden />
                   <AmountText value={row.amount} currency={currency} locale={locale} className="ca-category-breakdown__amount" />
+                </>
+              )
+              if (onSelect) {
+                return (
+                  <button
+                    type="button"
+                    className="ca-category-breakdown__row"
+                    key={i}
+                    aria-label={labelText(row)}
+                    onClick={() => onSelect(row.category ?? '', row)}
+                  >
+                    {inner}
+                  </button>
+                )
+              }
+              return (
+                <div className="ca-category-breakdown__row" key={i}>
+                  {inner}
                 </div>
               )
             })}
