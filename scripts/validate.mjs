@@ -6,7 +6,7 @@ import { join } from 'node:path'
 
 const UI_SRC = 'packages/ui/src'
 const STORY_SRC = 'apps/storybook/src'
-const CATEGORIES = ['core', 'data', 'feedback', 'finance', 'forms', 'navigation', 'overlays']
+const CATEGORIES = ['core', 'data', 'feedback', 'finance', 'forms', 'navigation', 'overlays', 'media']
 
 const barrel = readFileSync(join(UI_SRC, 'index.ts'), 'utf8')
 
