@@ -19,13 +19,13 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const usage = (usageData as Record<string, string>)[slug] ?? ''
 
   return (
-    <main style={{ maxWidth: 880, margin: '0 auto', padding: '48px 24px' }}>
-      <p style={{ color: 'var(--muted-foreground)', fontSize: 'var(--text-body-sm)', textTransform: 'uppercase', letterSpacing: 1 }}>{entry.category}</p>
-      <h1 style={{ marginTop: 4 }}>{entry.name}</h1>
+    <article style={{ maxWidth: 860 }}>
+      <p style={{ color: 'var(--muted-foreground)', fontSize: 'var(--text-body-sm)', textTransform: 'uppercase', letterSpacing: 1, margin: 0 }}>
+        {entry.category}
+      </p>
+      <h1 style={{ margin: '4px 0 24px' }}>{entry.name}</h1>
 
-      <section style={{ marginTop: 24 }}>
-        <Preview slug={slug} />
-      </section>
+      <Preview slug={slug} />
 
       <section style={{ marginTop: 40 }}>
         <h2>Import</h2>
@@ -45,6 +45,6 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         <h2>Props</h2>
         <PropsTable rows={rows} />
       </section>
-    </main>
+    </article>
   )
 }
