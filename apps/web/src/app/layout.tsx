@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import '@connor-adams/designsystem/styles.css'
 import { TopBar } from '../components/TopBar'
 import { Sidebar } from '../components/Sidebar'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: 'Connor Adams Design System',
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Sidebar />
           <main style={{ flex: 1, minWidth: 0, padding: '32px 32px 64px' }}>{children}</main>
         </div>
+        <Analytics />
       </body>
     </html>
   )
