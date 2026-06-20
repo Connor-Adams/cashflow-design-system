@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { withCustomConfig } from 'react-docgen-typescript'
+import { buildInventory } from './lib/inventory.mjs'
 
 const UI_SRC = join(process.cwd(), '../../packages/ui/src')
 const OUT = join(process.cwd(), 'src/generated')
@@ -62,4 +63,31 @@ if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true })
 writeFileSync(join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 2))
 writeFileSync(join(OUT, 'props.json'), JSON.stringify(props, null, 2))
 writeFileSync(join(OUT, 'usage.json'), JSON.stringify(usage, null, 2))
-console.log(`gen-data: ${manifest.length} components, ${docs.length} with props`)
+
+// Agent-facing inventory artifacts served as static public assets.
+const { version } = JSON.parse(readFileSync(join(UI_SRC, '..', 'package.json'), 'utf8'))
+const base = (process.env.NEXT_PUBLIC_SITE_URL ?? '').replace(/\/$/, '')
+const { json, llmsTxt } = buildInventory({
+  manifest,
+  props,
+  usage,
+  version,
+  base,
+  categories: CATEGORIES,
+  packageName: '@connor-adams/designsystem',
+})
+
+const PUB = join(process.cwd(), 'public')
+if (!existsSync(PUB)) mkdirSync(PUB, { recursive: true })
+writeFileSync(join(PUB, 'components.json'), JSON.stringify(json, null, 2))
+writeFileSync(join(PUB, 'llms.txt'), llmsTxt)
+
+if (json.components.length !== manifest.length) {
+  throw new Error(`inventory mismatch: components.json has ${json.components.length}, manifest has ${manifest.length}`)
+}
+if (!llmsTxt.trim()) throw new Error('llms.txt is empty')
+
+console.log(
+  `gen-data: ${manifest.length} components, ${docs.length} with props` +
+    ` -> public/llms.txt + public/components.json (${json.components.length})`,
+)

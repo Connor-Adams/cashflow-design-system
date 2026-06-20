@@ -1,0 +1,1825 @@
+{
+  "package": "@connor-adams/designsystem",
+  "version": "0.3.1",
+  "import": "import { <Name> } from '@connor-adams/designsystem'",
+  "categories": [
+    "core",
+    "data",
+    "feedback",
+    "finance",
+    "forms",
+    "navigation",
+    "overlays"
+  ],
+  "components": [
+    {
+      "slug": "accordion",
+      "name": "Accordion",
+      "category": "core",
+      "docs": "/components/accordion",
+      "summary": "A disclosure stack for FAQs, settings groups, and statement breakdowns.",
+      "props": [
+        {
+          "name": "items",
+          "type": "AccordionItem[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "\"single\" | \"multiple\" | undefined",
+          "required": false,
+          "defaultValue": "single",
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[] | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "true",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "avatar",
+      "name": "Avatar",
+      "category": "core",
+      "docs": "/components/avatar",
+      "summary": "A circular person avatar (account holder, shared-ledger member) with an initials fallback when the image is missing.",
+      "props": [
+        {
+          "name": "src",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "number | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | undefined",
+          "required": false,
+          "defaultValue": "md",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "\"online\" | \"away\" | \"offline\" | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "ring",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "badge",
+      "name": "Badge",
+      "category": "core",
+      "docs": "/components/badge",
+      "summary": "One-line: Small pill for status, category, and counts — `default` is oxblood brand fill, `secondary` the neutral workhorse.",
+      "props": [
+        {
+          "name": "variant",
+          "type": "BadgeVariant | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "button",
+      "name": "Button",
+      "category": "core",
+      "docs": "/components/button",
+      "summary": "One-line: Cashflow's action button — solid oxblood `primary` for the main CTA, neutral variants for the rest, tinted `destructive` for deletes.",
+      "props": [
+        {
+          "name": "variant",
+          "type": "ButtonVariant | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Visual treatment. Default solid oxblood."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Control height. `icon` is a 40×40 square."
+        }
+      ]
+    },
+    {
+      "slug": "card",
+      "name": "Card",
+      "category": "core",
+      "docs": "/components/card",
+      "summary": "One-line: The default raised surface — white card, hairline border, light shadow, rounded-lg. Everything sits in one.",
+      "props": []
+    },
+    {
+      "slug": "icon",
+      "name": "Icon",
+      "category": "core",
+      "docs": "/components/icon",
+      "summary": "One-line: Stroke glyph from the built-in registry — lucide-style, renders in `currentColor`, sized by the `size` prop.",
+      "props": [
+        {
+          "name": "name",
+          "type": "\"type\" | \"map\" | \"filter\" | \"key\" | \"search\" | \"send\" | \"grid\" | \"link\" | \"list\" | \"menu\" | \"navigation\" | \"timer\" | \"copy\" | \"wallet\" | \"credit-card\" | \"dollar-sign\" | \"piggy-bank\" | ... 154 more ... | \"chevron-right\"",
+          "required": true,
+          "defaultValue": null,
+          "description": "Which glyph to render."
+        },
+        {
+          "name": "size",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "20",
+          "description": "Edge length in px (square). Default 20."
+        },
+        {
+          "name": "strokeWidth",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "2",
+          "description": "Stroke weight. Default 2."
+        },
+        {
+          "name": "title",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": "Accessible label. When set, the icon is exposed to assistive tech as an\nimage with this name; when omitted, the icon is `aria-hidden` (decorative)."
+        }
+      ]
+    },
+    {
+      "slug": "kbd",
+      "name": "Kbd",
+      "category": "core",
+      "docs": "/components/kbd",
+      "summary": "A keycap for documenting shortcuts in menus, tooltips, and command hints.",
+      "props": []
+    },
+    {
+      "slug": "link",
+      "name": "Link",
+      "category": "core",
+      "docs": "/components/link",
+      "summary": "An inline anchor for body copy and table cells. Defaults to the oxblood-leaning `--text-link`; underline appears on hover only.",
+      "props": [
+        {
+          "name": "muted",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "subtle",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "external",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "progress",
+      "name": "Progress",
+      "category": "core",
+      "docs": "/components/progress",
+      "summary": "A determinate bar for budgets, savings goals, and import progress. Use `tone` to signal state (e.g. `danger` when a category is over budget).",
+      "props": [
+        {
+          "name": "value",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "tone",
+          "type": "(string & {}) | \"success\" | \"primary\" | \"danger\" | \"warning\" | undefined",
+          "required": false,
+          "defaultValue": "primary",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"lg\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "showValue",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "separator",
+      "name": "Separator",
+      "category": "core",
+      "docs": "/components/separator",
+      "summary": "A hairline rule to separate sections, list rows, or inline metadata.",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\" | undefined",
+          "required": false,
+          "defaultValue": "horizontal",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "spinner",
+      "name": "Spinner",
+      "category": "core",
+      "docs": "/components/spinner",
+      "summary": "An indeterminate loading ring for buttons, inline fetches, and empty panels. Inside a Button it inherits the label color via `tone=\"current\"`.",
+      "props": [
+        {
+          "name": "size",
+          "type": "number | \"sm\" | \"lg\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "tone",
+          "type": "(string & {}) | \"primary\" | \"muted\" | \"current\" | \"gradient-current\" | \"gradient-primary\" | \"gradient-muted\" | \"hero\" | undefined",
+          "required": false,
+          "defaultValue": "current",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "Loading",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "text",
+      "name": "Text",
+      "category": "core",
+      "docs": "/components/text",
+      "summary": "The single typography primitive — use it for every piece of text instead of bare tags so the type scale and token colors stay consistent. `variant` sets the scale step and a default tag; `as` overrides the tag.",
+      "props": [
+        {
+          "name": "variant",
+          "type": "TextVariant | undefined",
+          "required": false,
+          "defaultValue": "body",
+          "description": ""
+        },
+        {
+          "name": "as",
+          "type": "keyof IntrinsicElements | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "tone",
+          "type": "TextTone | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "weight",
+          "type": "TextWeight | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "mono",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "align",
+          "type": "\"center\" | \"left\" | \"right\" | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "truncate",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "letter-avatar",
+      "name": "LetterAvatar",
+      "category": "data",
+      "docs": "/components/letter-avatar",
+      "summary": "LetterAvatar component",
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "defaultValue": "?",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "LetterAvatarSize | undefined",
+          "required": false,
+          "defaultValue": "md",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "stat-card",
+      "name": "StatCard",
+      "category": "data",
+      "docs": "/components/stat-card",
+      "summary": "StatCard component",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "delta",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Signed string, e.g. \"+12%\" or \"-$340\"."
+        },
+        {
+          "name": "metricKind",
+          "type": "MetricKind | undefined",
+          "required": false,
+          "defaultValue": "gain",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "table",
+      "name": "Table",
+      "category": "data",
+      "docs": "/components/table",
+      "summary": "Table component",
+      "props": [
+        {
+          "name": "maxHeight",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "tabs",
+      "name": "Tabs",
+      "category": "data",
+      "docs": "/components/tabs",
+      "summary": "Tabs component",
+      "props": [
+        {
+          "name": "items",
+          "type": "TabItem[]",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "alert",
+      "name": "Alert",
+      "category": "feedback",
+      "docs": "/components/alert",
+      "summary": "Alert component",
+      "props": [
+        {
+          "name": "variant",
+          "type": "AlertVariant | undefined",
+          "required": false,
+          "defaultValue": "info",
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "empty-state",
+      "name": "EmptyState",
+      "category": "feedback",
+      "docs": "/components/empty-state",
+      "summary": "EmptyState component",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "skeleton",
+      "name": "Skeleton",
+      "category": "feedback",
+      "docs": "/components/skeleton",
+      "summary": "Skeleton component",
+      "props": [
+        {
+          "name": "w",
+          "type": "string | number | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "h",
+          "type": "string | number | undefined",
+          "required": false,
+          "defaultValue": "16",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "account-card",
+      "name": "AccountCard",
+      "category": "finance",
+      "docs": "/components/account-card",
+      "summary": "A tile for a connected account in lists and the accounts grid.",
+      "props": [
+        {
+          "name": "name",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "institution",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "mask",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "balance",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "currency",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "CAD",
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "en-CA",
+          "description": ""
+        },
+        {
+          "name": "kind",
+          "type": "\"default\" | \"chequing\" | \"savings\" | \"credit\" | \"investment\" | \"cash\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "\"error\" | \"synced\" | \"syncing\" | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "amount-text",
+      "name": "AmountText",
+      "category": "finance",
+      "docs": "/components/amount-text",
+      "summary": "The money-value primitive — use it for every currency figure instead of hand-coloring spans, so the green-in / oxblood-out convention stays consistent.",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "currency",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "CAD",
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "en-CA",
+          "description": ""
+        },
+        {
+          "name": "direction",
+          "type": "\"in\" | \"out\" | \"zero\" | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "colored",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "true",
+          "description": ""
+        },
+        {
+          "name": "showSign",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "true",
+          "description": ""
+        },
+        {
+          "name": "decimals",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "2",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "number | \"sm\" | \"lg\" | \"xl\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "weight",
+          "type": "\"bold\" | \"regular\" | \"medium\" | \"semibold\" | undefined",
+          "required": false,
+          "defaultValue": "bold",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "budget-meter",
+      "name": "BudgetMeter",
+      "category": "finance",
+      "docs": "/components/budget-meter",
+      "summary": "A budget-vs-spend row for the budgets screen and category drill-downs. The bar self-colors: green under budget, amber near the limit, oxblood over.",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "spent",
+          "type": "number",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "currency",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "CAD",
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "en-CA",
+          "description": ""
+        },
+        {
+          "name": "warnAt",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "0.85",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "category-breakdown",
+      "name": "CategoryBreakdown",
+      "category": "finance",
+      "docs": "/components/category-breakdown",
+      "summary": "A card that ranks money by category as horizontal bars — the \"net spend by category\" tile.",
+      "props": [
+        {
+          "name": "rows",
+          "type": "CategoryBreakdownRow[]",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "trend",
+          "type": "number[] | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "trendTone",
+          "type": "\"primary\" | \"positive\" | \"negative\" | \"neutral\" | undefined",
+          "required": false,
+          "defaultValue": "negative",
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "currency",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "CAD",
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "en-CA",
+          "description": ""
+        },
+        {
+          "name": "onSelect",
+          "type": "((category: string, row: CategoryBreakdownRow) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "category-pill",
+      "name": "CategoryPill",
+      "category": "finance",
+      "docs": "/components/category-pill",
+      "summary": "The category chip for transaction rows, filters, and budgets — icon + label with a per-category tint, drawn from a built-in icon set.",
+      "props": [
+        {
+          "name": "category",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "color",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "interactive",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "import-dropzone",
+      "name": "ImportDropzone",
+      "category": "finance",
+      "docs": "/components/import-dropzone",
+      "summary": "The statement-import target for the import flow — drag-and-drop or click-to-browse a CSV/OFX file.",
+      "props": [
+        {
+          "name": "accept",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": ".csv,.ofx,.qfx",
+          "description": ""
+        },
+        {
+          "name": "onFile",
+          "type": "((file: File) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "CSV, OFX or QFX · up to 10MB",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "money-input",
+      "name": "MoneyInput",
+      "category": "finance",
+      "docs": "/components/money-input",
+      "summary": "A currency amount field for adding/editing transactions and setting budgets. Pass `direction` + `onDirectionChange` to show the in/out toggle.",
+      "props": [
+        {
+          "name": "value",
+          "type": "string | number | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | undefined",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: number | null, raw: string) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "currency",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "CAD",
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "en-CA",
+          "description": ""
+        },
+        {
+          "name": "direction",
+          "type": "\"in\" | \"out\" | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onDirectionChange",
+          "type": "((direction: \"in\" | \"out\") => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "invalid",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "0.00",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "period-selector",
+      "name": "PeriodSelector",
+      "category": "finance",
+      "docs": "/components/period-selector",
+      "summary": "The date-range control every ledger view needs — preset periods with an optional custom range, in a compact popover.",
+      "props": [
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "this-month",
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "custom",
+          "type": "{ from?: string | undefined; to?: string | undefined; } | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onCustomChange",
+          "type": "((range: { from?: string | undefined; to?: string | undefined; }) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "presets",
+          "type": "PeriodPreset[] | undefined",
+          "required": false,
+          "defaultValue": "[\n  { value: 'this-month', label: 'This month' },\n  { value: 'last-30', label: 'Last 30 days' },\n  { value: 'this-quarter', label: 'This quarter' },\n  { value: 'ytd', label: 'Year to date' },\n  { value: 'this-year', label: 'This year' },\n  { value: 'custom', label: 'Custom range' },\n]",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "sparkline",
+      "name": "Sparkline",
+      "category": "finance",
+      "docs": "/components/sparkline",
+      "summary": "A tiny trend line to sit beside a balance or inside a StatCard — green when the series rises, oxblood when it falls.",
+      "props": [
+        {
+          "name": "data",
+          "type": "number[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        },
+        {
+          "name": "width",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "96",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "28",
+          "description": ""
+        },
+        {
+          "name": "tone",
+          "type": "\"primary\" | \"positive\" | \"negative\" | \"neutral\" | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "area",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "true",
+          "description": ""
+        },
+        {
+          "name": "dot",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "true",
+          "description": ""
+        },
+        {
+          "name": "strokeWidth",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "2",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "checkbox",
+      "name": "Checkbox",
+      "category": "forms",
+      "docs": "/components/checkbox",
+      "summary": "A square checkbox for multi-select and form opt-ins (select transactions, terms). Use `indeterminate` on a header checkbox when some but not all rows are selected.",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "((checked: boolean) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "combobox",
+      "name": "Combobox",
+      "category": "forms",
+      "docs": "/components/combobox",
+      "summary": "A searchable single-select for long option lists (assign a category, pick a payee, choose an account). For a handful of fixed options use NativeSelect.",
+      "props": [
+        {
+          "name": "options",
+          "type": "ComboboxOption[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | null | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | null | undefined",
+          "required": false,
+          "defaultValue": "null",
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "Search…",
+          "description": ""
+        },
+        {
+          "name": "emptyText",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "No matches",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "input",
+      "name": "Input",
+      "category": "forms",
+      "docs": "/components/input",
+      "summary": "Input component",
+      "props": [
+        {
+          "name": "invalid",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "label",
+      "name": "Label",
+      "category": "forms",
+      "docs": "/components/label",
+      "summary": "Label component",
+      "props": []
+    },
+    {
+      "slug": "native-select",
+      "name": "NativeSelect",
+      "category": "forms",
+      "docs": "/components/native-select",
+      "summary": "NativeSelect component",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "SelectOption[] | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "radio-group",
+      "name": "RadioGroup",
+      "category": "forms",
+      "docs": "/components/radio-group",
+      "summary": "A single-choice radio group for mutually-exclusive options (account type, statement period). Exported as `RadioGroup`.",
+      "props": [
+        {
+          "name": "options",
+          "type": "RadioOption[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\" | undefined",
+          "required": false,
+          "defaultValue": "vertical",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "slider",
+      "name": "Slider",
+      "category": "forms",
+      "docs": "/components/slider",
+      "summary": "A single-value range control for budgets, thresholds, and filters (e.g. \"alert when a transaction exceeds $X\").",
+      "props": [
+        {
+          "name": "min",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "100",
+          "description": ""
+        },
+        {
+          "name": "step",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "1",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: number) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "showValue",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "((value: number) => ReactNode) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "stepper",
+      "name": "Stepper",
+      "category": "forms",
+      "docs": "/components/stepper",
+      "summary": "A compact numeric input for small bounded quantities (split count, reminder days, statement months back).",
+      "props": [
+        {
+          "name": "value",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: number) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "min",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "-Infinity",
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "step",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "1",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "((value: number) => ReactNode) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "switch",
+      "name": "Switch",
+      "category": "forms",
+      "docs": "/components/switch",
+      "summary": "A pill toggle for on/off settings (notifications, auto-reconcile) — oxblood when on. Use over Checkbox for instant-apply settings, not form submission.",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "((checked: boolean) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "textarea",
+      "name": "Textarea",
+      "category": "forms",
+      "docs": "/components/textarea",
+      "summary": "Textarea component",
+      "props": [
+        {
+          "name": "invalid",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "toggle-group",
+      "name": "ToggleGroup",
+      "category": "forms",
+      "docs": "/components/toggle-group",
+      "summary": "A segmented control for switching between a few mutually-exclusive views (timeframe, chart type, account filter). For navigation between content panels prefer Tabs; use this for filters and settings.",
+      "props": [
+        {
+          "name": "items",
+          "type": "ToggleItem[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "\"single\" | \"multiple\" | undefined",
+          "required": false,
+          "defaultValue": "single",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | string[] | null | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[] | null | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string | string[] | null) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "breadcrumb",
+      "name": "Breadcrumb",
+      "category": "navigation",
+      "docs": "/components/breadcrumb",
+      "summary": "A path trail for nested views (Accounts › Amex Cobalt › Statements).",
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "pagination",
+      "name": "Pagination",
+      "category": "navigation",
+      "docs": "/components/pagination",
+      "summary": "Page navigation for long transaction lists and search results.",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": false,
+          "defaultValue": "1",
+          "description": ""
+        },
+        {
+          "name": "pageCount",
+          "type": "number",
+          "required": false,
+          "defaultValue": "1",
+          "description": ""
+        },
+        {
+          "name": "onPageChange",
+          "type": "((page: number) => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "siblingCount",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "1",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "dialog",
+      "name": "Dialog",
+      "category": "overlays",
+      "docs": "/components/dialog",
+      "summary": "A modal for confirmations and short forms (delete transaction, edit category, add account). Keep the footer to one primary + one secondary Button.",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"lg\" | \"default\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "dropdown-menu",
+      "name": "DropdownMenu",
+      "category": "overlays",
+      "docs": "/components/dropdown-menu",
+      "summary": "A row/overflow action menu (the ⋯ on a transaction, account, or report). Use `danger` for delete and a `separator` to group destructive actions.",
+      "props": [
+        {
+          "name": "trigger",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "items",
+          "type": "DropdownItem[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        },
+        {
+          "name": "align",
+          "type": "\"end\" | \"start\" | undefined",
+          "required": false,
+          "defaultValue": "start",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "toast",
+      "name": "Toast",
+      "category": "overlays",
+      "docs": "/components/toast",
+      "summary": "A transient confirmation that floats bottom-right (transaction saved, statement imported, sync failed). Auto-dismiss after a few seconds; keep copy to one line.",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"default\" | \"success\" | \"info\" | \"warning\" | \"error\" | undefined",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "slug": "tooltip",
+      "name": "Tooltip",
+      "category": "overlays",
+      "docs": "/components/tooltip",
+      "summary": "A small hover/focus hint for icon buttons and truncated values (full merchant name, exact timestamp). Keep content to a few words — never essential-only info.",
+      "props": [
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "side",
+          "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
+          "required": false,
+          "defaultValue": "top",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "defaultValue": null,
+          "description": ""
+        }
+      ]
+    }
+  ]
+}
