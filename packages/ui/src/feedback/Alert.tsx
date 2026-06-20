@@ -1,4 +1,17 @@
-import React from 'react'
+import * as React from 'react'
+
+export type AlertVariant = 'error' | 'warning' | 'info' | 'success'
+
+/**
+ * Inline status message. Four semantic variants, each a tint of its semantic
+ * color. `error` is assertive (role=alert); the rest are polite. One of the
+ * three first-class data-view states (loading / empty / error).
+ */
+export interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+  variant?: AlertVariant
+  title?: React.ReactNode
+  action?: React.ReactNode
+}
 
 /**
  * Cashflow Alert. Four semantic variants — error / warning / info / success —
@@ -6,14 +19,14 @@ import React from 'react'
  * border (~42–45%). error gets role="alert" aria-live="assertive"; the rest
  * are polite status messages.
  */
-const VARIANT = {
+const VARIANT: Record<AlertVariant, { c: string }> = {
   error:   { c: 'var(--danger)' },
   warning: { c: 'var(--warning)' },
   info:    { c: 'var(--primary)' },
   success: { c: 'var(--success)' },
 }
 
-export function Alert({ variant = 'info', title, action, className, style, children, ...props }) {
+export function Alert({ variant = 'info', title, action, className, style, children, ...props }: AlertProps): React.JSX.Element {
   const c = (VARIANT[variant] || VARIANT.info).c
   const role = variant === 'error' ? 'alert' : 'status'
   const ariaLive = variant === 'error' ? 'assertive' : 'polite'
@@ -42,7 +55,7 @@ export function Alert({ variant = 'info', title, action, className, style, child
     >
       {(title || action) && (
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
-          {title && <p data-slot="alert-title" style={{ margin: 0, fontWeight: 'var(--weight-semibold)' }}>{title}</p>}
+          {title && <p data-slot="alert-title" style={{ margin: 0, fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{title}</p>}
           {action && <div style={{ flexShrink: 0 }}>{action}</div>}
         </div>
       )}
