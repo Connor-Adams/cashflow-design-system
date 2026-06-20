@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Tabs } from '@connoradams/designsystem'
+import { Tabs } from '@connor-adams/designsystem'
 
 const PERIOD_ITEMS = [
   { value: 'week', label: 'Week' },

@@ -51,7 +51,7 @@ import {
   DropdownMenu,
   Toast,
   Tooltip,
-} from '@connoradams/designsystem'
+} from '@connor-adams/designsystem'
 
 // ---------------------------------------------------------------------------
 // Controlled wrappers — defined as named function components so hooks are valid

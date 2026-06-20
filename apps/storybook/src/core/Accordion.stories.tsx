@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Accordion } from '@connoradams/designsystem'
+import { Accordion } from '@connor-adams/designsystem'
 
 const items = [
   { value: 'billing', title: 'Billing & Payments', content: 'Manage your payment methods, view past invoices, and update billing information.' },

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { BudgetMeter } from '@connoradams/designsystem'
+import { BudgetMeter } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof BudgetMeter> = {
   title: 'Finance/BudgetMeter',

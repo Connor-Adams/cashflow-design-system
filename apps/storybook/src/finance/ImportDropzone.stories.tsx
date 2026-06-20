@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { ImportDropzone } from '@connoradams/designsystem'
+import { ImportDropzone } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof ImportDropzone> = {
   title: 'Finance/ImportDropzone',

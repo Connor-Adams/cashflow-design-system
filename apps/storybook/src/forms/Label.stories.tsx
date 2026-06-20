@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Label, Input } from '@connoradams/designsystem'
+import { Label, Input } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Label> = {
   title: 'Forms/Label',

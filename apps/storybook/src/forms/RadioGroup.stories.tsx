@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { RadioGroup } from '@connoradams/designsystem'
+import { RadioGroup } from '@connor-adams/designsystem'
 
 const PERIOD_OPTIONS = [
   { value: 'weekly', label: 'Weekly' },

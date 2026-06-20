@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { DropdownMenu } from '@connoradams/designsystem'
+import { DropdownMenu } from '@connor-adams/designsystem'
 
 const ITEMS_DEFAULT = [
   { label: 'Edit', shortcut: '⌘E', onSelect: () => {} },

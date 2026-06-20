@@ -1,5 +1,5 @@
 {
-  "name": "@connoradams/designsystem-monorepo",
+  "name": "@connor-adams/designsystem-monorepo",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "typecheck": "turbo run typecheck",
-    "storybook": "pnpm --filter @connoradams/storybook dev",
+    "storybook": "pnpm --filter @connor-adams/storybook dev",
     "changeset": "changeset",
     "release": "turbo run build && changeset publish",
     "validate": "node scripts/validate.mjs"

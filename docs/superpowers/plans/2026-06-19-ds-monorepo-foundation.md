@@ -2,15 +2,15 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Convert the flat Cashflow-branded asset repo into a pnpm/turborepo monorepo that builds an importable `@connoradams/designsystem` package and renders one real component (Button) end-to-end in Storybook — proving the full pipeline before mass-converting the other 42 components.
+**Goal:** Convert the flat Cashflow-branded asset repo into a pnpm/turborepo monorepo that builds an importable `@connor-adams/designsystem` package and renders one real component (Button) end-to-end in Storybook — proving the full pipeline before mass-converting the other 42 components.
 
-**Architecture:** A pnpm workspace with two `packages/*` (a `@connoradams/tokens` CSS-variable package and a `@connoradams/designsystem` React-component package built by tsup → ESM + generated `.d.ts`) and one `apps/*` (a Storybook preview site consuming the workspace package). React is a peer dependency. Tokens ship as CSS custom properties; components are inline-style React that read those vars — no Tailwind, no CSS-in-JS build step. The existing oxblood palette is the single house brand and is preserved verbatim; only the package *identity* (names, README) goes brand-neutral.
+**Architecture:** A pnpm workspace with two `packages/*` (a `@connor-adams/tokens` CSS-variable package and a `@connor-adams/designsystem` React-component package built by tsup → ESM + generated `.d.ts`) and one `apps/*` (a Storybook preview site consuming the workspace package). React is a peer dependency. Tokens ship as CSS custom properties; components are inline-style React that read those vars — no Tailwind, no CSS-in-JS build step. The existing oxblood palette is the single house brand and is preserved verbatim; only the package *identity* (names, README) goes brand-neutral.
 
 **Tech Stack:** pnpm workspaces, turborepo, TypeScript 5.6 (strict), tsup 8 (build + dts), Storybook 8 (react-vite), changesets, React 18.
 
 ## Global Constraints
 
-- Package scope: `@connoradams/*`. Library package name is exactly `@connoradams/designsystem`. Tokens package name is exactly `@connoradams/tokens`.
+- Package scope: `@connor-adams/*`. Library package name is exactly `@connor-adams/designsystem`. Tokens package name is exactly `@connor-adams/tokens`.
 - React is a **peerDependency** of the library (`react`, `react-dom` `>=18`) — never a hard dependency. It is a devDependency for local build/typecheck only.
 - Library output is **ESM only** (`"type": "module"`), built to `dist/`. `dist/` is gitignored.
 - Token CSS **values are not changed** in this plan. Only file locations and `@import` paths move. The oxblood/zinc/green palette is the house brand.
@@ -43,7 +43,7 @@ The current root `package.json` (the flat-repo manifest with `cashflow-design-sy
 
 ```json
 {
-  "name": "@connoradams/designsystem-monorepo",
+  "name": "@connor-adams/designsystem-monorepo",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -53,7 +53,7 @@ The current root `package.json` (the flat-repo manifest with `cashflow-design-sy
     "build": "turbo run build",
     "dev": "turbo run dev",
     "typecheck": "turbo run typecheck",
-    "storybook": "pnpm --filter @connoradams/storybook dev",
+    "storybook": "pnpm --filter @connor-adams/storybook dev",
     "changeset": "changeset",
     "release": "turbo run build && changeset publish"
   },
@@ -134,7 +134,7 @@ packages:
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@connoradams/storybook"]
+  "ignore": ["@connor-adams/storybook"]
 }
 ```
 
@@ -166,7 +166,7 @@ git commit -m "chore: scaffold pnpm/turborepo monorepo workspace"
 
 ---
 
-### Task 2: `@connoradams/tokens` package
+### Task 2: `@connor-adams/tokens` package
 
 Move the token CSS and the `styles.css` manifest into a real package. Fix the `@import` paths (currently `tokens/fonts.css`, which only worked from repo root) to be package-relative. After this task the package's `styles.css` resolves all its imports correctly.
 
@@ -177,7 +177,7 @@ Move the token CSS and the `styles.css` manifest into a real package. Fix the `@
 - Move: `assets/` fonts referenced by `fonts.css` if any are local — verify in Step 3
 
 **Interfaces:**
-- Produces: importable stylesheet `@connoradams/tokens/styles.css` (the full `@import` manifest) and individual files via `@connoradams/tokens/src/colors.css` etc.
+- Produces: importable stylesheet `@connor-adams/tokens/styles.css` (the full `@import` manifest) and individual files via `@connor-adams/tokens/src/colors.css` etc.
 
 - [ ] **Step 1: Create the package directory and move the CSS sources**
 
@@ -216,7 +216,7 @@ Expected: either no matches (fonts are loaded externally / system), OR matches p
 
 ```json
 {
-  "name": "@connoradams/tokens",
+  "name": "@connor-adams/tokens",
   "version": "0.1.0",
   "description": "Design tokens (CSS custom properties) for the Connor Adams design system.",
   "license": "SEE LICENSE FILE",
@@ -233,7 +233,7 @@ Expected: either no matches (fonts are loaded externally / system), OR matches p
 - [ ] **Step 5: Re-resolve the workspace so the new package is linked**
 
 Run: `pnpm install`
-Expected: pnpm reports `+1` workspace project (`@connoradams/tokens`), no errors.
+Expected: pnpm reports `+1` workspace project (`@connor-adams/tokens`), no errors.
 
 - [ ] **Step 6: Verify every `@import` target exists**
 
@@ -244,12 +244,12 @@ Expected: six `ok` lines, no `MISSING`.
 
 ```bash
 git add packages/tokens .gitignore
-git commit -m "feat(tokens): extract @connoradams/tokens package with fixed import paths"
+git commit -m "feat(tokens): extract @connor-adams/tokens package with fixed import paths"
 ```
 
 ---
 
-### Task 3: `@connoradams/designsystem` package + Button.tsx
+### Task 3: `@connor-adams/designsystem` package + Button.tsx
 
 Scaffold the library package and migrate the first component. Button's `.jsx` implementation and its richer hand-written `.d.ts` types are merged into a single typed `Button.tsx`. The package re-exports the tokens stylesheet so consumers get one CSS import surface. After this task `tsc --noEmit` passes for the package.
 
@@ -264,8 +264,8 @@ Scaffold the library package and migrate the first component. Button's `.jsx` im
 - Delete: `components/core/Button.jsx`, `components/core/Button.d.ts` (superseded by `Button.tsx`)
 
 **Interfaces:**
-- Consumes: `@connoradams/tokens/styles.css` (runtime CSS dependency).
-- Produces: barrel `@connoradams/designsystem` exporting `Button` (value) and `ButtonProps`, `ButtonVariant`, `ButtonSize` (types). Re-exported stylesheet `@connoradams/designsystem/styles.css`.
+- Consumes: `@connor-adams/tokens/styles.css` (runtime CSS dependency).
+- Produces: barrel `@connor-adams/designsystem` exporting `Button` (value) and `ButtonProps`, `ButtonVariant`, `ButtonSize` (types). Re-exported stylesheet `@connor-adams/designsystem/styles.css`.
   - `ButtonVariant = 'default' | 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'danger' | 'link'`
   - `ButtonSize = 'sm' | 'default' | 'lg' | 'icon'`
   - `interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> { variant?: ButtonVariant; size?: ButtonSize }`
@@ -275,9 +275,9 @@ Scaffold the library package and migrate the first component. Button's `.jsx` im
 
 ```json
 {
-  "name": "@connoradams/designsystem",
+  "name": "@connor-adams/designsystem",
   "version": "0.1.0",
-  "description": "Connor Adams design system — React components built on @connoradams/tokens.",
+  "description": "Connor Adams design system — React components built on @connor-adams/tokens.",
   "license": "SEE LICENSE FILE",
   "type": "module",
   "sideEffects": ["*.css"],
@@ -299,7 +299,7 @@ Scaffold the library package and migrate the first component. Button's `.jsx` im
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@connoradams/tokens": "workspace:*"
+    "@connor-adams/tokens": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.3.0",
@@ -343,7 +343,7 @@ export default defineConfig({
 - [ ] **Step 4: Create `packages/ui/styles.css` (re-export of the tokens manifest)**
 
 ```css
-@import "@connoradams/tokens/styles.css";
+@import "@connor-adams/tokens/styles.css";
 ```
 
 - [ ] **Step 5: Create `packages/ui/src/core/Button.tsx`** (merge `.jsx` impl with `.d.ts` types)
@@ -490,18 +490,18 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from './core/Button'
 - [ ] **Step 8: Install so the new package + workspace deps link**
 
 Run: `pnpm install`
-Expected: `@connoradams/designsystem` linked; `@connoradams/tokens` resolved via `workspace:*`; no errors.
+Expected: `@connor-adams/designsystem` linked; `@connor-adams/tokens` resolved via `workspace:*`; no errors.
 
 - [ ] **Step 9: Type-check the package**
 
-Run: `pnpm --filter @connoradams/designsystem typecheck`
+Run: `pnpm --filter @connor-adams/designsystem typecheck`
 Expected: PASS — `tsc --noEmit` exits 0 with no diagnostics.
 
 - [ ] **Step 10: Commit**
 
 ```bash
 git add packages/ui
-git commit -m "feat(ui): scaffold @connoradams/designsystem and migrate Button to .tsx"
+git commit -m "feat(ui): scaffold @connor-adams/designsystem and migrate Button to .tsx"
 ```
 
 ---
@@ -519,7 +519,7 @@ Run the real build and verify the published surface: an ESM `dist/index.js` with
 
 - [ ] **Step 1: Build the package**
 
-Run: `pnpm --filter @connoradams/designsystem build`
+Run: `pnpm --filter @connor-adams/designsystem build`
 Expected: tsup reports `ESM dist/index.js` and `DTS dist/index.d.ts` written, exits 0.
 
 - [ ] **Step 2: Verify build artifacts exist**
@@ -540,7 +540,7 @@ Expected: matches for `Button`, `ButtonProps`, `ButtonVariant`, `ButtonSize`.
 - [ ] **Step 5: Verify a clean monorepo build passes through turbo**
 
 Run: `pnpm build`
-Expected: turbo runs `@connoradams/designsystem#build` successfully (tokens has no build task and is skipped), exits 0.
+Expected: turbo runs `@connor-adams/designsystem#build` successfully (tokens has no build task and is skipped), exits 0.
 
 - [ ] **Step 6: Commit**
 
@@ -557,7 +557,7 @@ If nothing changed, skip the commit.
 
 ### Task 5: Storybook preview app
 
-Stand up the Storybook app consuming the built `@connoradams/designsystem`, import the tokens stylesheet globally, and write Button stories with live controls. After this task `storybook build` succeeds and the dev server renders Button variants — the working preview website.
+Stand up the Storybook app consuming the built `@connor-adams/designsystem`, import the tokens stylesheet globally, and write Button stories with live controls. After this task `storybook build` succeeds and the dev server renders Button variants — the working preview website.
 
 **Files:**
 - Create: `apps/storybook/package.json`
@@ -567,14 +567,14 @@ Stand up the Storybook app consuming the built `@connoradams/designsystem`, impo
 - Create: `apps/storybook/tsconfig.json`
 
 **Interfaces:**
-- Consumes: `@connoradams/designsystem` (Button + types) and `@connoradams/designsystem/styles.css`.
-- Produces: a runnable Storybook (`pnpm --filter @connoradams/storybook dev`) and a static build (`storybook-static/`).
+- Consumes: `@connor-adams/designsystem` (Button + types) and `@connor-adams/designsystem/styles.css`.
+- Produces: a runnable Storybook (`pnpm --filter @connor-adams/storybook dev`) and a static build (`storybook-static/`).
 
 - [ ] **Step 1: Create `apps/storybook/package.json`**
 
 ```json
 {
-  "name": "@connoradams/storybook",
+  "name": "@connor-adams/storybook",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -583,7 +583,7 @@ Stand up the Storybook app consuming the built `@connoradams/designsystem`, impo
     "build": "storybook build"
   },
   "dependencies": {
-    "@connoradams/designsystem": "workspace:*",
+    "@connor-adams/designsystem": "workspace:*",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   },
@@ -617,7 +617,7 @@ export default config
 
 ```ts
 import type { Preview } from '@storybook/react'
-import '@connoradams/designsystem/styles.css'
+import '@connor-adams/designsystem/styles.css'
 
 const preview: Preview = {
   parameters: {
@@ -645,7 +645,7 @@ export default preview
 
 ```tsx
 import type { Meta, StoryObj } from '@storybook/react'
-import { Button } from '@connoradams/designsystem'
+import { Button } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Button> = {
   title: 'Core/Button',
@@ -677,16 +677,16 @@ export const Disabled: Story = { args: { disabled: true } }
 - [ ] **Step 6: Install so Storybook deps and the workspace link resolve**
 
 Run: `pnpm install`
-Expected: `@connoradams/storybook` linked; Storybook/Vite deps installed; no errors.
+Expected: `@connor-adams/storybook` linked; Storybook/Vite deps installed; no errors.
 
 - [ ] **Step 7: Ensure the library is built (Storybook resolves `dist/`)**
 
-Run: `pnpm --filter @connoradams/designsystem build`
+Run: `pnpm --filter @connor-adams/designsystem build`
 Expected: build succeeds (idempotent if already built).
 
 - [ ] **Step 8: Build Storybook to verify the full pipeline resolves**
 
-Run: `pnpm --filter @connoradams/storybook build`
+Run: `pnpm --filter @connor-adams/storybook build`
 Expected: `storybook build` completes, writes `apps/storybook/storybook-static/`, exits 0. This proves the story imports `Button` + `styles.css` from the workspace package and compiles.
 
 - [ ] **Step 9: Smoke-run the dev server (manual visual confirmation)**
@@ -698,7 +698,7 @@ Expected: dev server starts on `http://localhost:6006`; the sidebar shows `Core/
 
 ```bash
 git add apps/storybook
-git commit -m "feat(storybook): preview app rendering Button from @connoradams/designsystem"
+git commit -m "feat(storybook): preview app rendering Button from @connor-adams/designsystem"
 ```
 
 ---
@@ -707,8 +707,8 @@ git commit -m "feat(storybook): preview app rendering Button from @connoradams/d
 
 **Spec coverage:**
 - Monorepo (packages + apps) → Tasks 1–5. ✅
-- Importable `@connoradams/designsystem` (ESM + types, React peer) → Tasks 3–4. ✅
-- `@connoradams/tokens` extracted, single brand preserved verbatim → Task 2. ✅
+- Importable `@connor-adams/designsystem` (ESM + types, React peer) → Tasks 3–4. ✅
+- `@connor-adams/tokens` extracted, single brand preserved verbatim → Task 2. ✅
 - `.jsx` → `.tsx` conversion proven on one component, hand-written `.d.ts` retired as source → Task 3. ✅
 - Preview website (Storybook) consuming the package → Task 5. ✅
 - changesets release tooling initialized → Task 1. ✅
@@ -718,7 +718,7 @@ git commit -m "feat(storybook): preview app rendering Button from @connoradams/d
 - **Plan 2 — bulk conversion:** the remaining 42 components `.jsx`→`.tsx`, their barrel exports, and migrating `foundations/`, `templates/`, `ui_kits/`. Each component is an independent task mirroring Task 3.
 - **Plan 3 — CI + contract enforcement:** GitHub Actions running typecheck/build/storybook-build; a `validate-contract` script asserting every `*.tsx` has its `prompt.md`/`card.html` sidecars; a11y/visual-regression gates; backfilling the 12 missing `prompt.md` + 21 missing `card.html`.
 - **Plan 4 — custom Next.js docs site:** the branded public hub (`apps/web`), built once the library is stable.
-- **README + count reconciliation:** rewrite the root README for the new monorepo layout and `@connoradams/*` import story; correct the "54 components" drift.
+- **README + count reconciliation:** rewrite the root README for the new monorepo layout and `@connor-adams/*` import story; correct the "54 components" drift.
 
 **Placeholder scan:** No TBD/TODO/"handle edge cases"/"similar to Task N" — all file contents are concrete. ✅
 

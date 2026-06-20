@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Metadata } from 'next'
-import '@connoradams/designsystem/styles.css'
+import '@connor-adams/designsystem/styles.css'
 import { SiteHeader } from '../components/SiteHeader'
 
 export const metadata: Metadata = {

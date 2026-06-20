@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Combobox } from '@connoradams/designsystem'
+import { Combobox } from '@connor-adams/designsystem'
 
 const ACCOUNT_OPTIONS = [
   { value: 'checking', label: 'Checking', hint: '••4521' },

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Breadcrumb } from '@connoradams/designsystem'
+import { Breadcrumb } from '@connor-adams/designsystem'
 
 const ITEMS_SHORT = [
   { label: 'Home', href: '/' },

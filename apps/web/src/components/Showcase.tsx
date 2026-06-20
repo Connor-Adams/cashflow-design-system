@@ -10,7 +10,7 @@ import {
   CardContent,
   AmountText,
   StatCard,
-} from '@connoradams/designsystem'
+} from '@connor-adams/designsystem'
 
 export function Showcase() {
   return (

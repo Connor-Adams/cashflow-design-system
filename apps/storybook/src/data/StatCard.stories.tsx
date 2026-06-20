@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { StatCard } from '@connoradams/designsystem'
+import { StatCard } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof StatCard> = {
   title: 'Data/StatCard',

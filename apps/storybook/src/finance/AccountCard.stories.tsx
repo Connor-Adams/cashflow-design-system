@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { AccountCard } from '@connoradams/designsystem'
+import { AccountCard } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof AccountCard> = {
   title: 'Finance/AccountCard',

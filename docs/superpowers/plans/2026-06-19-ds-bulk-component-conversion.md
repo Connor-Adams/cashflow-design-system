@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Convert the remaining 42 hand-written `.jsx` + standalone `.d.ts` components into typed `.tsx` source under `@connoradams/designsystem`, re-exporting every component and type through the package barrel, so the full component library is importable and type-checks under strict mode.
+**Goal:** Convert the remaining 42 hand-written `.jsx` + standalone `.d.ts` components into typed `.tsx` source under `@connor-adams/designsystem`, re-exporting every component and type through the package barrel, so the full component library is importable and type-checks under strict mode.
 
 **Architecture:** Apply the proven Button conversion recipe (Plan 1, Task 3) to every component, one category at a time. Each component is self-contained inline-style React (verified: zero intra-package imports), so conversion order is irrelevant. The `.tsx` merges the `.jsx` runtime with the `.d.ts` types; the standalone `.d.ts` is retired. Each category task appends its exports to `src/index.ts`; a final task verifies the whole package builds.
 
@@ -35,7 +35,7 @@ These bind EVERY task. They are the conversion recipe.
    ```
    For compound components, list all value exports: `export { Card, CardHeader, CardTitle, CardDescription, CardContent } from './core/Card'`. Derive the exact symbol lists from the converted `.tsx`'s `export` statements (values) and the original `.d.ts`'s `export type`/`export interface` declarations (types). Every exported type must be re-exported.
 
-**Verification gate (every category task):** `pnpm --filter @connoradams/designsystem typecheck` exits 0 with no diagnostics after that category's components are converted and barrelled.
+**Verification gate (every category task):** `pnpm --filter @connor-adams/designsystem typecheck` exits 0 with no diagnostics after that category's components are converted and barrelled.
 
 **Scope boundary:** This plan converts the 42 components only. The `foundations/`, `templates/`, and `ui_kits/` directories are NOT touched (deferred to a later plan). Do not add Storybook stories (Plan 3). Do not modify token CSS.
 
@@ -67,7 +67,7 @@ These bind EVERY task. They are the conversion recipe.
 
 - [ ] **Step 4: Typecheck**
 
-Run: `pnpm --filter @connoradams/designsystem typecheck`
+Run: `pnpm --filter @connor-adams/designsystem typecheck`
 Expected: PASS (exit 0, no diagnostics).
 
 - [ ] **Step 5: Commit**
@@ -92,7 +92,7 @@ git commit -m "feat(ui): convert core components to typed .tsx"
 - [ ] **Step 1: Convert all 4 components** per recipe. `Table` is compound (6 exports); `StatCard` also exports the `resolveDeltaTone` helper.
 - [ ] **Step 2: Move sidecars (+ `data.card.html`, `data.prompt.md`) and remove old source.**
 - [ ] **Step 3: Append barrel exports** for all 4.
-- [ ] **Step 4: Typecheck** — `pnpm --filter @connoradams/designsystem typecheck` → PASS.
+- [ ] **Step 4: Typecheck** — `pnpm --filter @connor-adams/designsystem typecheck` → PASS.
 - [ ] **Step 5: Commit** — `git add -A && git commit -m "feat(ui): convert data components to typed .tsx"`
 
 ---
@@ -192,12 +192,12 @@ Expected: NO output (all `.jsx`/`.d.ts` migrated). If any remain, they were miss
 
 - [ ] **Step 2: Full typecheck**
 
-Run: `pnpm --filter @connoradams/designsystem typecheck`
+Run: `pnpm --filter @connor-adams/designsystem typecheck`
 Expected: PASS (exit 0).
 
 - [ ] **Step 3: Build the library (tsup emits ESM + dts for the whole barrel)**
 
-Run: `pnpm --filter @connoradams/designsystem build`
+Run: `pnpm --filter @connor-adams/designsystem build`
 Expected: tsup ESM + DTS build success, exits 0. (DTS generation type-checks the full public surface — a failure here means a barrel export references a missing/wrong type.)
 
 - [ ] **Step 4: Verify the generated types include a representative spread of components**
@@ -207,7 +207,7 @@ Expected: ≥6 (one per probed type — all present in the generated declaration
 
 - [ ] **Step 5: Confirm Storybook still builds (Button story unaffected)**
 
-Run: `pnpm --filter @connoradams/storybook build`
+Run: `pnpm --filter @connor-adams/storybook build`
 Expected: exits 0 (the package's new exports don't break the existing consumer).
 
 - [ ] **Step 6: Commit** (only if any fix was needed in Steps 1–5; otherwise skip — Tasks 1–7 already committed all source)

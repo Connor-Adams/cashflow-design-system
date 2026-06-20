@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { LetterAvatar } from '@connoradams/designsystem'
+import { LetterAvatar } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof LetterAvatar> = {
   title: 'Data/LetterAvatar',

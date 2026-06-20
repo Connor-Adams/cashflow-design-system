@@ -1,5 +1,5 @@
 {
-  "name": "@connoradams/storybook",
+  "name": "@connor-adams/storybook",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@connoradams/designsystem": "workspace:*",
+    "@connor-adams/designsystem": "workspace:*",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   },

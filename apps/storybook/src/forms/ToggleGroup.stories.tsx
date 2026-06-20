@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { ToggleGroup } from '@connoradams/designsystem'
+import { ToggleGroup } from '@connor-adams/designsystem'
 
 const VIEW_ITEMS = [
   { value: 'list', label: 'List' },

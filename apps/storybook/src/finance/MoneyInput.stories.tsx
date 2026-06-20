@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { MoneyInput } from '@connoradams/designsystem'
+import { MoneyInput } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof MoneyInput> = {
   title: 'Finance/MoneyInput',
