@@ -66,7 +66,7 @@ export const CategoryPill = React.forwardRef<HTMLElement, CategoryPillProps>(fun
       }}
       {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLSpanElement>)}
     >
-      <svg width={sm ? 12 : 13} height={sm ? 12 : 13} viewBox="0 0 24 24" fill="none" stroke={tint} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }}>{glyph}</svg>
+      <svg width={sm ? 12 : 13} height={sm ? 12 : 13} viewBox="0 0 24 24" fill="none" stroke={tint} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="ca-category-pill-icon">{glyph}</svg>
       {text}
     </Tag>
   )

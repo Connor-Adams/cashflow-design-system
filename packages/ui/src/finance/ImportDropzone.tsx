@@ -41,20 +41,20 @@ export const ImportDropzone = React.forwardRef<HTMLDivElement, ImportDropzonePro
       {...props}
     >
       <input ref={inputRef} type="file" accept={accept} onChange={(e: React.ChangeEvent<HTMLInputElement>) => take(e.target.files?.[0])} style={{ display: 'none' }} />
-      <span style={{ width: 44, height: 44, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'color-mix(in oklch, var(--primary) 12%, transparent)', color: 'var(--primary)' }}>
+      <span className="ca-import-dropzone-icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12" /><path d="m7 8 5-5 5 5" /><path d="M5 21h14" /></svg>
       </span>
       {file ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{file.name}</span>
-          <span style={{ fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)', fontFamily: 'var(--font-mono)' }}>{fmtSize(file.size)} · click to replace</span>
+        <div className="ca-import-dropzone-body">
+          <span className="ca-import-dropzone-title">{file.name}</span>
+          <span className="ca-import-dropzone-sub ca-import-dropzone-sub--mono">{fmtSize(file.size)} · click to replace</span>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>
-            Drop a statement, or <span style={{ color: 'var(--text-link)' }}>browse</span>
+        <div className="ca-import-dropzone-prompt">
+          <span className="ca-import-dropzone-title">
+            Drop a statement, or <span className="ca-import-dropzone-browse">browse</span>
           </span>
-          <span style={{ fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)' }}>{hint}</span>
+          <span className="ca-import-dropzone-sub">{hint}</span>
         </div>
       )}
     </div>

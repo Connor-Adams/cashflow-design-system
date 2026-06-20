@@ -51,6 +51,37 @@
   font-variant-numeric: tabular-nums;
 }
 
+.ca-money-input-toggle {
+  flex: none;
+  border: none;
+  border-right: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+}
+
+.ca-money-input-toggle:disabled {
+  cursor: not-allowed;
+}
+
+.ca-money-input-affix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted-foreground);
+}
+
+.ca-money-input-affix--symbol {
+  padding-left: 10px;
+  padding-right: 2px;
+}
+
+.ca-money-input-affix--code {
+  padding-right: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+}
+
 /* The amount input drives the wrapper ring; it doesn't need its own outline.
    The toggle button does — it's separately focusable. */
 .ca-money-input-toggle:focus-visible {

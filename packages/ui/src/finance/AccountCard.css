@@ -22,6 +22,89 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.ca-account-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ca-account-card-glyph {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ca-account-card-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.ca-account-card-name {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ca-account-card-sub {
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+}
+
+.ca-account-card-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ca-account-card-balance {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ca-account-card-label {
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: var(--weight-semibold);
+  color: var(--muted-foreground);
+}
+
+.ca-account-card-amount {
+  font-size: var(--text-headline-sm);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.ca-account-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+}
+
+.ca-account-card-status[data-status='error'] {
+  color: var(--destructive);
+}
+
+.ca-account-card-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
 .ca-account-card[data-selected='true'] {
   border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 30%, transparent), var(--shadow);

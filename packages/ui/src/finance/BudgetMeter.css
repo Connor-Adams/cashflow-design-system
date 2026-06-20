@@ -10,6 +10,58 @@
   font-family: var(--font-sans);
 }
 
+.ca-budget-meter-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ca-budget-meter-label {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-budget-meter-readout {
+  font-size: var(--text-body-sm);
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+}
+
+.ca-budget-meter-spent {
+  color: var(--foreground);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-budget-meter[data-tone='over'] .ca-budget-meter-spent {
+  color: var(--negative);
+}
+
+.ca-budget-meter-track {
+  position: relative;
+  overflow: hidden;
+  height: 8px;
+  width: 100%;
+  border-radius: 99px;
+  background: var(--muted);
+}
+
+.ca-budget-meter-foot {
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+}
+
+.ca-budget-meter[data-tone='over'] .ca-budget-meter-foot {
+  color: var(--negative);
+}
+
+.ca-budget-meter [data-slot='budget-meter-fill'] {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  transition: width 300ms ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ca-budget-meter [data-slot='budget-meter-fill'] {
     transition: none;

@@ -82,13 +82,13 @@ export const MoneyInput = React.forwardRef<HTMLInputElement, MoneyInputProps>(fu
           onClick={() => onDirectionChange?.(direction === 'in' ? 'out' : 'in')}
           aria-label={direction === 'in' ? 'Money in' : 'Money out'}
           style={{
-            width: h, flex: 'none', border: 'none', borderRight: '1px solid var(--border)', cursor: disabled ? 'not-allowed' : 'pointer',
+            width: h,
             background: direction === 'in' ? 'color-mix(in oklch, var(--positive) 14%, transparent)' : 'color-mix(in oklch, var(--negative) 14%, transparent)',
-            color: direction === 'in' ? 'var(--positive)' : 'var(--negative)', fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 'var(--weight-bold)' as React.CSSProperties['fontWeight'],
+            color: direction === 'in' ? 'var(--positive)' : 'var(--negative)',
           }}
         >{direction === 'in' ? '+' : '−'}</button>
       )}
-      <span style={{ display: 'inline-flex', alignItems: 'center', paddingLeft: 10, paddingRight: 2, color: 'var(--muted-foreground)', fontSize: size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)' }}>{sym}</span>
+      <span className="ca-money-input-affix ca-money-input-affix--symbol" style={{ fontSize: size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)' }}>{sym}</span>
       <input
         ref={ref}
         inputMode="decimal"
@@ -105,7 +105,7 @@ export const MoneyInput = React.forwardRef<HTMLInputElement, MoneyInputProps>(fu
         }}
         {...props}
       />
-      <span style={{ display: 'inline-flex', alignItems: 'center', paddingRight: 10, color: 'var(--muted-foreground)', fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)' }}>{currency}</span>
+      <span className="ca-money-input-affix ca-money-input-affix--code">{currency}</span>
     </div>
   )
 })
