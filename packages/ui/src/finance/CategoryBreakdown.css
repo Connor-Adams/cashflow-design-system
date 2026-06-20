@@ -1,0 +1,56 @@
+/* CategoryBreakdown — ranked category bars inside a Card. Layout + the
+   selectable-row button reset/hover/focus live here; bar width and gradient
+   tone are dynamic and stay inline in the .tsx. */
+
+.ca-category-breakdown__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.ca-category-breakdown__heading {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ca-category-breakdown__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ca-category-breakdown__row {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.ca-category-breakdown__amount {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+/* Selectable variant — whole row is a button (added in Task 4). */
+button.ca-category-breakdown__row {
+  width: 100%;
+  text-align: inherit;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  padding: 6px 8px;
+  margin: -6px -8px;
+}
+button.ca-category-breakdown__row:hover {
+  background: color-mix(in oklch, var(--muted) 60%, transparent);
+}
+button.ca-category-breakdown__row:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
