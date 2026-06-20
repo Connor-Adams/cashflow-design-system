@@ -26,6 +26,7 @@ import {
   AccountCard,
   AmountText,
   BudgetMeter,
+  CategoryBreakdown,
   CategoryPill,
   ImportDropzone,
   MoneyInput,
@@ -312,6 +313,26 @@ export const previews: Record<string, React.ReactNode> = {
       <BudgetMeter label="Groceries" spent={320} limit={500} currency="CAD" locale="en-CA" />
       <BudgetMeter label="Dining Out" spent={445} limit={500} currency="CAD" locale="en-CA" />
       <BudgetMeter label="Entertainment" spent={620} limit={400} currency="CAD" locale="en-CA" />
+    </div>
+  ),
+
+  // category-breakdown:
+  'category-breakdown': (
+    <div style={{ width: '100%', maxWidth: 460 }}>
+      <CategoryBreakdown
+        title="Net spend by category"
+        subtitle="This month · transfers excluded"
+        trend={[12, 9, 14, 11, 18, 16, 22]}
+        currency="CAD"
+        locale="en-CA"
+        rows={[
+          { category: 'groceries', amount: -842 },
+          { category: 'dining', amount: -586 },
+          { category: 'transport', amount: -418 },
+          { category: 'subscriptions', amount: -214 },
+          { category: 'utilities', amount: -176 },
+        ]}
+      />
     </div>
   ),
 
