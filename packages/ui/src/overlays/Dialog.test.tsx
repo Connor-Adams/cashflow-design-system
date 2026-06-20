@@ -30,6 +30,26 @@ describe('Dialog', () => {
     expect(card).toHaveClass('custom-x')
   })
 
+  it('keeps static styling in CSS so a className can override it (no inline style attr)', () => {
+    render(
+      <Dialog open className="custom-x">
+        Body
+      </Dialog>,
+    )
+    // No static inline style competing with the class — the consumer className wins.
+    expect(document.querySelector('[data-slot="dialog-content"]')).not.toHaveAttribute('style')
+    expect(document.querySelector('[data-slot="dialog-scrim"]')).not.toHaveAttribute('style')
+  })
+
+  it('still honours a consumer style prop via the ...style spread', () => {
+    render(
+      <Dialog open style={{ zIndex: 99 }}>
+        Body
+      </Dialog>,
+    )
+    expect(document.querySelector('[data-slot="dialog-content"]')).toHaveStyle({ zIndex: '99' })
+  })
+
   it('reflects size as a data attribute', () => {
     render(
       <Dialog open size="lg">
