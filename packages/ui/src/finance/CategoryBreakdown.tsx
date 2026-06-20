@@ -5,6 +5,7 @@ import { Text } from '../core/Text'
 import { CategoryPill } from './CategoryPill'
 import { Progress } from '../core/Progress'
 import { AmountText } from './AmountText'
+import { Sparkline } from './Sparkline'
 
 /**
  * Ranked horizontal-bar breakdown of money by transaction category — the
@@ -72,7 +73,9 @@ export const CategoryBreakdown = React.forwardRef<HTMLDivElement, CategoryBreakd
               {title && <Text variant="headline-sm">{title}</Text>}
               {subtitle && <Text variant="body" tone="muted">{subtitle}</Text>}
             </div>
-            {/* Sparkline added in Task 3 */}
+            {trend && trend.length > 1 && (
+              <Sparkline data={trend} tone={trendTone} width={108} height={36} className="ca-category-breakdown__trend" />
+            )}
           </div>
         )}
 

@@ -82,3 +82,19 @@ describe('CategoryBreakdown bar scaling', () => {
     expect(screen.getByRole('progressbar', { hidden: true })).toHaveAttribute('aria-valuenow', '0')
   })
 })
+
+describe('CategoryBreakdown trend sparkline', () => {
+  it('renders a sparkline when trend is provided', () => {
+    const { container } = render(
+      <CategoryBreakdown rows={[{ category: 'groceries', amount: -800 }]} trend={[1, 2, 3, 4]} />,
+    )
+    expect(container.querySelector('[data-slot="sparkline"]')).toBeInTheDocument()
+  })
+
+  it('renders no sparkline when trend is omitted', () => {
+    const { container } = render(
+      <CategoryBreakdown rows={[{ category: 'groceries', amount: -800 }]} />,
+    )
+    expect(container.querySelector('[data-slot="sparkline"]')).not.toBeInTheDocument()
+  })
+})
