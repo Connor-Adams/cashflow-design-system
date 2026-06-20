@@ -105,6 +105,11 @@
     "category": "finance"
   },
   {
+    "slug": "category-breakdown",
+    "name": "CategoryBreakdown",
+    "category": "finance"
+  },
+  {
     "slug": "category-pill",
     "name": "CategoryPill",
     "category": "finance"
