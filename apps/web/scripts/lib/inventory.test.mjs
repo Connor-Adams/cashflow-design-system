@@ -1,0 +1,79 @@
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
+import { summaryFromUsage, buildInventory } from './inventory.mjs'
+
+test('summaryFromUsage: strips heading markers and picks first non-empty line', () => {
+  assert.equal(summaryFromUsage('\n\n# Button\n\nMore text'), 'Button')
+  assert.equal(summaryFromUsage('Plain first line\nsecond'), 'Plain first line')
+  assert.equal(summaryFromUsage('   \n  ## Heading two  \n'), 'Heading two')
+  assert.equal(summaryFromUsage(''), '')
+  assert.equal(summaryFromUsage('   \n  '), '')
+})
+
+const FIXTURE = {
+  manifest: [
+    { slug: 'button', name: 'Button', category: 'core' },
+    { slug: 'badge', name: 'Badge', category: 'core' },
+    { slug: 'money-input', name: 'MoneyInput', category: 'forms' },
+  ],
+  props: {
+    Button: [
+      { name: 'variant', type: '"primary" | "ghost"', required: false, defaultValue: 'primary', description: 'Visual style' },
+      { name: 'size', type: 'string', required: false, defaultValue: null, description: '' },
+    ],
+    // Badge intentionally has no props entry
+    MoneyInput: [
+      { name: 'value', type: 'number', required: true, defaultValue: null, description: '' },
+    ],
+  },
+  usage: {
+    button: 'Clickable action trigger.',
+    // badge intentionally missing
+    'money-input': 'Currency-aware numeric field.',
+  },
+  version: '0.3.1',
+  categories: ['core', 'data', 'feedback', 'finance', 'forms', 'navigation', 'overlays'],
+  packageName: '@connor-adams/designsystem',
+}
+
+test('buildInventory json: one entry per manifest item, sorted by name within category', () => {
+  const { json } = buildInventory({ ...FIXTURE, base: '' })
+  assert.equal(json.package, '@connor-adams/designsystem')
+  assert.equal(json.version, '0.3.1')
+  assert.equal(json.components.length, 3)
+  // core sorted by name: Badge before Button
+  assert.deepEqual(
+    json.components.filter((c) => c.category === 'core').map((c) => c.name),
+    ['Badge', 'Button'],
+  )
+})
+
+test('buildInventory json: docs url, summary fallback, props passthrough', () => {
+  const { json } = buildInventory({ ...FIXTURE, base: 'https://ds.example.com' })
+  const button = json.components.find((c) => c.name === 'Button')
+  assert.equal(button.docs, 'https://ds.example.com/components/button')
+  assert.equal(button.summary, 'Clickable action trigger.')
+  assert.equal(button.props.length, 2)
+  const badge = json.components.find((c) => c.name === 'Badge')
+  assert.equal(badge.summary, 'Badge component') // no usage → fallback
+  assert.deepEqual(badge.props, []) // no props entry → empty array
+})
+
+test('buildInventory json: relative docs url when base empty', () => {
+  const { json } = buildInventory({ ...FIXTURE, base: '' })
+  assert.equal(json.components.find((c) => c.name === 'Button').docs, '/components/button')
+})
+
+test('buildInventory llmsTxt: header counts, category sections, bullet + props format', () => {
+  const { llmsTxt } = buildInventory({ ...FIXTURE, base: '' })
+  assert.match(llmsTxt, /^# Cashflow Design System/)
+  // 3 components across 2 non-empty categories (core, forms)
+  assert.match(llmsTxt, /3 components across 2 categories/)
+  assert.match(llmsTxt, /Full inventory with prop schemas: \/components\.json/)
+  assert.match(llmsTxt, /\n## Core\n/)
+  assert.match(llmsTxt, /\n## Forms\n/)
+  assert.ok(!/## Data/.test(llmsTxt), 'empty categories omitted')
+  assert.match(llmsTxt, /- \[Button\]\(\/components\/button\): Clickable action trigger\. Props: variant, size\./)
+  // Badge: no props → no trailing "Props:" segment
+  assert.match(llmsTxt, /- \[Badge\]\(\/components\/badge\): Badge component\.\n/)
+})
