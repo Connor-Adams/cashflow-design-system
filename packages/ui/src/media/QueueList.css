@@ -25,6 +25,10 @@
   border-bottom: 1px solid var(--border);
 }
 
+.ca-queue-list__now-playing-text {
+  min-width: 0;
+}
+
 .ca-queue-list__now-playing-label {
   font-size: var(--text-body-sm);
   color: var(--primary);

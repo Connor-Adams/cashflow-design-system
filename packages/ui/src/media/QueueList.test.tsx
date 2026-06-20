@@ -58,6 +58,13 @@ describe('QueueList', () => {
     expect(screen.getByText('Current')).toBeInTheDocument()
   })
 
+  it('styles the now-playing text wrapper via class, not inline style', () => {
+    const { container } = render(<QueueList items={items} nowPlaying={{ title: 'Current', duration: 60 }} />)
+    const wrapper = container.querySelector('.ca-queue-list__now-playing-text')
+    expect(wrapper).toBeInTheDocument()
+    expect(wrapper?.getAttribute('style')).toBeNull()
+  })
+
   it('forwards a ref to the underlying element', () => {
     const ref = createRef<HTMLDivElement>()
     render(<QueueList ref={ref} items={items} />)
