@@ -1,18 +1,41 @@
-import React from 'react'
+import * as React from 'react'
+
+export interface DropdownItem {
+  label?: string
+  icon?: React.ReactNode
+  shortcut?: string
+  onSelect?: () => void
+  danger?: boolean
+  disabled?: boolean
+  separator?: boolean
+}
+
+/**
+ * A trigger that opens a menu of actions. Closes on outside click, Escape, or
+ * select. `items` are rows; set `separator: true` for a divider, `danger` for
+ * destructive rows. `align` pins the menu to the trigger's start or end edge.
+ */
+export interface DropdownMenuProps {
+  trigger: React.ReactNode
+  items: DropdownItem[]
+  align?: 'start' | 'end'
+  className?: string
+  style?: React.CSSProperties
+}
 
 /**
  * Cashflow DropdownMenu. A trigger that opens a --popover menu of items.
  * Closes on outside click, Escape, or item select. Pass `trigger` (the clickable
  * node) and `items`: { label, icon?, onSelect?, danger?, disabled?, separator? }.
  */
-export function DropdownMenu({ trigger, items = [], align = 'start', className, style, ...props }) {
+export function DropdownMenu({ trigger, items = [], align = 'start', className, style, ...props }: DropdownMenuProps): React.JSX.Element {
   const [open, setOpen] = React.useState(false)
-  const ref = React.useRef(null)
+  const ref = React.useRef<HTMLSpanElement>(null)
 
   React.useEffect(() => {
     if (!open) return
-    const onDoc = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
-    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    const onDoc = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false) }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
     document.addEventListener('mousedown', onDoc)
     document.addEventListener('keydown', onKey)
     return () => { document.removeEventListener('mousedown', onDoc); document.removeEventListener('keydown', onKey) }
@@ -27,7 +50,7 @@ export function DropdownMenu({ trigger, items = [], align = 'start', className, 
           style={{
             position: 'absolute',
             top: 'calc(100% + 6px)',
-            [align === 'end' ? 'right' : 'left']: 0,
+            ...({ [align === 'end' ? 'right' : 'left']: 0 } as React.CSSProperties),
             zIndex: 70,
             minWidth: 180,
             padding: 4,
@@ -65,8 +88,8 @@ export function DropdownMenu({ trigger, items = [], align = 'start', className, 
                   cursor: it.disabled ? 'not-allowed' : 'pointer',
                   opacity: it.disabled ? 0.5 : 1,
                 }}
-                onMouseEnter={(e) => { if (!it.disabled) e.currentTarget.style.background = it.danger ? 'color-mix(in srgb, var(--destructive) 12%, transparent)' : 'var(--muted)' }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
+                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => { if (!it.disabled) e.currentTarget.style.background = it.danger ? 'color-mix(in srgb, var(--destructive) 12%, transparent)' : 'var(--muted)' }}
+                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.background = 'transparent' }}
               >
                 {it.icon && <span style={{ display: 'inline-flex', flex: 'none' }}>{it.icon}</span>}
                 <span style={{ flex: 1 }}>{it.label}</span>

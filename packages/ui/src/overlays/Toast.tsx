@@ -1,11 +1,25 @@
-import React from 'react'
+import * as React from 'react'
+
+/**
+ * Toast notification — a popover card with a semantic left accent. Presentational:
+ * manage timing/stacking yourself. `onClose` renders a dismiss button.
+ */
+export interface ToastProps {
+  variant?: 'default' | 'success' | 'error' | 'warning' | 'info'
+  title?: React.ReactNode
+  action?: React.ReactNode
+  onClose?: () => void
+  className?: string
+  style?: React.CSSProperties
+  children?: React.ReactNode
+}
 
 /**
  * Cashflow Toast. A --popover card with a semantic left accent bar, title,
  * optional body, and a close affordance. Presentational — drive show/hide and
  * stacking from your own state or a Toaster container.
  */
-const ACCENT = {
+const ACCENT: Record<NonNullable<ToastProps['variant']>, string> = {
   default: 'var(--primary)',
   success: 'var(--success)',
   error:   'var(--danger)',
@@ -13,7 +27,7 @@ const ACCENT = {
   info:    'var(--info)',
 }
 
-export function Toast({ variant = 'default', title, action, onClose, className, style, children, ...props }) {
+export function Toast({ variant = 'default', title, action, onClose, className, style, children, ...props }: ToastProps): React.JSX.Element {
   const accent = ACCENT[variant] || ACCENT.default
   return (
     <div
@@ -40,7 +54,7 @@ export function Toast({ variant = 'default', title, action, onClose, className, 
       {...props}
     >
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {title && <p style={{ margin: 0, fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' }}>{title}</p>}
+        {title && <p style={{ margin: 0, fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{title}</p>}
         {children && <p style={{ margin: 0, fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)', lineHeight: 1.45 }}>{children}</p>}
         {action && <div style={{ marginTop: 6 }}>{action}</div>}
       </div>

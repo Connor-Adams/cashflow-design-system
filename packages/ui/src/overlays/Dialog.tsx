@@ -1,14 +1,31 @@
-import React from 'react'
+import * as React from 'react'
+
+/**
+ * Modal dialog over a dimmed scrim. Controlled with `open` + `onClose`
+ * (fires on scrim click / Escape). `title`, `description`, `footer` build the
+ * standard layout; `children` is the body. `size` controls max width.
+ */
+export interface DialogProps {
+  open: boolean
+  onClose?: () => void
+  title?: React.ReactNode
+  description?: React.ReactNode
+  footer?: React.ReactNode
+  size?: 'sm' | 'default' | 'lg'
+  className?: string
+  style?: React.CSSProperties
+  children?: React.ReactNode
+}
 
 /**
  * Cashflow Dialog. A centered --popover card over a dimmed, blurred scrim.
  * Controlled with `open` + `onClose`; closes on scrim click or Escape. Pass
  * `title` / `description` for the header and `footer` for the action row.
  */
-export function Dialog({ open, onClose, title, description, footer, size = 'default', className, style, children, ...props }) {
+export function Dialog({ open, onClose, title, description, footer, size = 'default', className, style, children, ...props }: DialogProps): React.JSX.Element | null {
   React.useEffect(() => {
     if (!open) return
-    const onKey = (e) => { if (e.key === 'Escape') onClose?.() }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose?.() }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [open, onClose])
@@ -36,7 +53,7 @@ export function Dialog({ open, onClose, title, description, footer, size = 'defa
     >
       <div
         className={className}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
         style={{
           width: '100%',
           maxWidth: maxW,
@@ -55,7 +72,7 @@ export function Dialog({ open, onClose, title, description, footer, size = 'defa
       >
         {(title || description) && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {title && <h2 style={{ margin: 0, fontSize: 'var(--text-headline-sm)', fontWeight: 'var(--weight-semibold)' }}>{title}</h2>}
+            {title && <h2 style={{ margin: 0, fontSize: 'var(--text-headline-sm)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{title}</h2>}
             {description && <p style={{ margin: 0, fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)' }}>{description}</p>}
           </div>
         )}
