@@ -25,3 +25,4 @@ apps/web/next-env.d.ts
 
 # Package tarballs (pnpm pack output)
 *.tgz
+.vercel

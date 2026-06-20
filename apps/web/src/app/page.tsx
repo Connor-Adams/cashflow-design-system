@@ -144,7 +144,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://github.com/Connor-Adams/cashflow-design-system"
+            href="https://cashflow-storybook.vercel.app"
             target="_blank"
             rel="noreferrer"
             style={{
@@ -163,7 +163,7 @@ export default function Home() {
               lineHeight: 1,
             }}
           >
-            Storybook (coming soon)
+            Storybook
           </a>
         </div>
       </section>
@@ -231,7 +231,21 @@ export default function Home() {
           >
             the components index
           </Link>
-          . Explore variant playgrounds in Storybook (repo coming soon).
+          . Explore variant playgrounds in{' '}
+          <a
+            href="https://cashflow-storybook.vercel.app"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              color: 'var(--primary)',
+              textDecoration: 'underline',
+              textUnderlineOffset: 3,
+              fontWeight: 500,
+            }}
+          >
+            Storybook
+          </a>
+          .
         </p>
       </section>
     </main>
