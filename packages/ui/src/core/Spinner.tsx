@@ -2,7 +2,8 @@ import * as React from 'react'
 import './Spinner.css'
 
 /**
- * Cashflow Spinner. A token-colored ring that spins. `size` in px (or a
+ * Cashflow Spinner. A token-colored ring that spins, its arc fading from
+ * full-tone to transparent for a comet-trail gradient. `size` in px (or a
  * named step); `tone` picks the stroke color. Inherits currentColor by default
  * so it tints to its context (e.g. inside a primary Button).
  */
@@ -31,6 +32,7 @@ export const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(function 
 ): React.JSX.Element {
   const px = typeof size === 'number' ? size : (SIZES[size] || SIZES['default']!)
   const color = TONES[tone] || tone
+  const gradientId = `ca-spinner-${React.useId()}`
   return (
     <span
       ref={ref}
@@ -42,8 +44,16 @@ export const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(function 
       {...props}
     >
       <svg width={px} height={px} viewBox="0 0 24 24" fill="none">
+        <defs>
+          {/* Arc fades from full-tone (leading edge) to transparent (tail),
+             giving the ring a comet-trail gradient as it spins. */}
+          <linearGradient id={gradientId} x1="21" y1="12" x2="12" y2="3" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={color} stopOpacity="1" />
+            <stop offset="100%" stopColor={color} stopOpacity="0" />
+          </linearGradient>
+        </defs>
         <circle cx="12" cy="12" r="9" stroke={color} strokeOpacity="0.22" strokeWidth="3" />
-        <path d="M12 3 a9 9 0 0 1 9 9" stroke={color} strokeWidth="3" strokeLinecap="round" />
+        <path d="M12 3 a9 9 0 0 1 9 9" stroke={`url(#${gradientId})`} strokeWidth="3" strokeLinecap="round" />
       </svg>
     </span>
   )
