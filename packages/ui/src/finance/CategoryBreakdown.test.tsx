@@ -56,3 +56,29 @@ describe('CategoryBreakdown', () => {
     expect(screen.queryByText('Groceries')).not.toBeInTheDocument()
   })
 })
+
+describe('CategoryBreakdown bar scaling', () => {
+  it('renders the largest row at 100% and scales the rest', () => {
+    render(
+      <CategoryBreakdown
+        rows={[
+          { category: 'groceries', amount: -800 },
+          { category: 'dining', amount: -400 },
+        ]}
+      />,
+    )
+    const bars = screen.getAllByRole('progressbar', { hidden: true })
+    expect(bars[0]).toHaveAttribute('aria-valuenow', '100')
+    expect(bars[1]).toHaveAttribute('aria-valuenow', '50')
+  })
+
+  it('honors an explicit max as the bar denominator', () => {
+    render(<CategoryBreakdown rows={[{ category: 'groceries', amount: -500 }]} max={1000} />)
+    expect(screen.getByRole('progressbar', { hidden: true })).toHaveAttribute('aria-valuenow', '50')
+  })
+
+  it('renders bars at 0% when all amounts are zero (no divide-by-zero)', () => {
+    render(<CategoryBreakdown rows={[{ category: 'groceries', amount: 0 }]} />)
+    expect(screen.getByRole('progressbar', { hidden: true })).toHaveAttribute('aria-valuenow', '0')
+  })
+})
