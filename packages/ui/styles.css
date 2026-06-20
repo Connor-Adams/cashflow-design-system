@@ -1,9 +1,14 @@
-/* Cascade layers are baked into the imported files: the token base element
-   resets live in @layer base, the component CSS in @layer components (wrapped
-   at build time). Plain @import inlines both — do NOT use `@import ... layer()`
-   here, Next.js's CSS pipeline silently drops layered imports. Layer order
-   follows first appearance: base (imported first) < components < anything
-   unlayered, so components beat the base resets while consumer styles and
-   Tailwind utilities still override components via className. */
+/* Single styling entry. The package's JS bundle side-effect-imports this (tsup
+   banner), so `import { Button } from '@connor-adams/designsystem'` is enough to
+   pull styles in; it is also exported as `@connor-adams/designsystem/styles.css`
+   for consumers that prefer to link the stylesheet directly.
+
+   Cascade layers are baked into the imported files: the token base element
+   resets live in @layer base, the component CSS in @layer components (wrapped at
+   build time). Use plain @import — do NOT use `@import ... layer()` here, which
+   Next.js's CSS pipeline silently drops, taking the whole stylesheet down with
+   it. Layer order follows first appearance: base (imported first) < components <
+   anything unlayered, so components beat the base resets while consumer styles
+   and Tailwind utilities still override components via className. */
 @import "@connor-adams/tokens/styles.css";
 @import "./dist/index.css";
