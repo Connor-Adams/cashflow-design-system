@@ -1,0 +1,217 @@
+[
+  {
+    "slug": "accordion",
+    "name": "Accordion",
+    "category": "core"
+  },
+  {
+    "slug": "avatar",
+    "name": "Avatar",
+    "category": "core"
+  },
+  {
+    "slug": "badge",
+    "name": "Badge",
+    "category": "core"
+  },
+  {
+    "slug": "button",
+    "name": "Button",
+    "category": "core"
+  },
+  {
+    "slug": "card",
+    "name": "Card",
+    "category": "core"
+  },
+  {
+    "slug": "kbd",
+    "name": "Kbd",
+    "category": "core"
+  },
+  {
+    "slug": "link",
+    "name": "Link",
+    "category": "core"
+  },
+  {
+    "slug": "progress",
+    "name": "Progress",
+    "category": "core"
+  },
+  {
+    "slug": "separator",
+    "name": "Separator",
+    "category": "core"
+  },
+  {
+    "slug": "spinner",
+    "name": "Spinner",
+    "category": "core"
+  },
+  {
+    "slug": "text",
+    "name": "Text",
+    "category": "core"
+  },
+  {
+    "slug": "letter-avatar",
+    "name": "LetterAvatar",
+    "category": "data"
+  },
+  {
+    "slug": "stat-card",
+    "name": "StatCard",
+    "category": "data"
+  },
+  {
+    "slug": "table",
+    "name": "Table",
+    "category": "data"
+  },
+  {
+    "slug": "tabs",
+    "name": "Tabs",
+    "category": "data"
+  },
+  {
+    "slug": "alert",
+    "name": "Alert",
+    "category": "feedback"
+  },
+  {
+    "slug": "empty-state",
+    "name": "EmptyState",
+    "category": "feedback"
+  },
+  {
+    "slug": "skeleton",
+    "name": "Skeleton",
+    "category": "feedback"
+  },
+  {
+    "slug": "account-card",
+    "name": "AccountCard",
+    "category": "finance"
+  },
+  {
+    "slug": "amount-text",
+    "name": "AmountText",
+    "category": "finance"
+  },
+  {
+    "slug": "budget-meter",
+    "name": "BudgetMeter",
+    "category": "finance"
+  },
+  {
+    "slug": "category-pill",
+    "name": "CategoryPill",
+    "category": "finance"
+  },
+  {
+    "slug": "import-dropzone",
+    "name": "ImportDropzone",
+    "category": "finance"
+  },
+  {
+    "slug": "money-input",
+    "name": "MoneyInput",
+    "category": "finance"
+  },
+  {
+    "slug": "period-selector",
+    "name": "PeriodSelector",
+    "category": "finance"
+  },
+  {
+    "slug": "sparkline",
+    "name": "Sparkline",
+    "category": "finance"
+  },
+  {
+    "slug": "checkbox",
+    "name": "Checkbox",
+    "category": "forms"
+  },
+  {
+    "slug": "combobox",
+    "name": "Combobox",
+    "category": "forms"
+  },
+  {
+    "slug": "input",
+    "name": "Input",
+    "category": "forms"
+  },
+  {
+    "slug": "label",
+    "name": "Label",
+    "category": "forms"
+  },
+  {
+    "slug": "native-select",
+    "name": "NativeSelect",
+    "category": "forms"
+  },
+  {
+    "slug": "radio-group",
+    "name": "RadioGroup",
+    "category": "forms"
+  },
+  {
+    "slug": "slider",
+    "name": "Slider",
+    "category": "forms"
+  },
+  {
+    "slug": "stepper",
+    "name": "Stepper",
+    "category": "forms"
+  },
+  {
+    "slug": "switch",
+    "name": "Switch",
+    "category": "forms"
+  },
+  {
+    "slug": "textarea",
+    "name": "Textarea",
+    "category": "forms"
+  },
+  {
+    "slug": "toggle-group",
+    "name": "ToggleGroup",
+    "category": "forms"
+  },
+  {
+    "slug": "breadcrumb",
+    "name": "Breadcrumb",
+    "category": "navigation"
+  },
+  {
+    "slug": "pagination",
+    "name": "Pagination",
+    "category": "navigation"
+  },
+  {
+    "slug": "dialog",
+    "name": "Dialog",
+    "category": "overlays"
+  },
+  {
+    "slug": "dropdown-menu",
+    "name": "DropdownMenu",
+    "category": "overlays"
+  },
+  {
+    "slug": "toast",
+    "name": "Toast",
+    "category": "overlays"
+  },
+  {
+    "slug": "tooltip",
+    "name": "Tooltip",
+    "category": "overlays"
+  }
+]
