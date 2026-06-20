@@ -11,7 +11,8 @@
     "typecheck": "turbo run typecheck",
     "storybook": "pnpm --filter @connoradams/storybook dev",
     "changeset": "changeset",
-    "release": "turbo run build && changeset publish"
+    "release": "turbo run build && changeset publish",
+    "validate": "node scripts/validate.mjs"
   },
   "devDependencies": {
     "turbo": "^2.1.0",
