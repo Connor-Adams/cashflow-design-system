@@ -17,7 +17,7 @@ const meta: Meta<typeof AmountText> = {
   argTypes: {
     direction: {
       control: 'select',
-      options: ['in', 'out', 'zero', undefined],
+      options: ['in', 'out', 'zero'],
     },
     size: {
       control: 'select',

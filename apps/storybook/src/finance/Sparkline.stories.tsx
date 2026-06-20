@@ -15,7 +15,7 @@ const meta: Meta<typeof Sparkline> = {
   argTypes: {
     tone: {
       control: 'select',
-      options: ['positive', 'negative', 'neutral', 'primary', undefined],
+      options: ['positive', 'negative', 'neutral', 'primary'],
     },
   },
 }

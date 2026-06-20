@@ -17,7 +17,7 @@ const meta: Meta<typeof MoneyInput> = {
     },
     direction: {
       control: 'select',
-      options: ['in', 'out', undefined],
+      options: ['in', 'out'],
     },
   },
 }
