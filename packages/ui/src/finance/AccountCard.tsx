@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
  * Cashflow AccountCard. A connected-account tile: institution glyph, account
@@ -6,7 +6,20 @@ import React from 'react'
  * optional sync status. `kind` tints the institution chip. Set `selected` for
  * the active account in a list, and pass `onClick` to make it interactive.
  */
-const KIND_TINT = {
+export interface AccountCardProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onClick'> {
+  name: React.ReactNode
+  institution?: string
+  mask?: string
+  balance?: number
+  currency?: string
+  locale?: string
+  kind?: 'chequing' | 'savings' | 'credit' | 'investment' | 'cash' | 'default'
+  status?: 'synced' | 'syncing' | 'error'
+  selected?: boolean
+  onClick?: () => void
+}
+
+const KIND_TINT: Record<'chequing' | 'savings' | 'credit' | 'investment' | 'cash' | 'default', string> = {
   chequing: 'var(--chart-steel)',
   savings: 'var(--positive)',
   credit: 'var(--oxblood-400)',
@@ -29,7 +42,7 @@ export function AccountCard({
   className,
   style,
   ...props
-}) {
+}: AccountCardProps): React.JSX.Element {
   const tint = KIND_TINT[kind] || KIND_TINT.default
   const interactive = typeof onClick === 'function'
   const Tag = interactive ? 'button' : 'div'
@@ -42,7 +55,7 @@ export function AccountCard({
   return (
     <Tag
       data-slot="account-card"
-      onClick={onClick}
+      onClick={onClick as React.MouseEventHandler<HTMLButtonElement & HTMLDivElement>}
       type={interactive ? 'button' : undefined}
       className={className}
       style={{
@@ -54,14 +67,14 @@ export function AccountCard({
         cursor: interactive ? 'pointer' : 'default', fontFamily: 'var(--font-sans)',
         transition: 'border-color 150ms, box-shadow 150ms', ...style,
       }}
-      {...props}
+      {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLDivElement>)}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{ width: 34, height: 34, flex: 'none', borderRadius: 'var(--radius-md)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `color-mix(in oklch, ${tint} 16%, transparent)`, color: tint }}>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
         </span>
         <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.25, minWidth: 0 }}>
-          <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{name}</span>
+          <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{name}</span>
           <span style={{ fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)', fontFamily: 'var(--font-mono)' }}>
             {institution ? institution + ' ' : ''}{mask ? '••' + mask : ''}
           </span>
@@ -69,8 +82,8 @@ export function AccountCard({
       </div>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 8 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <span style={{ fontSize: 'var(--text-label)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 'var(--weight-semibold)', color: 'var(--muted-foreground)' }}>{kind === 'credit' ? 'Balance owing' : 'Balance'}</span>
-          <span style={{ fontSize: 'var(--text-headline-sm)', fontWeight: 'var(--weight-bold)', fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums', color: negative ? 'var(--negative)' : 'var(--foreground)' }}>
+          <span style={{ fontSize: 'var(--text-label)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], color: 'var(--muted-foreground)' }}>{kind === 'credit' ? 'Balance owing' : 'Balance'}</span>
+          <span style={{ fontSize: 'var(--text-headline-sm)', fontWeight: 'var(--weight-bold)' as React.CSSProperties['fontWeight'], fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums', color: negative ? 'var(--negative)' : 'var(--foreground)' }}>
             {negative ? '−' : ''}{formatted}
           </span>
         </div>

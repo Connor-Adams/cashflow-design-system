@@ -1,12 +1,21 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
- * Cashflow CategoryPill. The transaction-category chip: a small tinted token
- * with the category's icon + label. Ships a built-in icon set for the common
- * Cashflow categories; pass `icon` to override and `color` to retint. Set
- * `interactive` for a button (e.g. to filter or reassign).
+ * Transaction-category chip — tinted icon + label. Ships icons/tints for the
+ * common categories (groceries, income, dining, transport, subscriptions,
+ * utilities, fees, housing); override with `icon` and `color`. `interactive`
+ * renders a button for filtering/reassigning.
  */
-const ICONS = {
+export interface CategoryPillProps extends React.HTMLAttributes<HTMLElement> {
+  category?: string
+  label?: React.ReactNode
+  icon?: React.ReactNode
+  color?: string
+  interactive?: boolean
+  size?: 'sm' | 'default'
+}
+
+const ICONS: Record<string, React.JSX.Element> = {
   groceries: <><circle cx="8" cy="21" r="1" /><circle cx="19" cy="21" r="1" /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></>,
   income: <><path d="M22 7 13.5 15.5l-5-5L2 17" /><path d="M16 7h6v6" /></>,
   dining: <><path d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 0 0 2-2V2" /><path d="M7 2v20" /><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /></>,
@@ -18,7 +27,7 @@ const ICONS = {
   default: <><circle cx="12" cy="12" r="3" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2" /></>,
 }
 
-const TINTS = {
+const TINTS: Record<string, string> = {
   groceries: 'var(--gradient-hero-from)',
   income: 'var(--positive)',
   dining: 'var(--oxblood-400)',
@@ -30,10 +39,10 @@ const TINTS = {
   default: 'var(--muted-foreground)',
 }
 
-export function CategoryPill({ category = 'default', label, icon, color, interactive = false, size = 'default', className, style, onClick, ...props }) {
+export function CategoryPill({ category = 'default', label, icon, color, interactive = false, size = 'default', className, style, onClick, ...props }: CategoryPillProps): React.JSX.Element {
   const key = String(category).toLowerCase()
-  const tint = color || TINTS[key] || TINTS.default
-  const glyph = icon !== undefined ? icon : (ICONS[key] || ICONS.default)
+  const tint = color || TINTS[key] || TINTS['default']!
+  const glyph = icon !== undefined ? icon : (ICONS[key] || ICONS['default']!)
   const text = label != null ? label : (category.charAt(0).toUpperCase() + category.slice(1))
   const sm = size === 'sm'
   const Tag = interactive ? 'button' : 'span'
@@ -42,7 +51,7 @@ export function CategoryPill({ category = 'default', label, icon, color, interac
     <Tag
       data-slot="category-pill"
       className={className}
-      onClick={onClick}
+      onClick={onClick as React.MouseEventHandler<HTMLButtonElement & HTMLSpanElement>}
       type={interactive ? 'button' : undefined}
       style={{
         display: 'inline-flex', alignItems: 'center', gap: sm ? 5 : 6, width: 'fit-content', flexShrink: 0,
@@ -51,10 +60,10 @@ export function CategoryPill({ category = 'default', label, icon, color, interac
         color: `color-mix(in oklch, ${tint} 72%, var(--foreground))`,
         border: '1px solid transparent', cursor: interactive ? 'pointer' : 'default',
         fontFamily: 'var(--font-sans)', fontSize: sm ? 'var(--text-body-sm)' : 'var(--text-body-sm)',
-        fontWeight: 'var(--weight-medium)', lineHeight: 1.3, whiteSpace: 'nowrap',
+        fontWeight: 'var(--weight-medium)' as React.CSSProperties['fontWeight'], lineHeight: 1.3, whiteSpace: 'nowrap',
         ...style,
       }}
-      {...props}
+      {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLSpanElement>)}
     >
       <svg width={sm ? 12 : 13} height={sm ? 12 : 13} viewBox="0 0 24 24" fill="none" stroke={tint} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }}>{glyph}</svg>
       {text}

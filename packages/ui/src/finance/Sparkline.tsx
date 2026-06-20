@@ -1,22 +1,31 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
- * Cashflow Sparkline. A tiny inline trend line for StatCards, account rows, and
- * balances. Pass `data` (numbers); the line auto-scales to its box. Tone is
- * inferred from the trend (last vs first) unless you pass `tone`. Optional
- * `area` fill and an end-point `dot`.
+ * Tiny inline trend line for KPI tiles and account rows. `data` is a series of
+ * numbers, auto-scaled to the box. Tone is inferred from the trend (last vs
+ * first) unless `tone` is set. Optional `area` gradient fill and end `dot`.
  */
-const TONES = {
+export interface SparklineProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'data'> {
+  data: number[]
+  width?: number
+  height?: number
+  tone?: 'positive' | 'negative' | 'neutral' | 'primary'
+  area?: boolean
+  dot?: boolean
+  strokeWidth?: number
+}
+
+const TONES: Record<'positive' | 'negative' | 'neutral' | 'primary', string> = {
   positive: 'var(--positive)',
   negative: 'var(--negative)',
   neutral: 'var(--muted-foreground)',
   primary: 'var(--primary)',
 }
 
-export function Sparkline({ data = [], width = 96, height = 28, tone, area = true, dot = true, strokeWidth = 2, className, style, ...props }) {
+export function Sparkline({ data = [], width = 96, height = 28, tone, area = true, dot = true, strokeWidth = 2, className, style, ...props }: SparklineProps): React.JSX.Element {
   const pts = data.filter((n) => typeof n === 'number' && !Number.isNaN(n))
   if (pts.length < 2) {
-    return <span data-slot="sparkline" className={className} style={{ display: 'inline-block', width, height, ...style }} {...props} />
+    return <span data-slot="sparkline" className={className} style={{ display: 'inline-block', width, height, ...style }} {...(props as React.HTMLAttributes<HTMLSpanElement>)} />
   }
 
   const min = Math.min(...pts)
@@ -29,15 +38,17 @@ export function Sparkline({ data = [], width = 96, height = 28, tone, area = tru
   const coords = pts.map((v, i) => {
     const x = pad + (i / (pts.length - 1)) * innerW
     const y = pad + (1 - (v - min) / span) * innerH
-    return [x, y]
+    return [x, y] as [number, number]
   })
 
-  const dir = pts[pts.length - 1] >= pts[0] ? 'positive' : 'negative'
+  const dir: 'positive' | 'negative' = (pts[pts.length - 1] ?? 0) >= (pts[0] ?? 0) ? 'positive' : 'negative'
   const color = TONES[tone || dir] || TONES.neutral
   const line = coords.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ')
-  const fill = `${line} L${coords[coords.length - 1][0].toFixed(1)} ${height} L${coords[0][0].toFixed(1)} ${height} Z`
+  const lastCoord = coords[coords.length - 1]!
+  const firstCoord = coords[0]!
+  const fill = `${line} L${lastCoord[0].toFixed(1)} ${height} L${firstCoord[0].toFixed(1)} ${height} Z`
   const gid = React.useId ? React.useId().replace(/:/g, '') : 'sp' + Math.random().toString(36).slice(2, 7)
-  const [ex, ey] = coords[coords.length - 1]
+  const [ex, ey] = lastCoord
 
   return (
     <svg

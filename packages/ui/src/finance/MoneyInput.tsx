@@ -1,12 +1,26 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
- * Cashflow MoneyInput. A currency amount field: a leading currency symbol/code,
- * a right-aligned mono amount, and an optional in/out direction toggle. Stores a
- * numeric value via `onValueChange`; formats with grouping on blur. Mirrors
- * Input's border + focus-ring treatment.
+ * Currency amount field: leading symbol, right-aligned mono amount, trailing
+ * currency code, and an optional in/out direction toggle. `onValueChange`
+ * receives the parsed number (or null) and the raw string. Groups digits on
+ * blur. Controlled via `value` or uncontrolled via `defaultValue`.
  */
-const SYMBOLS = { CAD: '$', USD: '$', EUR: '€', GBP: '£', AUD: '$', JPY: '¥' }
+export interface MoneyInputProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
+  value?: number | string
+  defaultValue?: number | string
+  onValueChange?: (value: number | null, raw: string) => void
+  currency?: string
+  locale?: string
+  direction?: 'in' | 'out'
+  onDirectionChange?: (direction: 'in' | 'out') => void
+  disabled?: boolean
+  invalid?: boolean
+  size?: 'sm' | 'default'
+  placeholder?: string
+}
+
+const SYMBOLS: Record<string, string> = { CAD: '$', USD: '$', EUR: '€', GBP: '£', AUD: '$', JPY: '¥' }
 
 export function MoneyInput({
   value,
@@ -23,16 +37,16 @@ export function MoneyInput({
   className,
   style,
   ...props
-}) {
+}: MoneyInputProps): React.JSX.Element {
   const isControlled = value !== undefined
-  const [internal, setInternal] = React.useState(defaultValue === '' ? '' : String(defaultValue))
-  const [focused, setFocused] = React.useState(false)
+  const [internal, setInternal] = React.useState<string>(defaultValue === '' ? '' : String(defaultValue))
+  const [focused, setFocused] = React.useState<boolean>(false)
   const raw = isControlled ? (value === '' || value == null ? '' : String(value)) : internal
 
   const h = size === 'sm' ? 32 : 36
   const sym = SYMBOLS[currency] || ''
 
-  const commit = (str) => {
+  const commit = (str: string): void => {
     if (!isControlled) setInternal(str)
     const num = str === '' ? null : Number(str.replace(/[^0-9.\-]/g, ''))
     onValueChange?.(Number.isNaN(num) ? null : num, str)
@@ -71,7 +85,7 @@ export function MoneyInput({
           style={{
             width: h, flex: 'none', border: 'none', borderRight: '1px solid var(--border)', cursor: disabled ? 'not-allowed' : 'pointer',
             background: direction === 'in' ? 'color-mix(in oklch, var(--positive) 14%, transparent)' : 'color-mix(in oklch, var(--negative) 14%, transparent)',
-            color: direction === 'in' ? 'var(--positive)' : 'var(--negative)', fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 'var(--weight-bold)',
+            color: direction === 'in' ? 'var(--positive)' : 'var(--negative)', fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 'var(--weight-bold)' as React.CSSProperties['fontWeight'],
           }}
         >{direction === 'in' ? '+' : '−'}</button>
       )}
@@ -83,10 +97,10 @@ export function MoneyInput({
         placeholder={placeholder}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        onChange={(e) => commit(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => commit(e.target.value)}
         style={{
           width: 96, border: 'none', outline: 'none', background: 'transparent', textAlign: 'right',
-          padding: '0 10px 0 2px', fontFamily: 'var(--font-mono)', fontWeight: 'var(--weight-semibold)',
+          padding: '0 10px 0 2px', fontFamily: 'var(--font-mono)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
           fontSize: size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)', color: 'var(--foreground)',
           fontVariantNumeric: 'tabular-nums',
         }}

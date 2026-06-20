@@ -1,11 +1,20 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
- * Cashflow BudgetMeter. A labeled budget row: category name, spent / limit, and
- * a Progress-style bar that turns amber as it nears the limit and oxblood when
- * over. Pass `spent` and `limit` (same currency); tone is derived automatically.
+ * A budget row: label, spent / limit readout, and a bar that goes green →
+ * amber (near `warnAt`, default 0.85) → oxblood (over). Derives tone and the
+ * "X left / X over budget" line automatically from `spent` and `limit`.
  */
-export function BudgetMeter({ label, spent = 0, limit = 0, currency = 'CAD', locale = 'en-CA', warnAt = 0.85, className, style, ...props }) {
+export interface BudgetMeterProps extends React.HTMLAttributes<HTMLDivElement> {
+  label: React.ReactNode
+  spent: number
+  limit: number
+  currency?: string
+  locale?: string
+  warnAt?: number
+}
+
+export function BudgetMeter({ label, spent = 0, limit = 0, currency = 'CAD', locale = 'en-CA', warnAt = 0.85, className, style, ...props }: BudgetMeterProps): React.JSX.Element {
   const ratio = limit > 0 ? spent / limit : 0
   const pct = Math.min(100, Math.max(0, ratio * 100))
   const over = spent > limit
@@ -13,7 +22,7 @@ export function BudgetMeter({ label, spent = 0, limit = 0, currency = 'CAD', loc
   const fill = over ? 'var(--negative)' : near ? 'var(--warning)' : 'var(--positive)'
   const remaining = limit - spent
 
-  const fmt = (n) => {
+  const fmt = (n: number): string => {
     try { return new Intl.NumberFormat(locale, { style: 'currency', currency, maximumFractionDigits: 0 }).format(n) }
     catch (e) { return `${currency} ${Math.round(n)}` }
   }
@@ -21,9 +30,9 @@ export function BudgetMeter({ label, spent = 0, limit = 0, currency = 'CAD', loc
   return (
     <div data-slot="budget-meter" className={className} style={{ display: 'flex', flexDirection: 'column', gap: 7, width: '100%', fontFamily: 'var(--font-sans)', ...style }} {...props}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8 }}>
-        <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' }}>{label}</span>
+        <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{label}</span>
         <span style={{ fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)', color: 'var(--muted-foreground)' }}>
-          <span style={{ color: over ? 'var(--negative)' : 'var(--foreground)', fontWeight: 'var(--weight-semibold)' }}>{fmt(spent)}</span> / {fmt(limit)}
+          <span style={{ color: over ? 'var(--negative)' : 'var(--foreground)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{fmt(spent)}</span> / {fmt(limit)}
         </span>
       </div>
       <div style={{ position: 'relative', overflow: 'hidden', height: 8, width: '100%', borderRadius: 99, background: 'var(--muted)' }}>
