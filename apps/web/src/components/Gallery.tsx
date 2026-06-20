@@ -101,7 +101,7 @@ export function Gallery({ entries }: { entries: ManifestEntry[] }) {
                         background: 'var(--card)',
                       }}
                     >
-                      {previews[item.slug] ?? (
+                      {previews[item.slug]?.[0]?.node ?? (
                         <span style={{ color: 'var(--muted-foreground)' }}>Preview coming soon.</span>
                       )}
                     </div>
