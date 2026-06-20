@@ -28,14 +28,25 @@ Card
 - **Card** (`core/Card`) — container.
 - **Text** (`core/Text`) — title and muted subtitle.
 - **Sparkline** (`finance/Sparkline`) — header trend, right-aligned. Rendered
-  only when `trend` is provided. Default `tone='negative'` (oxblood line).
+  only when `trend` is provided. The primitive infers tone from trend direction
+  unless `tone` is passed; this wrapper defaults `trendTone='negative'` and
+  passes it through, so the line is oxblood by default regardless of direction
+  (override via `trendTone`).
 - **CategoryPill** (`finance/CategoryPill`) — left column. Non-interactive
   `span` (its built-in icons/tints already cover groceries, dining, transport,
   subscriptions, utilities, income, fees, housing).
 - **Progress** (`core/Progress`) — the bar. `value = abs(amount) / max * 100`.
   `tone` is passed straight into `background`, so a CSS gradient string renders
-  the warm hero gradient with no new component:
-  `linear-gradient(90deg, var(--gradient-hero-from), var(--gradient-hero-to))`.
+  the warm hero gradient with no new component.
+  **Gradient angle — intentional divergence:** existing hero tiles use the flat
+  `var(--gradient-hero)` token (135deg). This bar instead reconstructs the stops
+  at 90deg —
+  `linear-gradient(90deg, var(--gradient-hero-from), var(--gradient-hero-to))` —
+  so the gradient runs *along the bar's length* (orange at the start, pink at the
+  end). Rationale: a 135deg gradient on a thin horizontal bar collapses to near
+  one color and varies with bar width; 90deg keeps every bar reading the same
+  way and matches the screenshot. The from/to stops are the same token pair the
+  flat gradient is built from, so it stays on-palette.
 - **AmountText** (`finance/AmountText`) — right column. Signed, mono, money
   color (out = oxblood). Direction inferred from `amount`.
 
