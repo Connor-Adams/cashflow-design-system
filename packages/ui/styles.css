@@ -1,10 +1,9 @@
-/* Layer order, lowest → highest priority: base (token resets + variables) <
-   components < anything unlayered. Declaring the order up front means a
-   component's own CSS beats the token base element resets — notably
-   `button, input, select, textarea { font: inherit }`, which otherwise (when
-   components were layered but the base was not) wiped out every component's
-   font-weight/font-size. Consumer styles and Tailwind utilities stay unlayered,
-   so they still override components via className. */
-@layer base, components;
-@import "@connor-adams/tokens/styles.css" layer(base);
-@import "./dist/index.css" layer(components);
+/* Cascade layers are baked into the imported files: the token base element
+   resets live in @layer base, the component CSS in @layer components (wrapped
+   at build time). Plain @import inlines both — do NOT use `@import ... layer()`
+   here, Next.js's CSS pipeline silently drops layered imports. Layer order
+   follows first appearance: base (imported first) < components < anything
+   unlayered, so components beat the base resets while consumer styles and
+   Tailwind utilities still override components via className. */
+@import "@connor-adams/tokens/styles.css";
+@import "./dist/index.css";
