@@ -1,0 +1,70 @@
+/* Dialog — a centered popover card over a dimmed, blurred scrim. Layout and
+   visuals live in CSS; open/close behavior (Escape, scrim click) stays in JS.
+   All colors reach through the semantic token layer; no raw hex. */
+
+.ca-dialog-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: color-mix(in srgb, var(--foreground) 45%, transparent);
+  backdrop-filter: blur(2px);
+  font-family: var(--font-sans);
+}
+
+.ca-dialog {
+  width: 100%;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---- Sizes ---- */
+.ca-dialog[data-size='sm'] {
+  max-width: 360px;
+}
+.ca-dialog[data-size='default'] {
+  max-width: 480px;
+}
+.ca-dialog[data-size='lg'] {
+  max-width: 640px;
+}
+
+.ca-dialog-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ca-dialog-title {
+  margin: 0;
+  font-size: var(--text-headline-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-dialog-description {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+}
+
+.ca-dialog-body {
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+
+.ca-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 2px;
+}

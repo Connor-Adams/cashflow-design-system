@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './ToggleGroup.css'
 
 export interface ToggleItem {
   value: string
@@ -11,6 +12,10 @@ export interface ToggleItem {
  * to a card surface); `type="multiple"` toggles several. Controlled via `value`
  * + `onValueChange`, or uncontrolled via `defaultValue`. Value is a string for
  * single, string[] for multiple.
+ *
+ * Interactive states (hover, focus-visible ring, active lift) live in
+ * `ToggleGroup.css`, keyed off `data-size` / `data-state`. The ref forwards to
+ * the root `div[role=group]`.
  */
 export interface ToggleGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
   items: ToggleItem[]
@@ -21,13 +26,17 @@ export interface ToggleGroupProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   size?: 'sm' | 'default'
 }
 
-export function ToggleGroup({ items = [], type = 'single', value, defaultValue, onValueChange, size = 'default', className, style, ...props }: ToggleGroupProps): React.JSX.Element {
-  const initial = defaultValue != null ? defaultValue : (type === 'multiple' ? [] : null)
+export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(function ToggleGroup(
+  { items = [], type = 'single', value, defaultValue, onValueChange, size = 'default', className, ...props },
+  ref,
+): React.JSX.Element {
+  const initial = defaultValue != null ? defaultValue : type === 'multiple' ? [] : null
   const [internal, setInternal] = React.useState<string | string[] | null>(initial)
   const isControlled = value !== undefined
   const current = isControlled ? value : internal
 
-  const isActive = (v: string) => (type === 'multiple' ? ((current as string[] | null) || []).includes(v) : current === v)
+  const isActive = (v: string) =>
+    type === 'multiple' ? ((current as string[] | null) || []).includes(v) : current === v
   const pick = (v: string) => {
     let next: string | string[] | null
     if (type === 'multiple') {
@@ -40,34 +49,31 @@ export function ToggleGroup({ items = [], type = 'single', value, defaultValue, 
     onValueChange?.(next)
   }
 
-  const pad = size === 'sm' ? '5px 10px' : '7px 13px'
-  const fs = size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)'
-
   return (
-    <div role="group" className={className} style={{ display: 'inline-flex', gap: 4, borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)', background: 'color-mix(in oklch, var(--muted) 55%, transparent)', padding: 4, fontFamily: 'var(--font-sans)', ...style }} {...props}>
+    <div
+      ref={ref}
+      role="group"
+      data-slot="toggle-group"
+      data-size={size}
+      className={className ? `ca-toggle-group ${className}` : 'ca-toggle-group'}
+      {...props}
+    >
       {items.map((it) => {
         const active = isActive(it.value)
         return (
           <button
             key={it.value}
             type="button"
+            className="ca-toggle-group-item"
+            data-state={active ? 'on' : 'off'}
             aria-pressed={active}
             onClick={() => pick(it.value)}
-            style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 6, whiteSpace: 'nowrap',
-              borderRadius: 'var(--radius-md)', border: 'none', padding: pad, fontSize: fs,
-              fontWeight: 'var(--weight-medium)' as React.CSSProperties['fontWeight'], fontFamily: 'var(--font-sans)', cursor: 'pointer',
-              transition: 'color 150ms, background-color 150ms, box-shadow 150ms',
-              background: active ? 'var(--card)' : 'transparent',
-              color: active ? 'var(--foreground)' : 'color-mix(in oklch, var(--muted-foreground) 80%, var(--foreground))',
-              boxShadow: active ? 'var(--shadow)' : 'none',
-            }}
           >
-            {it.icon && <span style={{ display: 'inline-flex' }}>{it.icon}</span>}
+            {it.icon && <span className="ca-toggle-group-item-icon">{it.icon}</span>}
             {it.label}
           </button>
         )
       })}
     </div>
   )
-}
+})

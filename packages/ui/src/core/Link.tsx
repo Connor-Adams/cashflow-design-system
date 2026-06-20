@@ -1,9 +1,13 @@
 import * as React from 'react'
+import './Link.css'
 
 /**
  * Cashflow Link. An inline anchor in --text-link with underline-on-hover.
  * `muted` for secondary links; `subtle` removes the color (foreground link
  * that only underlines on hover). Pass `external` to get the ↗ affordance.
+ *
+ * Hover underline and the focus-visible ring live in `Link.css`, not JS — so
+ * keyboard focus is visible and there is no re-render on hover.
  */
 
 /**
@@ -17,28 +21,19 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
   external?: boolean
 }
 
-export function Link({ muted = false, subtle = false, external = false, className, style, children, ...props }: LinkProps): React.JSX.Element {
-  const [hover, setHover] = React.useState(false)
-  const color = subtle ? 'var(--foreground)' : muted ? 'var(--muted-foreground)' : 'var(--text-link)'
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
+  { muted = false, subtle = false, external = false, className, children, ...props },
+  ref,
+): React.JSX.Element {
+  const variant = subtle ? 'subtle' : muted ? 'muted' : 'default'
   return (
     <a
+      ref={ref}
       data-slot="link"
-      className={className}
+      data-variant={variant}
+      className={className ? `ca-link ${className}` : 'ca-link'}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer noopener' : undefined}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        color,
-        fontFamily: 'var(--font-sans)',
-        fontWeight: 'var(--weight-medium)' as React.CSSProperties['fontWeight'],
-        textDecoration: hover ? 'underline' : 'none',
-        textUnderlineOffset: 3,
-        textDecorationColor: 'color-mix(in oklch, currentColor 45%, transparent)',
-        cursor: 'pointer',
-        borderRadius: 2,
-        ...style,
-      }}
       {...props}
     >
       {children}
@@ -47,4 +42,4 @@ export function Link({ muted = false, subtle = false, external = false, classNam
       )}
     </a>
   )
-}
+})

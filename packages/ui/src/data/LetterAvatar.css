@@ -1,0 +1,38 @@
+/* LetterAvatar — a categorical identity chip. Sizing is keyed off data-size;
+   per-instance background/foreground come from inline custom props set by the
+   component (the hashed avatar slot). All colors reach through the token layer. */
+
+.ca-letter-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
+  background: var(--ca-avatar-bg);
+  color: var(--ca-avatar-fg);
+}
+
+.ca-letter-avatar[data-size='sm'] {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+.ca-letter-avatar[data-size='md'] {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+.ca-letter-avatar[data-size='lg'] {
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+}
+.ca-letter-avatar[data-size='xl'] {
+  width: 64px;
+  height: 64px;
+  font-size: 32px;
+}

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './DropdownMenu.css'
 
 export interface DropdownItem {
   label?: string
@@ -14,6 +15,10 @@ export interface DropdownItem {
  * A trigger that opens a menu of actions. Closes on outside click, Escape, or
  * select. `items` are rows; set `separator: true` for a divider, `danger` for
  * destructive rows. `align` pins the menu to the trigger's start or end edge.
+ *
+ * Open/close is behavior and stays in JS (the `open` state, outside-click and
+ * Escape listeners). Item hover/focus styling lives in `DropdownMenu.css` —
+ * menu items carry a `:focus-visible` ring.
  */
 export interface DropdownMenuProps {
   trigger: React.ReactNode
@@ -28,9 +33,13 @@ export interface DropdownMenuProps {
  * Closes on outside click, Escape, or item select. Pass `trigger` (the clickable
  * node) and `items`: { label, icon?, onSelect?, danger?, disabled?, separator? }.
  */
-export function DropdownMenu({ trigger, items = [], align = 'start', className, style, ...props }: DropdownMenuProps): React.JSX.Element {
+export const DropdownMenu = React.forwardRef<HTMLSpanElement, DropdownMenuProps>(function DropdownMenu(
+  { trigger, items = [], align = 'start', className, style, ...props },
+  forwardedRef,
+): React.JSX.Element {
   const [open, setOpen] = React.useState(false)
   const ref = React.useRef<HTMLSpanElement>(null)
+  React.useImperativeHandle(forwardedRef, () => ref.current as HTMLSpanElement)
 
   React.useEffect(() => {
     if (!open) return
@@ -42,58 +51,32 @@ export function DropdownMenu({ trigger, items = [], align = 'start', className, 
   }, [open])
 
   return (
-    <span ref={ref} className={className} style={{ position: 'relative', display: 'inline-flex', ...style }} {...props}>
-      <span onClick={() => setOpen((o) => !o)} style={{ display: 'inline-flex' }}>{trigger}</span>
+    <span
+      ref={ref}
+      data-slot="dropdown-menu"
+      className={className ? `ca-dropdown ${className}` : 'ca-dropdown'}
+      style={style}
+      {...props}
+    >
+      <span className="ca-dropdown-trigger" onClick={() => setOpen((o) => !o)}>{trigger}</span>
       {open && (
-        <div
-          role="menu"
-          style={{
-            position: 'absolute',
-            top: 'calc(100% + 6px)',
-            ...({ [align === 'end' ? 'right' : 'left']: 0 } as React.CSSProperties),
-            zIndex: 70,
-            minWidth: 180,
-            padding: 4,
-            background: 'var(--popover)',
-            color: 'var(--popover-foreground)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-md)',
-            boxShadow: 'var(--shadow)',
-            fontFamily: 'var(--font-sans)',
-          }}
-        >
+        <div role="menu" data-align={align} className="ca-dropdown-menu">
           {items.map((it, i) =>
             it.separator ? (
-              <div key={`sep-${i}`} style={{ height: 1, background: 'var(--border)', margin: '4px 0' }} />
+              <div key={`sep-${i}`} className="ca-dropdown-separator" />
             ) : (
               <button
                 key={it.label}
                 type="button"
                 role="menuitem"
+                data-danger={it.danger ? 'true' : 'false'}
                 disabled={it.disabled}
+                className="ca-dropdown-item"
                 onClick={() => { if (it.disabled) return; setOpen(false); it.onSelect?.() }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 9,
-                  width: '100%',
-                  textAlign: 'left',
-                  border: 'none',
-                  background: 'transparent',
-                  borderRadius: 'var(--radius-sm)',
-                  padding: '8px 9px',
-                  fontSize: 'var(--text-body)',
-                  fontFamily: 'var(--font-sans)',
-                  color: it.danger ? 'var(--destructive)' : 'var(--foreground)',
-                  cursor: it.disabled ? 'not-allowed' : 'pointer',
-                  opacity: it.disabled ? 0.5 : 1,
-                }}
-                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => { if (!it.disabled) e.currentTarget.style.background = it.danger ? 'color-mix(in srgb, var(--destructive) 12%, transparent)' : 'var(--muted)' }}
-                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.background = 'transparent' }}
               >
-                {it.icon && <span style={{ display: 'inline-flex', flex: 'none' }}>{it.icon}</span>}
-                <span style={{ flex: 1 }}>{it.label}</span>
-                {it.shortcut && <span style={{ fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)', fontFamily: 'var(--font-mono)' }}>{it.shortcut}</span>}
+                {it.icon && <span className="ca-dropdown-item-icon">{it.icon}</span>}
+                <span className="ca-dropdown-item-label">{it.label}</span>
+                {it.shortcut && <span className="ca-dropdown-item-shortcut">{it.shortcut}</span>}
               </button>
             )
           )}
@@ -101,4 +84,4 @@ export function DropdownMenu({ trigger, items = [], align = 'start', className, 
       )}
     </span>
   )
-}
+})

@@ -1,0 +1,36 @@
+/* ImportDropzone — dashed statement drop target. The drag-highlight is genuine
+   drag-drop state (not hover), reflected via data-drag and styled here. Static,
+   drag, and the required focus-visible ring all live in CSS. */
+
+.ca-import-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 28px 24px;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  border: 1.5px dashed var(--input);
+  background: var(--card);
+  color: var(--foreground);
+  transition: border-color 150ms, background-color 150ms;
+}
+
+.ca-import-dropzone[data-drag='true'] {
+  border-color: var(--ring);
+  background: color-mix(in oklch, var(--ring) 8%, var(--card));
+}
+
+.ca-import-dropzone:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-import-dropzone {
+    transition: none;
+  }
+}

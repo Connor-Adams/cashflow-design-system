@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './CategoryPill.css'
 
 /**
  * Transaction-category chip — tinted icon + label. Ships icons/tints for the
@@ -39,7 +40,10 @@ const TINTS: Record<string, string> = {
   default: 'var(--muted-foreground)',
 }
 
-export function CategoryPill({ category = 'default', label, icon, color, interactive = false, size = 'default', className, style, onClick, ...props }: CategoryPillProps): React.JSX.Element {
+export const CategoryPill = React.forwardRef<HTMLElement, CategoryPillProps>(function CategoryPill(
+  { category = 'default', label, icon, color, interactive = false, size = 'default', className, style, onClick, ...props },
+  ref,
+): React.JSX.Element {
   const key = String(category).toLowerCase()
   const tint = color || TINTS[key] || TINTS['default']!
   const glyph = icon !== undefined ? icon : (ICONS[key] || ICONS['default']!)
@@ -49,18 +53,15 @@ export function CategoryPill({ category = 'default', label, icon, color, interac
 
   return (
     <Tag
+      ref={ref as React.Ref<HTMLButtonElement & HTMLSpanElement>}
       data-slot="category-pill"
-      className={className}
+      data-size={size}
+      className={className ? `ca-category-pill ${className}` : 'ca-category-pill'}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement & HTMLSpanElement>}
       type={interactive ? 'button' : undefined}
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: sm ? 5 : 6, width: 'fit-content', flexShrink: 0,
-        borderRadius: 'var(--radius-md)', padding: sm ? '2px 8px 2px 6px' : '3px 10px 3px 7px',
         background: `color-mix(in oklch, ${tint} 14%, transparent)`,
         color: `color-mix(in oklch, ${tint} 72%, var(--foreground))`,
-        border: '1px solid transparent', cursor: interactive ? 'pointer' : 'default',
-        fontFamily: 'var(--font-sans)', fontSize: sm ? 'var(--text-body-sm)' : 'var(--text-body-sm)',
-        fontWeight: 'var(--weight-medium)' as React.CSSProperties['fontWeight'], lineHeight: 1.3, whiteSpace: 'nowrap',
         ...style,
       }}
       {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLSpanElement>)}
@@ -69,4 +70,4 @@ export function CategoryPill({ category = 'default', label, icon, color, interac
       {text}
     </Tag>
   )
-}
+})

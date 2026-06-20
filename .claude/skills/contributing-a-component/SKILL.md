@@ -45,13 +45,27 @@ others (`feedback`, `data`, `forms`) ship a single grouped `<group>.prompt.md` +
 `<group>.card.html`. Match the neighbors — if your group is grouped, **extend the
 existing `<group>.*` files**, don't add per-component ones.
 
-1. **`packages/ui/src/<group>/<Name>.tsx`** — `export function <Name>(props): React.JSX.Element`.
+1. **`packages/ui/src/<group>/<Name>.tsx`** — `export const <Name> =
+   React.forwardRef<HTMLXElement, <Name>Props>(function <Name>(props, ref) {...})`.
+   **forwardRef is mandatory** — consumers, focus management, and overlays need the
+   node. Mirror `core/Button.tsx`.
    - Types **inline** in the same file: `export interface <Name>Props extends
      React.HTMLAttributes<...>` and any `export type <Name>Variant = '...' | '...'`.
+   - **Interactive states live in CSS, never JS.** Co-locate a `<Name>.css`,
+     `import './<Name>.css'` at the top of the `.tsx`, give the root a base class
+     (`ca-<name>`), and drive `:hover` / `:focus-visible` / `:active` / `:disabled`
+     there — keyed off `data-variant` / `data-size` attributes. **NO `useState`
+     hover, NO `onMouseEnter`.** Any focusable element MUST have a `:focus-visible`
+     ring (WCAG 2.4.7) — typically `outline: 2px solid var(--ring); outline-offset: 2px`.
+     Add `@media (prefers-reduced-motion: reduce)` if you animate. tsup auto-bundles
+     every `import './X.css'` into `dist/index.css`, which `packages/ui/styles.css`
+     re-imports — no extra wiring.
    - Style **only** through CSS custom properties: `var(--primary)`, `var(--radius-md)`,
      `var(--text-body-sm)`, etc. No hard-coded hex, no CSS-in-JS lib, no npm deps.
      Semantic tokens = free dark mode. Reuse the tokens your sibling uses.
-   - Add `data-slot="<name>"` (and `data-variant` if variant-bearing).
+   - **Merge the consumer `className`** onto the base: `className={className ?
+     \`ca-<name> ${className}\` : 'ca-<name>'}`. Spread `...props` and forward `ref`.
+   - Add `data-slot="<name>"` (and `data-variant` / `data-size` if variant/size-bearing).
    - **Icons are `ReactNode` props** — lucide-react is NOT a dependency of
      `packages/ui`. Never `import` an icon library here.
 2. **`packages/ui/src/index.ts`** — add, next to its group's other entries:
@@ -81,6 +95,13 @@ existing `<group>.*` files**, don't add per-component ones.
    comment. **Granularity per the rule above** — extend the grouped
    `<group>.card.html` if your group uses one.
 
+6. **`packages/ui/src/<group>/<Name>.test.tsx`** — vitest + `@testing-library/react`
+   (jsdom). Mirror `core/Button.test.tsx`. Cover at minimum: renders by role/text,
+   the base class is applied, `className` merges, `data-variant`/`data-size` reflect
+   props, and **`ref` forwards to the DOM node**. Co-located `*.test.tsx` files are
+   excluded from the build tsconfig and from `validate.mjs`, so they don't need a
+   barrel export or a story. Follow TDD — write the failing test first.
+
 ## Versioning
 
 Add a changeset — this drives the version bump and publish. `pnpm changeset` is
@@ -102,6 +123,7 @@ maintainer-curated, not per-PR.
 ```bash
 node scripts/validate.mjs                                   # contract gate (must pass)
 pnpm --filter @connor-adams/designsystem typecheck          # inline types compile
+pnpm --filter @connor-adams/designsystem test               # vitest (your *.test.tsx must pass)
 pnpm --filter @connor-adams/designsystem build              # tsup → dist (grep dist for <Name>)
 pnpm typecheck                                              # repo-wide (ui + storybook + web)
 pnpm exec changeset status                                  # bump is queued
@@ -122,3 +144,7 @@ expected, not your doing.)
 | Wrote a fresh `.card.html` from scratch | Copy a sibling — the script tags + integrity hashes + mount-global must be exact. |
 | Edited root `CHANGELOG.md` instead of a changeset | Changesets drive versioning; CHANGELOG.md is curated separately. |
 | Typecheck fails `Cannot find module 'react'` | Fresh worktree — run `pnpm install` first. |
+| Hover/active via `useState` + `onMouseEnter` | States belong in `<Name>.css`. JS hover re-renders, breaks SSR, and skips `:focus-visible`. |
+| Focusable element with no focus ring | WCAG 2.4.7 fail. Add `:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px }`. |
+| `export function <Name>` (no ref) | Use `React.forwardRef` — overlays/focus need the node. |
+| Shipped a component with no `*.test.tsx` | Every component needs a render + ref-forward test (vitest + RTL). |

@@ -1,0 +1,45 @@
+/* AccountCard — connected-account tile. May render as <div> (static) or
+   <button> (interactive via onClick). Interactive states (hover, focus-visible
+   ring) live here, keyed off data-interactive / data-selected. Dynamic tint
+   colors stay inline since they derive from `kind`. */
+
+.ca-account-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: var(--shadow);
+  cursor: default;
+  font-family: var(--font-sans);
+  transition: border-color 150ms, box-shadow 150ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ca-account-card[data-selected='true'] {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 30%, transparent), var(--shadow);
+}
+
+.ca-account-card[data-interactive='true'] {
+  cursor: pointer;
+}
+.ca-account-card[data-interactive='true']:hover {
+  border-color: var(--ring);
+}
+.ca-account-card[data-interactive='true']:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-account-card {
+    transition: none;
+  }
+}

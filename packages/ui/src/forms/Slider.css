@@ -1,0 +1,81 @@
+/* Slider — single-value range. The real control is a transparent
+   <input type=range> overlaying a styled track + thumb. Interactive state
+   (focus ring on the thumb, disabled) lives in CSS. Dynamic fill/thumb position
+   is driven by the --ca-slider-pct custom property. All colors reach through
+   the semantic token layer; no raw hex. */
+
+.ca-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.ca-slider[data-disabled] {
+  opacity: 0.5;
+}
+
+.ca-slider-value {
+  font-size: var(--text-body-sm);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  color: var(--foreground);
+  text-align: right;
+}
+
+.ca-slider-track {
+  position: relative;
+  height: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.ca-slider-rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--muted);
+}
+
+.ca-slider-fill {
+  position: absolute;
+  left: 0;
+  width: var(--ca-slider-pct, 0%);
+  height: 5px;
+  border-radius: 99px;
+  background: var(--primary);
+}
+
+.ca-slider-thumb {
+  position: absolute;
+  left: var(--ca-slider-pct, 0%);
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+
+.ca-slider-input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ca-slider-input:disabled {
+  cursor: not-allowed;
+}
+
+/* Keyboard focus ring lands on the visible thumb. */
+.ca-slider-input:focus-visible + .ca-slider-thumb {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}

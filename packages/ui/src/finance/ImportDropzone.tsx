@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './ImportDropzone.css'
 
 /**
  * Statement-import drop target — dashed area accepting drag-drop or click-to-
@@ -11,7 +12,10 @@ export interface ImportDropzoneProps extends Omit<React.HTMLAttributes<HTMLDivEl
   hint?: React.ReactNode
 }
 
-export function ImportDropzone({ accept = '.csv,.ofx,.qfx', onFile, hint = 'CSV, OFX or QFX · up to 10MB', className, style, ...props }: ImportDropzoneProps): React.JSX.Element {
+export const ImportDropzone = React.forwardRef<HTMLDivElement, ImportDropzoneProps>(function ImportDropzone(
+  { accept = '.csv,.ofx,.qfx', onFile, hint = 'CSV, OFX or QFX · up to 10MB', className, style, ...props },
+  ref,
+): React.JSX.Element {
   const [drag, setDrag] = React.useState<boolean>(false)
   const [file, setFile] = React.useState<{ name: string; size: number } | null>(null)
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -22,7 +26,9 @@ export function ImportDropzone({ accept = '.csv,.ofx,.qfx', onFile, hint = 'CSV,
 
   return (
     <div
+      ref={ref}
       data-slot="import-dropzone"
+      data-drag={drag ? 'true' : undefined}
       role="button"
       tabIndex={0}
       onClick={() => inputRef.current?.click()}
@@ -30,14 +36,8 @@ export function ImportDropzone({ accept = '.csv,.ofx,.qfx', onFile, hint = 'CSV,
       onDragOver={(e: React.DragEvent<HTMLDivElement>) => { e.preventDefault(); setDrag(true) }}
       onDragLeave={() => setDrag(false)}
       onDrop={onDrop}
-      className={className}
-      style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10, textAlign: 'center',
-        padding: '28px 24px', borderRadius: 'var(--radius-xl)', cursor: 'pointer', fontFamily: 'var(--font-sans)',
-        border: `1.5px dashed ${drag ? 'var(--ring)' : 'var(--input)'}`,
-        background: drag ? 'color-mix(in oklch, var(--ring) 8%, var(--card))' : 'var(--card)',
-        color: 'var(--foreground)', transition: 'border-color 150ms, background-color 150ms', ...style,
-      }}
+      className={className ? `ca-import-dropzone ${className}` : 'ca-import-dropzone'}
+      style={style}
       {...props}
     >
       <input ref={inputRef} type="file" accept={accept} onChange={(e: React.ChangeEvent<HTMLInputElement>) => take(e.target.files?.[0])} style={{ display: 'none' }} />
@@ -59,4 +59,4 @@ export function ImportDropzone({ accept = '.csv,.ofx,.qfx', onFile, hint = 'CSV,
       )}
     </div>
   )
-}
+})

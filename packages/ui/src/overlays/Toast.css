@@ -1,0 +1,88 @@
+/* Toast — a popover card with a semantic left accent. Visuals live in CSS,
+   the accent is keyed off data-variant. All colors reach through the semantic
+   token layer; no raw hex. */
+
+.ca-toast {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 340px;
+  max-width: 100%;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 12px 14px;
+  font-family: var(--font-sans);
+}
+
+/* ---- Variants (left accent) ---- */
+.ca-toast[data-variant='default'] {
+  border-left-color: var(--primary);
+}
+.ca-toast[data-variant='success'] {
+  border-left-color: var(--success);
+}
+.ca-toast[data-variant='error'] {
+  border-left-color: var(--danger);
+}
+.ca-toast[data-variant='warning'] {
+  border-left-color: var(--warning);
+}
+.ca-toast[data-variant='info'] {
+  border-left-color: var(--info);
+}
+
+.ca-toast-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ca-toast-title {
+  margin: 0;
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-toast-body {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+  line-height: 1.45;
+}
+
+.ca-toast-action {
+  margin-top: 6px;
+}
+
+.ca-toast-close {
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  padding: 2px;
+  line-height: 0;
+  border-radius: var(--radius-sm);
+  transition: color 150ms;
+}
+
+.ca-toast-close:hover {
+  color: var(--foreground);
+}
+
+.ca-toast-close:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-toast-close {
+    transition: none;
+  }
+}

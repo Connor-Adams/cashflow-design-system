@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './Card.css'
 
 /**
  * Cashflow Card and its sub-parts. A raised surface: white --card fill,
@@ -13,11 +14,15 @@ import * as React from 'react'
  */
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function Card({ className, style, children, ...props }: CardProps): React.JSX.Element {
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
+  { className, style, children, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <div
+      ref={ref}
       data-slot="card"
-      className={className}
+      className={className ? `ca-card ${className}` : 'ca-card'}
       style={{
         borderRadius: 'var(--radius-lg)',
         border: '1px solid var(--border)',
@@ -32,26 +37,34 @@ export function Card({ className, style, children, ...props }: CardProps): React
       {children}
     </div>
   )
-}
+})
 
-export function CardHeader({ className, style, children, ...props }: CardProps): React.JSX.Element {
+export const CardHeader = React.forwardRef<HTMLDivElement, CardProps>(function CardHeader(
+  { className, style, children, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <div
+      ref={ref}
       data-slot="card-header"
-      className={className}
+      className={className ? `ca-card-header ${className}` : 'ca-card-header'}
       style={{ display: 'grid', gap: 6, marginBottom: 12, ...style }}
       {...props}
     >
       {children}
     </div>
   )
-}
+})
 
-export function CardTitle({ className, style, children, ...props }: CardProps): React.JSX.Element {
+export const CardTitle = React.forwardRef<HTMLDivElement, CardProps>(function CardTitle(
+  { className, style, children, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <div
+      ref={ref}
       data-slot="card-title"
-      className={className}
+      className={className ? `ca-card-title ${className}` : 'ca-card-title'}
       style={{
         fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
         letterSpacing: '-0.01em',
@@ -64,25 +77,38 @@ export function CardTitle({ className, style, children, ...props }: CardProps): 
       {children}
     </div>
   )
-}
+})
 
-export function CardDescription({ className, style, children, ...props }: CardProps): React.JSX.Element {
+export const CardDescription = React.forwardRef<HTMLDivElement, CardProps>(function CardDescription(
+  { className, style, children, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <div
+      ref={ref}
       data-slot="card-description"
-      className={className}
+      className={className ? `ca-card-description ${className}` : 'ca-card-description'}
       style={{ fontSize: 'var(--text-body)', color: 'var(--muted-foreground)', lineHeight: 1.5, ...style }}
       {...props}
     >
       {children}
     </div>
   )
-}
+})
 
-export function CardContent({ className, style, children, ...props }: CardProps): React.JSX.Element {
+export const CardContent = React.forwardRef<HTMLDivElement, CardProps>(function CardContent(
+  { className, style, children, ...props },
+  ref,
+): React.JSX.Element {
   return (
-    <div data-slot="card-content" className={className} style={style} {...props}>
+    <div
+      ref={ref}
+      data-slot="card-content"
+      className={className ? `ca-card-content ${className}` : 'ca-card-content'}
+      style={style}
+      {...props}
+    >
       {children}
     </div>
   )
-}
+})

@@ -1,0 +1,74 @@
+/* PeriodSelector — date-range popover. The open/close state is genuine popover
+   state (reflected via data-open on the trigger); hover + focus-visible on the
+   trigger and menu items live in CSS (no onMouseEnter). */
+
+.ca-period-selector {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-sans);
+}
+
+.ca-period-selector-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--input);
+  background: var(--card);
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-sans);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.ca-period-selector[data-size='sm'] .ca-period-selector-trigger {
+  height: 32px;
+  font-size: var(--text-body-sm);
+}
+
+.ca-period-selector-trigger[data-open='true'] {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 35%, transparent);
+}
+
+.ca-period-selector-trigger:focus-visible,
+.ca-period-selector-item:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-period-selector-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 9px;
+  cursor: pointer;
+  font-size: var(--text-body);
+  font-family: var(--font-sans);
+  background: transparent;
+  color: var(--foreground);
+}
+
+.ca-period-selector-item:hover:not([data-active='true']) {
+  background: var(--muted);
+}
+
+.ca-period-selector-item[data-active='true'] {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-period-selector-trigger {
+    transition: none;
+  }
+}

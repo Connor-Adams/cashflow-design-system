@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './Separator.css'
 
 /**
  * Cashflow Separator. A hairline divider in --border. Horizontal by default;
@@ -15,14 +16,21 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLElement> {
   label?: React.ReactNode
 }
 
-export function Separator({ orientation = 'horizontal', label, className, style, ...props }: SeparatorProps): React.JSX.Element {
+export const Separator = React.forwardRef<HTMLElement, SeparatorProps>(function Separator(
+  { orientation = 'horizontal', label, className, style, ...props },
+  ref,
+): React.JSX.Element {
+  const cls = className ? `ca-separator ${className}` : 'ca-separator'
+
   if (orientation === 'vertical') {
     return (
       <span
+        ref={ref as React.Ref<HTMLSpanElement>}
         data-slot="separator"
+        data-orientation="vertical"
         role="separator"
         aria-orientation="vertical"
-        className={className}
+        className={cls}
         style={{ display: 'inline-block', width: 1, alignSelf: 'stretch', minHeight: '1em', background: 'var(--border)', ...style }}
         {...props}
       />
@@ -32,9 +40,11 @@ export function Separator({ orientation = 'horizontal', label, className, style,
   if (label) {
     return (
       <div
+        ref={ref as React.Ref<HTMLDivElement>}
         data-slot="separator"
+        data-orientation="horizontal"
         role="separator"
-        className={className}
+        className={cls}
         style={{ display: 'flex', alignItems: 'center', gap: 12, ...style }}
         {...props}
       >
@@ -47,10 +57,12 @@ export function Separator({ orientation = 'horizontal', label, className, style,
 
   return (
     <hr
+      ref={ref as React.Ref<HTMLHRElement>}
       data-slot="separator"
-      className={className}
+      data-orientation="horizontal"
+      className={cls}
       style={{ border: 0, height: 1, width: '100%', background: 'var(--border)', margin: 0, ...style }}
       {...props}
     />
   )
-}
+})

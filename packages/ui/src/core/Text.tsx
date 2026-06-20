@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './Text.css'
 
 /**
  * Cashflow Text. The single typography primitive — every step of the type
@@ -61,19 +62,22 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
   truncate?: boolean
 }
 
-export function Text({
-  variant = 'body',
-  as,
-  tone = 'default',
-  weight,
-  mono = false,
-  align,
-  truncate = false,
-  className,
-  style,
-  children,
-  ...props
-}: TextProps): React.JSX.Element {
+export const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
+  {
+    variant = 'body',
+    as,
+    tone = 'default',
+    weight,
+    mono = false,
+    align,
+    truncate = false,
+    className,
+    style,
+    children,
+    ...props
+  },
+  ref,
+): React.JSX.Element {
   const v = VARIANTS[variant] || VARIANTS['body']!
   const tag = as || v.tag
 
@@ -96,5 +100,16 @@ export function Text({
     ...style,
   }
 
-  return React.createElement(tag, { 'data-slot': 'text', className, style: computedStyle, ...props }, children)
-}
+  return React.createElement(
+    tag,
+    {
+      ref,
+      'data-slot': 'text',
+      'data-variant': variant,
+      className: className ? `ca-text ${className}` : 'ca-text',
+      style: computedStyle,
+      ...props,
+    },
+    children,
+  )
+})

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './MoneyInput.css'
 
 /**
  * Currency amount field: leading symbol, right-aligned mono amount, trailing
@@ -22,22 +23,25 @@ export interface MoneyInputProps extends Omit<React.HTMLAttributes<HTMLDivElemen
 
 const SYMBOLS: Record<string, string> = { CAD: '$', USD: '$', EUR: '€', GBP: '£', AUD: '$', JPY: '¥' }
 
-export function MoneyInput({
-  value,
-  defaultValue = '',
-  onValueChange,
-  currency = 'CAD',
-  locale = 'en-CA',
-  direction,
-  onDirectionChange,
-  disabled,
-  invalid,
-  size = 'default',
-  placeholder = '0.00',
-  className,
-  style,
-  ...props
-}: MoneyInputProps): React.JSX.Element {
+export const MoneyInput = React.forwardRef<HTMLInputElement, MoneyInputProps>(function MoneyInput(
+  {
+    value,
+    defaultValue = '',
+    onValueChange,
+    currency = 'CAD',
+    locale = 'en-CA',
+    direction,
+    onDirectionChange,
+    disabled,
+    invalid,
+    size = 'default',
+    placeholder = '0.00',
+    className,
+    style,
+    ...props
+  },
+  ref,
+): React.JSX.Element {
   const isControlled = value !== undefined
   const [internal, setInternal] = React.useState<string>(defaultValue === '' ? '' : String(defaultValue))
   const [focused, setFocused] = React.useState<boolean>(false)
@@ -64,21 +68,16 @@ export function MoneyInput({
   return (
     <div
       data-slot="money-input"
-      className={className}
-      style={{
-        display: 'inline-flex', alignItems: 'stretch', height: h, width: 'fit-content',
-        borderRadius: 'var(--radius-md)',
-        border: `1px solid ${invalid ? 'var(--destructive)' : focused ? 'var(--ring)' : 'var(--input)'}`,
-        background: 'color-mix(in oklch, var(--background) 70%, transparent)',
-        boxShadow: focused ? `0 0 0 3px color-mix(in oklch, ${invalid ? 'var(--destructive)' : 'var(--ring)'} 35%, transparent)` : 'none',
-        opacity: disabled ? 0.6 : 1, transition: 'border-color 150ms, box-shadow 150ms',
-        fontFamily: 'var(--font-sans)', overflow: 'hidden', ...style,
-      }}
-      {...props}
+      data-size={size}
+      data-invalid={invalid ? 'true' : undefined}
+      data-disabled={disabled ? 'true' : undefined}
+      className="ca-money-input-root"
+      style={style}
     >
       {hasToggle && (
         <button
           type="button"
+          className="ca-money-input-toggle"
           disabled={disabled}
           onClick={() => onDirectionChange?.(direction === 'in' ? 'out' : 'in')}
           aria-label={direction === 'in' ? 'Money in' : 'Money out'}
@@ -91,7 +90,10 @@ export function MoneyInput({
       )}
       <span style={{ display: 'inline-flex', alignItems: 'center', paddingLeft: 10, paddingRight: 2, color: 'var(--muted-foreground)', fontSize: size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)' }}>{sym}</span>
       <input
+        ref={ref}
         inputMode="decimal"
+        data-size={size}
+        className={className ? `ca-money-input ${className}` : 'ca-money-input'}
         value={display}
         disabled={disabled}
         placeholder={placeholder}
@@ -99,13 +101,11 @@ export function MoneyInput({
         onBlur={() => setFocused(false)}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => commit(e.target.value)}
         style={{
-          width: 96, border: 'none', outline: 'none', background: 'transparent', textAlign: 'right',
-          padding: '0 10px 0 2px', fontFamily: 'var(--font-mono)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
-          fontSize: size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)', color: 'var(--foreground)',
-          fontVariantNumeric: 'tabular-nums',
+          fontSize: size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)',
         }}
+        {...props}
       />
       <span style={{ display: 'inline-flex', alignItems: 'center', paddingRight: 10, color: 'var(--muted-foreground)', fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)' }}>{currency}</span>
     </div>
   )
-}
+})

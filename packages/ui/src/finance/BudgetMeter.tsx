@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './BudgetMeter.css'
 
 /**
  * A budget row: label, spent / limit readout, and a bar that goes green →
@@ -14,11 +15,15 @@ export interface BudgetMeterProps extends React.HTMLAttributes<HTMLDivElement> {
   warnAt?: number
 }
 
-export function BudgetMeter({ label, spent = 0, limit = 0, currency = 'CAD', locale = 'en-CA', warnAt = 0.85, className, style, ...props }: BudgetMeterProps): React.JSX.Element {
+export const BudgetMeter = React.forwardRef<HTMLDivElement, BudgetMeterProps>(function BudgetMeter(
+  { label, spent = 0, limit = 0, currency = 'CAD', locale = 'en-CA', warnAt = 0.85, className, style, ...props },
+  ref,
+): React.JSX.Element {
   const ratio = limit > 0 ? spent / limit : 0
   const pct = Math.min(100, Math.max(0, ratio * 100))
   const over = spent > limit
   const near = !over && ratio >= warnAt
+  const tone = over ? 'over' : near ? 'near' : 'under'
   const fill = over ? 'var(--negative)' : near ? 'var(--warning)' : 'var(--positive)'
   const remaining = limit - spent
 
@@ -28,7 +33,7 @@ export function BudgetMeter({ label, spent = 0, limit = 0, currency = 'CAD', loc
   }
 
   return (
-    <div data-slot="budget-meter" className={className} style={{ display: 'flex', flexDirection: 'column', gap: 7, width: '100%', fontFamily: 'var(--font-sans)', ...style }} {...props}>
+    <div ref={ref} data-slot="budget-meter" data-tone={tone} className={className ? `ca-budget-meter ${className}` : 'ca-budget-meter'} style={style} {...props}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8 }}>
         <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{label}</span>
         <span style={{ fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)', color: 'var(--muted-foreground)' }}>
@@ -36,11 +41,11 @@ export function BudgetMeter({ label, spent = 0, limit = 0, currency = 'CAD', loc
         </span>
       </div>
       <div style={{ position: 'relative', overflow: 'hidden', height: 8, width: '100%', borderRadius: 99, background: 'var(--muted)' }}>
-        <span style={{ display: 'block', height: '100%', width: `${pct}%`, borderRadius: 99, background: fill, transition: 'width 300ms ease' }} />
+        <span data-slot="budget-meter-fill" style={{ display: 'block', height: '100%', width: `${pct}%`, borderRadius: 99, background: fill, transition: 'width 300ms ease' }} />
       </div>
       <span style={{ fontSize: 'var(--text-body-sm)', color: over ? 'var(--negative)' : 'var(--muted-foreground)' }}>
         {over ? `${fmt(Math.abs(remaining))} over budget` : `${fmt(remaining)} left`}
       </span>
     </div>
   )
-}
+})

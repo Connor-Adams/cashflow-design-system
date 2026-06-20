@@ -1,0 +1,24 @@
+/* Spinner — an indeterminate loading ring. Presentational; sizing/tone stay
+   inline in the .tsx. The spin animation lives here so it can be disabled under
+   prefers-reduced-motion. */
+
+.ca-spinner {
+  display: inline-block;
+}
+
+.ca-spinner svg {
+  display: block;
+  animation: ca-spin 0.7s linear infinite;
+}
+
+@keyframes ca-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-spinner svg {
+    animation: none;
+  }
+}

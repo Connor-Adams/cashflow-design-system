@@ -1,0 +1,65 @@
+/* Pagination — interactive states live in CSS (hover/focus-visible/active/
+   disabled), not JS. The active page is keyed off [aria-current='page']. All
+   colors reach through the semantic token layer; no raw hex. */
+
+.ca-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Cells — prev/next arrows and numbered pages share this base. */
+.ca-pagination button {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms, color 150ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ca-pagination button:hover:not(:disabled):not([aria-current='page']) {
+  background: var(--muted);
+}
+
+.ca-pagination button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Active page. */
+.ca-pagination button[aria-current='page'] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* Ellipsis gap. */
+.ca-pagination [data-slot='pagination-ellipsis'] {
+  min-width: 24px;
+  text-align: center;
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-pagination button {
+    transition: none;
+  }
+}

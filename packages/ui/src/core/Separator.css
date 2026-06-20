@@ -1,0 +1,8 @@
+/* Separator — a hairline divider. Purely presentational; the per-variant layout
+   and fill stay inline in the .tsx (the label variant's root is a flex container,
+   not a rule), so this base class is intentionally minimal and exists for
+   consumer targeting/overrides. */
+
+.ca-separator {
+  border: 0;
+}

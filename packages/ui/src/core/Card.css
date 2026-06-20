@@ -1,0 +1,11 @@
+/* Card and its sub-parts — presentational surfaces. Layout stays inline in the
+   .tsx; this file carries the base classes so consumers can target/override. */
+
+.ca-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--card-foreground);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}

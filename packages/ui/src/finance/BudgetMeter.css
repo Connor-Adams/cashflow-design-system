@@ -1,0 +1,17 @@
+/* BudgetMeter — budget row with a spent/limit bar. Presentational; tone
+   (under/near/over) drives the inline fill color + readout, reflected via
+   data-tone. No interactive states. */
+
+.ca-budget-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-budget-meter [data-slot='budget-meter-fill'] {
+    transition: none;
+  }
+}

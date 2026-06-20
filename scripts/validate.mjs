@@ -16,7 +16,9 @@ let total = 0, withPrompt = 0, withCard = 0
 for (const cat of CATEGORIES) {
   const dir = join(UI_SRC, cat)
   if (!existsSync(dir)) { errors.push(`missing category dir: ${dir}`); continue }
-  const components = readdirSync(dir).filter((f) => f.endsWith('.tsx')).map((f) => f.replace(/\.tsx$/, ''))
+  const components = readdirSync(dir)
+    .filter((f) => f.endsWith('.tsx') && !f.endsWith('.test.tsx') && !f.endsWith('.stories.tsx'))
+    .map((f) => f.replace(/\.tsx$/, ''))
   for (const name of components) {
     total++
     // (a) barrel export — the file is referenced by its relative module path

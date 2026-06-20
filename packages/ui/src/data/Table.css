@@ -1,0 +1,60 @@
+/* Table — bordered, scrollable data table. Row hover lives in CSS
+   (tbody tr:hover), not JS. All colors reach through the token layer. */
+
+.ca-table-container {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+.ca-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-body);
+  font-family: var(--font-sans);
+  caption-side: bottom;
+}
+
+.ca-table-row {
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  transition: background-color 150ms;
+}
+
+/* Hover tint — only for body rows, and never overriding a selected row. */
+.ca-table tbody tr.ca-table-row:hover:not([data-state='selected']) {
+  background: color-mix(in oklch, var(--muted) 45%, transparent);
+}
+
+.ca-table-row[data-state='selected'] {
+  background: var(--muted);
+}
+
+.ca-table-head {
+  height: 40px;
+  white-space: nowrap;
+  padding: 0 12px;
+  text-align: left;
+  vertical-align: middle;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklch, var(--muted-foreground) 78%, var(--primary));
+}
+
+.ca-table-cell {
+  white-space: nowrap;
+  padding: 10px 12px;
+  vertical-align: middle;
+  color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-table-row {
+    transition: none;
+  }
+}

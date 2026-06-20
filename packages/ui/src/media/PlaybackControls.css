@@ -1,0 +1,61 @@
+/* PlaybackControls — transport buttons. Interactive states (hover, the
+   focus-visible ring, active, disabled) live here, not JS. Colors reach
+   through the semantic token layer; no raw hex. */
+
+.ca-playback-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.ca-playback-controls__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color 140ms ease, opacity 140ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keyboard focus ring — the a11y win. */
+.ca-playback-controls__btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-playback-controls__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---- Secondary (previous / next) ---- */
+.ca-playback-controls__btn[data-variant='secondary'] {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+}
+.ca-playback-controls__btn[data-variant='secondary']:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+/* ---- Primary (play / pause) ---- */
+.ca-playback-controls__btn[data-variant='primary'] {
+  width: 56px;
+  height: 56px;
+  border: none;
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.ca-playback-controls__btn[data-variant='primary']:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--primary) 88%, black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-playback-controls__btn {
+    transition: none;
+  }
+}

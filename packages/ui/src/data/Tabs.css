@@ -1,0 +1,55 @@
+/* Tabs — a pill tablist. The active pill lifts to a --card surface with a soft
+   shadow. Hover and the keyboard focus ring live here, not JS. */
+
+.ca-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: color-mix(in oklch, var(--muted) 55%, transparent);
+  padding: 4px;
+  font-family: var(--font-sans);
+}
+
+.ca-tabs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+  border: none;
+  padding: 6px 12px;
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: color 150ms, background-color 150ms, box-shadow 150ms;
+  background: transparent;
+  color: color-mix(in oklch, var(--muted-foreground) 80%, var(--foreground));
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ca-tabs-trigger:hover:not([data-state='active']) {
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--card) 60%, transparent);
+}
+
+/* Keyboard focus ring — WCAG 2.4.7. Pointer focus stays quiet. */
+.ca-tabs-trigger:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-tabs-trigger[data-state='active'] {
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: var(--shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-tabs-trigger {
+    transition: none;
+  }
+}

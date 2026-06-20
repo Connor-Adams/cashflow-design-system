@@ -1,0 +1,19 @@
+/* Kbd — a static keycap. Purely presentational; layout stays inline in the
+   .tsx, this base class exists so consumers can target/override it. */
+
+.ca-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1;
+}

@@ -1,0 +1,75 @@
+/* Stepper — compact numeric stepper with −/+ buttons and a mono readout.
+   Interactive states (button hover, focus ring, disabled) live in CSS, keyed
+   off data-size. All colors reach through the semantic token layer; no raw hex. */
+
+.ca-stepper {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--input);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  font-family: var(--font-sans);
+}
+.ca-stepper[data-size='sm'] {
+  height: 30px;
+}
+.ca-stepper[data-disabled] {
+  opacity: 0.6;
+}
+
+.ca-stepper-btn {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 150ms;
+}
+.ca-stepper[data-size='sm'] .ca-stepper-btn {
+  width: 30px;
+  height: 30px;
+}
+.ca-stepper-btn:hover:not(:disabled) {
+  background: var(--muted);
+}
+.ca-stepper-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+.ca-stepper-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ca-stepper-value {
+  min-width: 52px;
+  text-align: center;
+  padding: 0 4px;
+  font-size: var(--text-body);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  color: var(--foreground);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ca-stepper[data-size='sm'] .ca-stepper-value {
+  font-size: var(--text-body-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-stepper-btn {
+    transition: none;
+  }
+}

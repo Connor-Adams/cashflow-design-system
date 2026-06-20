@@ -1,0 +1,75 @@
+/* ProgressBar — seekable scrubber. The seek thumb's hover reveal and the
+   focus-visible ring live here, not JS (no useState hover). The seek/scrub
+   click handler stays in the component — that's behavior, not styling.
+   Colors reach through the semantic token layer; no raw hex. */
+
+.ca-progress-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.ca-progress-bar__track {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  overflow: visible;
+  cursor: default;
+}
+
+.ca-progress-bar__track[data-seekable='true'] {
+  cursor: pointer;
+}
+
+.ca-progress-bar__track:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.ca-progress-bar__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  transition: width 120ms linear;
+}
+
+.ca-progress-bar__thumb {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius-full);
+  background: var(--foreground);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+/* Reveal the scrub thumb on hover/focus of the seekable track — CSS, not JS. */
+.ca-progress-bar__track[data-seekable='true']:hover .ca-progress-bar__thumb,
+.ca-progress-bar__track[data-seekable='true']:focus-visible .ca-progress-bar__thumb {
+  opacity: 1;
+}
+
+.ca-progress-bar__times {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-body-sm);
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-progress-bar__fill,
+  .ca-progress-bar__thumb {
+    transition: none;
+  }
+}

@@ -1,0 +1,67 @@
+/* NowPlayingArtwork — square track artwork with an animated equalizer badge
+   while playing. The equalizer animation lives here, not in an inline <style>.
+   Colors reach through the semantic token layer; no raw hex. */
+
+.ca-now-playing-artwork {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--muted);
+  box-shadow: var(--shadow);
+}
+
+.ca-now-playing-artwork__img,
+.ca-now-playing-artwork__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ca-now-playing-artwork__img {
+  object-fit: cover;
+}
+
+.ca-now-playing-artwork__eq {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  background: color-mix(in oklch, var(--background) 55%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.ca-now-playing-artwork__bar {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--primary);
+  transform-origin: bottom;
+  animation: ca-now-playing-eq 0.9s ease-in-out infinite;
+}
+
+@keyframes ca-now-playing-eq {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-now-playing-artwork__bar {
+    animation: none;
+    transform: scaleY(0.6);
+  }
+}

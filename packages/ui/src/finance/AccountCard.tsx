@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './AccountCard.css'
 
 /**
  * Cashflow AccountCard. A connected-account tile: institution glyph, account
@@ -28,21 +29,24 @@ const KIND_TINT: Record<'chequing' | 'savings' | 'credit' | 'investment' | 'cash
   default: 'var(--muted-foreground)',
 }
 
-export function AccountCard({
-  name,
-  institution,
-  mask,
-  balance = 0,
-  currency = 'CAD',
-  locale = 'en-CA',
-  kind = 'default',
-  status,
-  selected = false,
-  onClick,
-  className,
-  style,
-  ...props
-}: AccountCardProps): React.JSX.Element {
+export const AccountCard = React.forwardRef<HTMLElement, AccountCardProps>(function AccountCard(
+  {
+    name,
+    institution,
+    mask,
+    balance = 0,
+    currency = 'CAD',
+    locale = 'en-CA',
+    kind = 'default',
+    status,
+    selected = false,
+    onClick,
+    className,
+    style,
+    ...props
+  },
+  ref,
+): React.JSX.Element {
   const tint = KIND_TINT[kind] || KIND_TINT.default
   const interactive = typeof onClick === 'function'
   const Tag = interactive ? 'button' : 'div'
@@ -54,19 +58,15 @@ export function AccountCard({
 
   return (
     <Tag
+      ref={ref as React.Ref<HTMLButtonElement & HTMLDivElement>}
       data-slot="account-card"
+      data-kind={kind}
+      data-selected={selected ? 'true' : undefined}
+      data-interactive={interactive ? 'true' : undefined}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement & HTMLDivElement>}
       type={interactive ? 'button' : undefined}
-      className={className}
-      style={{
-        display: 'flex', flexDirection: 'column', gap: 14, width: '100%', textAlign: 'left', boxSizing: 'border-box',
-        padding: 16, borderRadius: 'var(--radius-xl)',
-        border: `1px solid ${selected ? 'var(--ring)' : 'var(--border)'}`,
-        background: 'var(--card)', color: 'var(--foreground)',
-        boxShadow: selected ? '0 0 0 3px color-mix(in oklch, var(--ring) 30%, transparent), var(--shadow)' : 'var(--shadow)',
-        cursor: interactive ? 'pointer' : 'default', fontFamily: 'var(--font-sans)',
-        transition: 'border-color 150ms, box-shadow 150ms', ...style,
-      }}
+      className={className ? `ca-account-card ${className}` : 'ca-account-card'}
+      style={style}
       {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLDivElement>)}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -96,4 +96,4 @@ export function AccountCard({
       </div>
     </Tag>
   )
-}
+})

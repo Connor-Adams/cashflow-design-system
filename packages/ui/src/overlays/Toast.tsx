@@ -1,8 +1,12 @@
 import * as React from 'react'
+import './Toast.css'
 
 /**
  * Toast notification — a popover card with a semantic left accent. Presentational:
  * manage timing/stacking yourself. `onClose` renders a dismiss button.
+ *
+ * Visuals live in `Toast.css`, keyed off `data-variant`. The dismiss button
+ * carries a `:focus-visible` ring for keyboard users.
  */
 export interface ToastProps {
   variant?: 'default' | 'success' | 'error' | 'warning' | 'info'
@@ -19,64 +23,31 @@ export interface ToastProps {
  * optional body, and a close affordance. Presentational — drive show/hide and
  * stacking from your own state or a Toaster container.
  */
-const ACCENT: Record<NonNullable<ToastProps['variant']>, string> = {
-  default: 'var(--primary)',
-  success: 'var(--success)',
-  error:   'var(--danger)',
-  warning: 'var(--warning)',
-  info:    'var(--info)',
-}
-
-export function Toast({ variant = 'default', title, action, onClose, className, style, children, ...props }: ToastProps): React.JSX.Element {
-  const accent = ACCENT[variant] || ACCENT.default
+export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(function Toast(
+  { variant = 'default', title, action, onClose, className, style, children, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <div
+      ref={ref}
       role="status"
       aria-live="polite"
-      className={className}
-      style={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: 12,
-        width: 340,
-        maxWidth: '100%',
-        background: 'var(--popover)',
-        color: 'var(--popover-foreground)',
-        border: '1px solid var(--border)',
-        borderLeft: `3px solid ${accent}`,
-        borderRadius: 'var(--radius-lg)',
-        boxShadow: 'var(--shadow)',
-        padding: '12px 14px',
-        fontFamily: 'var(--font-sans)',
-        ...style,
-      }}
+      data-slot="toast"
+      data-variant={variant}
+      className={className ? `ca-toast ${className}` : 'ca-toast'}
+      style={style}
       {...props}
     >
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {title && <p style={{ margin: 0, fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{title}</p>}
-        {children && <p style={{ margin: 0, fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)', lineHeight: 1.45 }}>{children}</p>}
-        {action && <div style={{ marginTop: 6 }}>{action}</div>}
+      <div className="ca-toast-content">
+        {title && <p className="ca-toast-title">{title}</p>}
+        {children && <p className="ca-toast-body">{children}</p>}
+        {action && <div className="ca-toast-action">{action}</div>}
       </div>
       {onClose && (
-        <button
-          type="button"
-          aria-label="Dismiss"
-          onClick={onClose}
-          style={{
-            flex: 'none',
-            border: 'none',
-            background: 'transparent',
-            color: 'var(--muted-foreground)',
-            cursor: 'pointer',
-            padding: 2,
-            lineHeight: 0,
-            borderRadius: 'var(--radius-sm)',
-          }}
-        >
+        <button type="button" aria-label="Dismiss" className="ca-toast-close" onClick={onClose}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
         </button>
       )}
     </div>
   )
-}
+})

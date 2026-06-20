@@ -1,0 +1,126 @@
+/* QueueList — upcoming-tracks queue. Row hover and the per-row remove-button
+   hover + focus-visible ring live here, not JS. Colors reach through the
+   semantic token layer; no raw hex. */
+
+.ca-queue-list__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ca-queue-list__title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ca-queue-list__now-playing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ca-queue-list__now-playing-label {
+  font-size: var(--text-body-sm);
+  color: var(--primary);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-queue-list__items {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ca-queue-list__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 4px;
+  list-style: none;
+  border-radius: var(--radius-md);
+  transition: background-color 140ms ease;
+}
+
+.ca-queue-list__row:hover {
+  background: var(--accent);
+}
+
+/* Row keeps focus visible if a consumer makes it focusable. */
+.ca-queue-list__row:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-queue-list__index {
+  width: 20px;
+  text-align: right;
+  font-size: var(--text-body-sm);
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+  flex: none;
+}
+
+.ca-queue-list__main {
+  min-width: 0;
+  flex: 1;
+}
+
+.ca-queue-list__track-title {
+  font-size: var(--text-body);
+  color: var(--foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ca-queue-list__track-source {
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+}
+
+.ca-queue-list__duration {
+  font-size: var(--text-body-sm);
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+  flex: none;
+}
+
+.ca-queue-list__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  flex: none;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.ca-queue-list__remove:hover {
+  background: color-mix(in oklch, var(--destructive) 12%, transparent);
+  color: var(--destructive);
+}
+
+.ca-queue-list__remove:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-queue-list__row,
+  .ca-queue-list__remove {
+    transition: none;
+  }
+}

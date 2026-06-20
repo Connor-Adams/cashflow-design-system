@@ -1,9 +1,13 @@
 import * as React from 'react'
+import './Tabs.css'
 
 /**
  * Cashflow Tabs. A pill tablist: muted track, the active pill lifts to a white
  * --card surface with a soft shadow. Controlled — pass `value` + `onValueChange`
  * and an `items` array of { value, label }.
+ *
+ * Hover and the keyboard focus ring live in `Tabs.css`, keyed off the
+ * `data-state` attribute — no `useState`, no `onMouseEnter`.
  */
 
 export interface TabItem {
@@ -18,23 +22,17 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'o
   onValueChange?: (value: string) => void
 }
 
-export function Tabs({ items, value, onValueChange, className, style, ...props }: TabsProps): React.JSX.Element {
+export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(
+  { items, value, onValueChange, className, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <div
+      ref={ref}
       role="tablist"
       aria-orientation="horizontal"
-      className={className}
-      style={{
-        display: 'inline-flex',
-        flexWrap: 'wrap',
-        gap: 4,
-        borderRadius: 'var(--radius-lg)',
-        border: '1px solid var(--border)',
-        background: 'color-mix(in oklch, var(--muted) 55%, transparent)',
-        padding: 4,
-        fontFamily: 'var(--font-sans)',
-        ...style,
-      }}
+      data-slot="tabs"
+      className={className ? `ca-tabs ${className}` : 'ca-tabs'}
       {...props}
     >
       {items.map((item) => {
@@ -46,24 +44,10 @@ export function Tabs({ items, value, onValueChange, className, style, ...props }
             role="tab"
             aria-selected={active}
             tabIndex={active ? 0 : -1}
+            data-slot="tabs-trigger"
+            data-state={active ? 'active' : 'inactive'}
+            className="ca-tabs-trigger"
             onClick={() => onValueChange?.(item.value)}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              whiteSpace: 'nowrap',
-              borderRadius: 'var(--radius-md)',
-              border: 'none',
-              padding: '6px 12px',
-              fontSize: 'var(--text-body)',
-              fontWeight: 'var(--weight-medium)' as React.CSSProperties['fontWeight'],
-              fontFamily: 'var(--font-sans)',
-              cursor: 'pointer',
-              transition: 'color 150ms, background-color 150ms',
-              background: active ? 'var(--card)' : 'transparent',
-              color: active ? 'var(--foreground)' : 'color-mix(in oklch, var(--muted-foreground) 80%, var(--foreground))',
-              boxShadow: active ? 'var(--shadow)' : 'none',
-            }}
           >
             {item.label}
           </button>
@@ -71,4 +55,4 @@ export function Tabs({ items, value, onValueChange, className, style, ...props }
       })}
     </div>
   )
-}
+})

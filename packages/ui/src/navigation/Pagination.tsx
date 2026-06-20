@@ -1,9 +1,14 @@
 import * as React from 'react'
+import './Pagination.css'
 
 /**
  * Prev / numbered / next pager with ellipsis collapse. Controlled: `page` is
  * 1-based, `pageCount` total pages, `onPageChange` fires with the new page.
  * `siblingCount` sets how many numbers flank the current page.
+ *
+ * Hover, the keyboard focus-visible ring, the active-page treatment, and the
+ * disabled state live in `Pagination.css`, not JS — the active page is keyed
+ * off `[aria-current='page']` and focus stays visible.
  */
 export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
   page: number
@@ -35,37 +40,35 @@ function pagesFor(page: number, pageCount: number, sibling: number): (number | s
   return [1, '…', ...range(left, right), '…', pageCount]
 }
 
-export function Pagination({ page = 1, pageCount = 1, onPageChange, siblingCount = 1, className, style, ...props }: PaginationProps): React.JSX.Element {
+export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(function Pagination(
+  { page = 1, pageCount = 1, onPageChange, siblingCount = 1, className, ...props },
+  ref,
+): React.JSX.Element {
   const go = (p: number) => { if (p >= 1 && p <= pageCount && p !== page) onPageChange?.(p) }
-  const cellBase: React.CSSProperties = {
-    minWidth: 34, height: 34, padding: '0 8px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-    borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', background: 'var(--card)',
-    color: 'var(--foreground)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', cursor: 'pointer',
-  }
   const arrow = (dir: 'next' | 'prev') => (
     <button type="button" onClick={() => go(page + (dir === 'next' ? 1 : -1))} disabled={dir === 'next' ? page >= pageCount : page <= 1}
-      aria-label={dir === 'next' ? 'Next page' : 'Previous page'}
-      style={{ ...cellBase, opacity: (dir === 'next' ? page >= pageCount : page <= 1) ? 0.4 : 1, cursor: (dir === 'next' ? page >= pageCount : page <= 1) ? 'not-allowed' : 'pointer' }}>
+      aria-label={dir === 'next' ? 'Next page' : 'Previous page'}>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{dir === 'next' ? <path d="m9 18 6-6-6-6" /> : <path d="m15 18-6-6 6-6" />}</svg>
     </button>
   )
 
   return (
-    <nav data-slot="pagination" aria-label="Pagination" className={className} style={{ display: 'flex', alignItems: 'center', gap: 6, ...style }} {...(props as React.HTMLAttributes<HTMLElement>)}>
+    <nav
+      ref={ref}
+      data-slot="pagination"
+      aria-label="Pagination"
+      className={className ? `ca-pagination ${className}` : 'ca-pagination'}
+      {...props}
+    >
       {arrow('prev')}
       {pagesFor(page, pageCount, siblingCount).map((p, i) =>
         p === '…' ? (
-          <span key={`d${i}`} style={{ minWidth: 24, textAlign: 'center', color: 'var(--muted-foreground)', fontFamily: 'var(--font-sans)' }}>…</span>
+          <span key={`d${i}`} data-slot="pagination-ellipsis">…</span>
         ) : (
-          <button key={p as number} type="button" onClick={() => go(p as number)} aria-current={p === page ? 'page' : undefined}
-            style={{ ...cellBase,
-              background: p === page ? 'var(--primary)' : 'var(--card)',
-              color: p === page ? 'var(--primary-foreground)' : 'var(--foreground)',
-              borderColor: p === page ? 'var(--primary)' : 'var(--border)',
-              fontWeight: (p === page ? 'var(--weight-semibold)' : 'var(--weight-regular)') as React.CSSProperties['fontWeight'] }}>{p}</button>
+          <button key={p as number} type="button" onClick={() => go(p as number)} aria-current={p === page ? 'page' : undefined}>{p}</button>
         )
       )}
       {arrow('next')}
     </nav>
   )
-}
+})

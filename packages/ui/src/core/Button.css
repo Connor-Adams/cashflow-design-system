@@ -1,0 +1,117 @@
+/* Button — interactive states live in CSS (hover/focus-visible/active/disabled),
+   not JS. All colors reach through the semantic token layer; no raw hex. */
+
+.ca-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-body);
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  transition: background-color 150ms, border-color 150ms, color 150ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keyboard focus ring — the a11y win. Pointer focus stays quiet. */
+.ca-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Sizes ---- */
+.ca-btn[data-size='sm'] {
+  height: 36px;
+  padding: 0 12px;
+}
+.ca-btn[data-size='default'] {
+  height: 40px;
+  padding: 0 16px;
+}
+.ca-btn[data-size='lg'] {
+  height: 44px;
+  padding: 0 32px;
+  font-size: var(--text-body-lg);
+}
+.ca-btn[data-size='icon'] {
+  height: 40px;
+  width: 40px;
+  padding: 0;
+}
+
+/* ---- Variants ---- */
+.ca-btn[data-variant='primary'],
+.ca-btn[data-variant='default'] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.ca-btn[data-variant='primary']:hover:not(:disabled),
+.ca-btn[data-variant='default']:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--primary) 88%, black);
+}
+
+.ca-btn[data-variant='secondary'] {
+  background: var(--card);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.ca-btn[data-variant='secondary']:hover:not(:disabled) {
+  background: var(--muted);
+}
+
+.ca-btn[data-variant='outline'] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--input);
+}
+.ca-btn[data-variant='outline']:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.ca-btn[data-variant='ghost'] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: color-mix(in oklch, var(--border) 60%, transparent);
+}
+.ca-btn[data-variant='ghost']:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.ca-btn[data-variant='destructive'],
+.ca-btn[data-variant='danger'] {
+  background: color-mix(in oklch, var(--destructive) 12%, transparent);
+  color: var(--destructive);
+  border-color: var(--destructive);
+}
+.ca-btn[data-variant='destructive']:hover:not(:disabled),
+.ca-btn[data-variant='danger']:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--destructive) 20%, transparent);
+}
+
+.ca-btn[data-variant='link'] {
+  background: transparent;
+  color: var(--text-link);
+  border-color: transparent;
+  text-underline-offset: 4px;
+}
+.ca-btn[data-variant='link']:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-btn {
+    transition: none;
+  }
+}
