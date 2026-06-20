@@ -30,6 +30,11 @@ describe('Progress', () => {
     expect(el).toHaveClass('w-1/2')
   })
 
+  it('keeps the root free of a static inline style attribute', () => {
+    const { container } = render(<Progress value={10} />)
+    expect(container.querySelector('[data-slot="progress"]')!.getAttribute('style')).toBeNull()
+  })
+
   it('reflects size as a data attribute', () => {
     const { container } = render(<Progress value={10} size="lg" />)
     expect(container.querySelector('[data-slot="progress"]')).toHaveAttribute('data-size', 'lg')
