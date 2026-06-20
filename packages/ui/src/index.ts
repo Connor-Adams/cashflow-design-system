@@ -1,6 +1,8 @@
-// Token layer (CSS custom properties) is folded into the bundle so a single
+// Side-effect import of the layered stylesheet entry (tokens as `base`,
+// component CSS as `components`) so a single
 // `import { ... } from '@connor-adams/designsystem'` pulls in all styling.
-import '@connor-adams/tokens/styles.css'
+// The actual file is re-attached to the built JS entry via tsup's `banner`
+// (see tsup.config.ts) — this import here only documents the dependency.
 
 export { Button } from './core/Button'
 export type { ButtonProps, ButtonVariant, ButtonSize } from './core/Button'
