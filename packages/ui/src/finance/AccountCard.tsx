@@ -69,27 +69,27 @@ export const AccountCard = React.forwardRef<HTMLElement, AccountCardProps>(funct
       style={style}
       {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLDivElement>)}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <span style={{ width: 34, height: 34, flex: 'none', borderRadius: 'var(--radius-md)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `color-mix(in oklch, ${tint} 16%, transparent)`, color: tint }}>
+      <div className="ca-account-card-head">
+        <span className="ca-account-card-glyph" style={{ background: `color-mix(in oklch, ${tint} 16%, transparent)`, color: tint }}>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
         </span>
-        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.25, minWidth: 0 }}>
-          <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{name}</span>
-          <span style={{ fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)', fontFamily: 'var(--font-mono)' }}>
+        <div className="ca-account-card-meta">
+          <span className="ca-account-card-name">{name}</span>
+          <span className="ca-account-card-sub">
             {institution ? institution + ' ' : ''}{mask ? '••' + mask : ''}
           </span>
         </div>
       </div>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 8 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <span style={{ fontSize: 'var(--text-label)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], color: 'var(--muted-foreground)' }}>{kind === 'credit' ? 'Balance owing' : 'Balance'}</span>
-          <span style={{ fontSize: 'var(--text-headline-sm)', fontWeight: 'var(--weight-bold)' as React.CSSProperties['fontWeight'], fontFamily: 'var(--font-mono)', fontVariantNumeric: 'tabular-nums', color: negative ? 'var(--negative)' : 'var(--foreground)' }}>
+      <div className="ca-account-card-foot">
+        <div className="ca-account-card-balance">
+          <span className="ca-account-card-label">{kind === 'credit' ? 'Balance owing' : 'Balance'}</span>
+          <span className="ca-account-card-amount" style={{ color: negative ? 'var(--negative)' : 'var(--foreground)' }}>
             {negative ? '−' : ''}{formatted}
           </span>
         </div>
         {status && (
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 'var(--text-body-sm)', color: status === 'error' ? 'var(--destructive)' : 'var(--muted-foreground)' }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: status === 'synced' ? 'var(--success)' : status === 'error' ? 'var(--destructive)' : 'var(--warning)' }} />
+          <span className="ca-account-card-status" data-status={status}>
+            <span className="ca-account-card-dot" style={{ background: status === 'synced' ? 'var(--success)' : status === 'error' ? 'var(--destructive)' : 'var(--warning)' }} />
             {status === 'synced' ? 'Synced' : status === 'error' ? 'Sync failed' : 'Syncing…'}
           </span>
         )}
