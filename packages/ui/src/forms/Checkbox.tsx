@@ -1,11 +1,21 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
- * Cashflow Checkbox. 18px square, --input border, fills oxblood --primary with
- * a white check when on. Supports `indeterminate` (dash) for "select all" rows.
- * Controlled (`checked` + `onCheckedChange`) or uncontrolled (`defaultChecked`).
+ * Square checkbox with oxblood fill + white check. `indeterminate` renders a
+ * dash for partial "select all" states. Controlled via `checked` +
+ * `onCheckedChange`, or uncontrolled via `defaultChecked`.
  */
-export function Checkbox({ checked, defaultChecked, onCheckedChange, disabled, indeterminate, className, style, ...props }) {
+export interface CheckboxProps {
+  checked?: boolean
+  defaultChecked?: boolean
+  onCheckedChange?: (checked: boolean) => void
+  indeterminate?: boolean
+  disabled?: boolean
+  className?: string
+  style?: React.CSSProperties
+}
+
+export function Checkbox({ checked, defaultChecked, onCheckedChange, disabled, indeterminate, className, style, ...props }: CheckboxProps): React.JSX.Element {
   const [internal, setInternal] = React.useState(defaultChecked || false)
   const isControlled = checked !== undefined
   const on = isControlled ? checked : internal

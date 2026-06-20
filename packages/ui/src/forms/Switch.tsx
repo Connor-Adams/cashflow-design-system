@@ -1,11 +1,20 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
- * Cashflow Switch. A pill track that fills oxblood --primary when on; the
- * --card thumb slides with a soft shadow. Controlled (`checked` +
- * `onCheckedChange`) or uncontrolled (`defaultChecked`).
+ * Toggle switch with Cashflow's oxblood fill. Controlled via `checked` +
+ * `onCheckedChange`, or uncontrolled via `defaultChecked`. `sm` for dense rows.
  */
-export function Switch({ checked, defaultChecked, onCheckedChange, disabled, size = 'default', className, style, ...props }) {
+export interface SwitchProps {
+  checked?: boolean
+  defaultChecked?: boolean
+  onCheckedChange?: (checked: boolean) => void
+  disabled?: boolean
+  size?: 'default' | 'sm'
+  className?: string
+  style?: React.CSSProperties
+}
+
+export function Switch({ checked, defaultChecked, onCheckedChange, disabled, size = 'default', className, style, ...props }: SwitchProps): React.JSX.Element {
   const [internal, setInternal] = React.useState(defaultChecked || false)
   const isControlled = checked !== undefined
   const on = isControlled ? checked : internal
@@ -43,7 +52,7 @@ export function Switch({ checked, defaultChecked, onCheckedChange, disabled, siz
         transition: 'background-color 150ms',
         ...style,
       }}
-      {...props}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       <span
         style={{

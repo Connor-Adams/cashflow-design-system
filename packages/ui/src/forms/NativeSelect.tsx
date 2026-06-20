@@ -1,10 +1,18 @@
-import React from 'react'
+import * as React from 'react'
+
+export type SelectOption = string | { value: string; label: string }
 
 /**
- * Cashflow native Select. Mirrors Input's treatment with a native chevron.
- * Pass options as children (<option>) or via the `options` array prop.
+ * Native select with Cashflow's input treatment. Pass `options` (strings or
+ * {value,label}) or `<option>` children. `sm` for dense filter bars.
  */
-export function NativeSelect({ className, style, size = 'default', options, children, ...props }) {
+export interface NativeSelectProps
+  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+  size?: 'default' | 'sm'
+  options?: SelectOption[]
+}
+
+export function NativeSelect({ className, style, size = 'default', options, children, ...props }: NativeSelectProps): React.JSX.Element {
   const [focus, setFocus] = React.useState(false)
   return (
     <select

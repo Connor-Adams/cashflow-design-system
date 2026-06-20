@@ -1,17 +1,29 @@
-import React from 'react'
+import * as React from 'react'
 
 /**
- * Cashflow Slider. A single-value range control with an oxblood fill and a
- * --card thumb. Controlled (`value` + `onValueChange`) or uncontrolled
- * (`defaultValue`). Supports `min`/`max`/`step` and an optional value bubble.
+ * Single-value range slider — oxblood fill, card thumb. Controlled via `value`
+ * + `onValueChange`, or uncontrolled via `defaultValue`. `showValue` prints the
+ * current value; pass `format` to format it (e.g. as currency).
  */
-export function Slider({ min = 0, max = 100, step = 1, value, defaultValue = 0, onValueChange, disabled, showValue = false, format, className, style, ...props }) {
+export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
+  min?: number
+  max?: number
+  step?: number
+  value?: number
+  defaultValue?: number
+  onValueChange?: (value: number) => void
+  disabled?: boolean
+  showValue?: boolean
+  format?: (value: number) => React.ReactNode
+}
+
+export function Slider({ min = 0, max = 100, step = 1, value, defaultValue = 0, onValueChange, disabled, showValue = false, format, className, style, ...props }: SliderProps): React.JSX.Element {
   const [internal, setInternal] = React.useState(defaultValue)
   const isControlled = value !== undefined
   const v = isControlled ? value : internal
   const pct = ((v - min) / (max - min)) * 100
 
-  const onInput = (e) => {
+  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = Number(e.target.value)
     if (!isControlled) setInternal(next)
     onValueChange?.(next)
@@ -20,7 +32,7 @@ export function Slider({ min = 0, max = 100, step = 1, value, defaultValue = 0, 
   return (
     <div data-slot="slider" className={className} style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%', opacity: disabled ? 0.5 : 1, ...style }} {...props}>
       {showValue && (
-        <div style={{ fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)', fontWeight: 'var(--weight-semibold)', color: 'var(--foreground)', textAlign: 'right' }}>
+        <div style={{ fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], color: 'var(--foreground)', textAlign: 'right' }}>
           {format ? format(v) : v}
         </div>
       )}

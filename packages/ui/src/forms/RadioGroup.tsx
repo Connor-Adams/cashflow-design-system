@@ -1,17 +1,31 @@
-import React from 'react'
+import * as React from 'react'
+
+export type RadioOption = string | { value: string; label: string }
 
 /**
- * Cashflow Radio group. Renders a vertical (or horizontal) set of options;
- * the selected dot fills oxblood --primary. Pass `options` (strings or
- * {value,label}) and control with `value` + `onValueChange`.
+ * Radio group — single-choice list with an oxblood selected dot. Pass
+ * `options` (strings or {value,label}); control with `value` + `onValueChange`,
+ * or uncontrolled via `defaultValue`. `orientation="horizontal"` for inline.
  */
-export function RadioGroup({ options = [], value, defaultValue, onValueChange, name, orientation = 'vertical', disabled, className, style, ...props }) {
+export interface RadioGroupProps {
+  options: RadioOption[]
+  value?: string
+  defaultValue?: string
+  onValueChange?: (value: string) => void
+  name?: string
+  orientation?: 'vertical' | 'horizontal'
+  disabled?: boolean
+  className?: string
+  style?: React.CSSProperties
+}
+
+export function RadioGroup({ options = [], value, defaultValue, onValueChange, name, orientation = 'vertical', disabled, className, style, ...props }: RadioGroupProps): React.JSX.Element {
   const [internal, setInternal] = React.useState(defaultValue)
   const isControlled = value !== undefined
   const selected = isControlled ? value : internal
   const groupName = React.useMemo(() => name || `radio-${Math.random().toString(36).slice(2, 8)}`, [name])
 
-  const pick = (v) => {
+  const pick = (v: string) => {
     if (disabled) return
     if (!isControlled) setInternal(v)
     onValueChange?.(v)
