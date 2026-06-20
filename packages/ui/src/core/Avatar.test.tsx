@@ -13,6 +13,15 @@ describe('Avatar', () => {
     expect(screen.getByText('AL')).toBeInTheDocument()
   })
 
+  it('carries the fallback static styling on a CSS class, not inline', () => {
+    render(<Avatar name="Ada Lovelace" />)
+    const fallback = screen.getByText('AL')
+    expect(fallback).toHaveClass('ca-avatar__fallback')
+    // only the genuinely-dynamic font size remains inline
+    const inline = fallback.getAttribute('style') ?? ''
+    expect(inline).not.toMatch(/user-select|align-items|font-family/)
+  })
+
   it('applies the ca-avatar base class', () => {
     render(<Avatar name="Ada" />)
     expect(screen.getByRole('img')).toHaveClass('ca-avatar')

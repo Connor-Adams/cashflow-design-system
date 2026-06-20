@@ -63,21 +63,20 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(function Av
           src={src}
           alt=""
           onError={() => setFailed(true)}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', display: 'block' }}
+          className="ca-avatar__img"
         />
       ) : (
-        <span style={{
-          width: '100%', height: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: Math.floor(px * 0.4), fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], fontFamily: 'var(--font-sans)', lineHeight: 1, userSelect: 'none',
-        }}>{initials(name)}</span>
+        <span className="ca-avatar__fallback" style={{ fontSize: Math.floor(px * 0.4) }}>{initials(name)}</span>
       )}
       {status && (
-        <span style={{
-          position: 'absolute', right: 0, bottom: 0,
-          width: Math.max(8, Math.round(px * 0.28)), height: Math.max(8, Math.round(px * 0.28)),
-          borderRadius: '50%', background: STATUS_COLOR[status] || STATUS_COLOR['offline']!,
-          border: '2px solid var(--background)',
-        }} />
+        <span
+          className="ca-avatar__status"
+          style={{
+            width: Math.max(8, Math.round(px * 0.28)),
+            height: Math.max(8, Math.round(px * 0.28)),
+            background: STATUS_COLOR[status] || STATUS_COLOR['offline']!,
+          }}
+        />
       )}
     </span>
   )
