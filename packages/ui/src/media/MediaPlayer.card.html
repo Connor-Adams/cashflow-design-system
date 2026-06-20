@@ -1,0 +1,36 @@
+<!-- @dsCard group="Media" viewport="760x360" name="MediaPlayer" subtitle="Composed now-playing — artwork, info, scrubber, transport" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 20px; background: var(--card); font-family: var(--font-sans); }
+  .wrap { max-width: 720px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { MediaPlayer } = window.CashflowDesignSystem_2cf89d;
+  const { useState } = React;
+  function Demo() {
+    const [paused, setPaused] = useState(false);
+    const [t, setT] = useState(96);
+    const track = { title: 'Midnight City', source: 'YouTube', sourceLink: 'https://youtu.be/dX3k_QDnzHE', thumbnailUrl: 'https://picsum.photos/seed/cf-mp/280/280', duration: 244 };
+    return (
+      <div className="wrap">
+        <MediaPlayer track={track} currentTime={t} duration={244} isPaused={paused}
+          onPlayPause={() => setPaused((p) => !p)} onSkip={() => {}} onPrevious={() => {}} onSeek={setT} autoTick={!paused} />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>
