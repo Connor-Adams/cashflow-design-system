@@ -15,6 +15,7 @@ export interface NowPlayingArtworkProps extends Omit<React.HTMLAttributes<HTMLDi
 const BARS = [0, 1, 2, 3]
 
 export function NowPlayingArtwork({ isPlaying, thumbnailUrl, alt = '', className, style, ...props }: NowPlayingArtworkProps): React.JSX.Element {
+  const gradId = React.useId()
   const [imageError, setImageError] = React.useState(false)
   React.useEffect(() => { setImageError(false) }, [thumbnailUrl])
   const showThumbnail = Boolean(thumbnailUrl) && !imageError
@@ -31,12 +32,12 @@ export function NowPlayingArtwork({ isPlaying, thumbnailUrl, alt = '', className
       ) : (
         <svg viewBox="0 0 280 280" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} aria-hidden="true">
           <defs>
-            <linearGradient id="cf-art-grad" x1="0" y1="0" x2="280" y2="280" gradientUnits="userSpaceOnUse">
+            <linearGradient id={gradId} x1="0" y1="0" x2="280" y2="280" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="var(--primary)" />
               <stop offset="100%" stopColor="var(--accent)" />
             </linearGradient>
           </defs>
-          <rect width="280" height="280" fill="url(#cf-art-grad)" />
+          <rect width="280" height="280" fill={`url(#${gradId})`} />
           <path d="M110 80L190 140L110 200V80Z" fill="var(--primary-foreground)" opacity="0.9" />
         </svg>
       )}
