@@ -1,5 +1,6 @@
-/* Card and its sub-parts — presentational surfaces. Layout stays inline in the
-   .tsx; this file carries the base classes so consumers can target/override. */
+/* Card and its sub-parts — presentational surfaces. All styling lives here in
+   classes so a consumer's className can override it; the .tsx keeps only the
+   `...style` spread (consumer style prop) and any dynamic values. */
 
 .ca-card {
   border-radius: var(--radius-lg);
@@ -8,4 +9,23 @@
   color: var(--card-foreground);
   box-shadow: var(--shadow);
   padding: 20px;
+}
+
+.ca-card-header {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.ca-card-title {
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  font-size: var(--text-headline-sm);
+  color: var(--foreground);
+}
+
+.ca-card-description {
+  font-size: var(--text-body);
+  color: var(--muted-foreground);
+  line-height: 1.5;
 }
