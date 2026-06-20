@@ -4,7 +4,12 @@
    `button, input, select, textarea { font: inherit }`, which otherwise (when
    components were layered but the base was not) wiped out every component's
    font-weight/font-size. Consumer styles and Tailwind utilities stay unlayered,
-   so they still override components via className. */
+   so they still override components via className.
+
+   This file is the single styling entry: the package's JS bundle side-effect-
+   imports it, so `import { Button } from '@connor-adams/designsystem'` is enough.
+   It is also exported as `@connor-adams/designsystem/styles.css` for consumers
+   that prefer to link the stylesheet directly. */
 @layer base, components;
 @import "@connor-adams/tokens/styles.css" layer(base);
 @import "./dist/index.css" layer(components);

@@ -30,7 +30,6 @@ The runtime dependency `@connor-adams/tokens` (the CSS variables) installs autom
 ## Use
 
 ```tsx
-import '@connor-adams/designsystem/styles.css' // once, at your app root — loads tokens + fonts
 import { Button, Card, AmountText } from '@connor-adams/designsystem'
 
 export function Example() {
@@ -43,7 +42,7 @@ export function Example() {
 }
 ```
 
-- **Styles:** import `@connor-adams/designsystem/styles.css` once. It pulls in the token layer (`@connor-adams/tokens`) — colors, type, spacing, fonts — as CSS custom properties. Components read those vars, so theming is a stylesheet concern.
+- **Styles:** no separate CSS import needed. The package's JS entry side-effect-imports its own bundled stylesheet — the token layer (colors, type, spacing, fonts, as CSS custom properties) plus every component's CSS — so importing the package is enough. Requires a bundler that processes CSS from `node_modules` (Vite, Next, webpack, Parcel — all do). If you link the stylesheet directly instead, `@connor-adams/designsystem/styles.css` is still exported.
 - **Types:** every component ships generated `.d.ts`; props are fully typed.
 - **ESM-only**, tree-shakeable. React/React-DOM are peer deps (not bundled).
 
