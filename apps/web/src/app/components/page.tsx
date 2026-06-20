@@ -1,7 +1,5 @@
-import * as React from 'react'
-import manifest from '../../generated/manifest.json'
-import { Gallery, type ManifestEntry } from '../../components/Gallery'
+import { redirect } from 'next/navigation'
 
-export default function ComponentsPage() {
-  return <Gallery entries={manifest as ManifestEntry[]} />
+export default function ComponentsIndex() {
+  redirect('/')
 }
