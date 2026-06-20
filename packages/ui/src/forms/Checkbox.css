@@ -1,0 +1,41 @@
+/* Checkbox — a button[role=checkbox]. Interactive states (focus ring, checked
+   fill, disabled) live in CSS, keyed off data-state. All colors reach through
+   the semantic token layer; no raw hex. */
+
+.ca-checkbox {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--input);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  color: var(--primary-foreground);
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms;
+}
+
+.ca-checkbox[data-state='checked'],
+.ca-checkbox[data-state='indeterminate'] {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.ca-checkbox:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-checkbox:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-checkbox {
+    transition: none;
+  }
+}

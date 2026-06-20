@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './StatCard.css'
 
 /**
  * Cashflow StatCard. The KPI tile: uppercase muted label, large bold value,
@@ -10,6 +11,8 @@ import * as React from 'react'
  *   - 'spend'   → INVERTED: up is bad (red), down is good (green)
  *   - 'neutral' → always muted, regardless of sign
  * Pass delta as a signed string like "+12%" or "-$340".
+ *
+ * Layout and the delta-chip tones live in `StatCard.css`, keyed off `data-tone`.
  */
 
 export type MetricKind = 'gain' | 'spend' | 'neutral'
@@ -51,63 +54,27 @@ export function resolveDeltaTone(
   return sign
 }
 
-const TONE_STYLE: Record<DeltaTone, React.CSSProperties> = {
-  positive: {
-    background: 'color-mix(in srgb, var(--positive) 16%, transparent)',
-    borderColor: 'color-mix(in srgb, var(--positive) 45%, var(--border))',
-    color: 'var(--positive)',
-  },
-  negative: {
-    background: 'color-mix(in srgb, var(--destructive) 14%, transparent)',
-    borderColor: 'color-mix(in srgb, var(--destructive) 45%, var(--border))',
-    color: 'var(--destructive)',
-  },
-  neutral: { background: 'transparent', borderColor: 'var(--border)', color: 'var(--muted-foreground)' },
-}
-
 const ARROW: Record<DeltaTone, string> = { positive: '▲', negative: '▼', neutral: '—' }
 
-export function StatCard({ label, value, hint, delta, metricKind = 'gain', className, style, ...props }: StatCardProps): React.JSX.Element {
+export const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(function StatCard(
+  { label, value, hint, delta, metricKind = 'gain', className, ...props },
+  ref,
+): React.JSX.Element {
   const sign = parseSign(delta)
   const tone = resolveDeltaTone(sign, metricKind)
   return (
     <div
+      ref={ref}
       data-slot="stat-card"
-      className={className}
-      style={{
-        borderRadius: 'var(--radius-lg)',
-        border: '1px solid var(--border)',
-        background: 'var(--card)',
-        boxShadow: 'var(--shadow)',
-        padding: 16,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 6,
-        fontFamily: 'var(--font-sans)',
-        ...style,
-      }}
+      className={className ? `ca-stat-card ${className}` : 'ca-stat-card'}
       {...props}
     >
-      <p style={{ margin: 0, fontSize: 'var(--text-label)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--muted-foreground)' }}>{label}</p>
-      <p style={{ margin: 0, fontSize: '1.55rem', fontWeight: 'var(--weight-bold)' as React.CSSProperties['fontWeight'], letterSpacing: '-0.01em', color: 'var(--foreground)', whiteSpace: 'nowrap' }}>{value}</p>
-      {hint && <p style={{ margin: 0, fontSize: 'var(--text-body-sm)', lineHeight: 1.4, color: 'var(--muted-foreground)' }}>{hint}</p>}
+      <p className="ca-stat-card__label">{label}</p>
+      <p className="ca-stat-card__value">{value}</p>
+      {hint && <p className="ca-stat-card__hint">{hint}</p>}
       {delta != null && (
-        <p style={{ margin: 0 }}>
-          <span
-            data-slot="stat-card-delta"
-            data-tone={tone}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 4,
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid',
-              padding: '2px 6px',
-              fontSize: 'var(--text-body-sm)',
-              fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
-              ...TONE_STYLE[tone],
-            }}
-          >
+        <p className="ca-stat-card__delta-wrap">
+          <span data-slot="stat-card-delta" data-tone={tone} className="ca-stat-card__delta">
             <span aria-hidden="true">{ARROW[sign]}</span>
             {delta}
           </span>
@@ -115,4 +82,4 @@ export function StatCard({ label, value, hint, delta, metricKind = 'gain', class
       )}
     </div>
   )
-}
+})

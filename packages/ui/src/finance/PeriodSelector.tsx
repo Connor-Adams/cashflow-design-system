@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './PeriodSelector.css'
 
 export interface PeriodPreset {
   value: string
@@ -29,9 +30,13 @@ const PRESETS: PeriodPreset[] = [
   { value: 'custom', label: 'Custom range' },
 ]
 
-export function PeriodSelector({ value = 'this-month', onValueChange, custom, onCustomChange, presets = PRESETS, size = 'default', className, style, ...props }: PeriodSelectorProps): React.JSX.Element {
+export const PeriodSelector = React.forwardRef<HTMLDivElement, PeriodSelectorProps>(function PeriodSelector(
+  { value = 'this-month', onValueChange, custom, onCustomChange, presets = PRESETS, size = 'default', className, style, ...props },
+  forwardedRef,
+): React.JSX.Element {
   const [open, setOpen] = React.useState<boolean>(false)
   const ref = React.useRef<HTMLDivElement>(null)
+  React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement)
   const current = presets.find((p) => p.value === value) || presets[0]
 
   React.useEffect(() => {
@@ -43,23 +48,17 @@ export function PeriodSelector({ value = 'this-month', onValueChange, custom, on
     return () => { document.removeEventListener('mousedown', onDoc); document.removeEventListener('keydown', onKey) }
   }, [open])
 
-  const h = size === 'sm' ? 32 : 36
   const pick = (v: string): void => { onValueChange?.(v); if (v !== 'custom') setOpen(false) }
   const setCustom = (k: 'from' | 'to', val: string): void => onCustomChange?.({ ...(custom || {}), [k]: val })
 
   return (
-    <div ref={ref} data-slot="period-selector" className={className} style={{ position: 'relative', display: 'inline-block', fontFamily: 'var(--font-sans)', ...style }} {...props}>
+    <div ref={ref} data-slot="period-selector" data-size={size} className={className ? `ca-period-selector ${className}` : 'ca-period-selector'} style={style} {...props}>
       <button
         type="button"
+        className="ca-period-selector-trigger"
+        data-open={open ? 'true' : undefined}
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8, height: h, padding: '0 12px',
-          borderRadius: 'var(--radius-md)', border: `1px solid ${open ? 'var(--ring)' : 'var(--input)'}`,
-          background: 'var(--card)', color: 'var(--foreground)', cursor: 'pointer',
-          fontSize: size === 'sm' ? 'var(--text-body-sm)' : 'var(--text-body)', fontWeight: 'var(--weight-medium)' as React.CSSProperties['fontWeight'],
-          boxShadow: open ? '0 0 0 3px color-mix(in oklch, var(--ring) 35%, transparent)' : 'none', transition: 'border-color 150ms, box-shadow 150ms',
-        }}
       >
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }}><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
         {current!.label}
@@ -73,17 +72,11 @@ export function PeriodSelector({ value = 'this-month', onValueChange, custom, on
               <button
                 key={p.value}
                 type="button"
+                className="ca-period-selector-item"
                 role="menuitemradio"
                 aria-checked={active}
+                data-active={active ? 'true' : undefined}
                 onClick={() => pick(p.value)}
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, width: '100%', textAlign: 'left',
-                  border: 'none', borderRadius: 'var(--radius-sm)', padding: '8px 9px', cursor: 'pointer',
-                  fontSize: 'var(--text-body)', fontFamily: 'var(--font-sans)',
-                  background: active ? 'var(--accent)' : 'transparent', color: active ? 'var(--accent-foreground)' : 'var(--foreground)',
-                }}
-                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => { if (!active) e.currentTarget.style.background = 'var(--muted)' }}
-                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => { if (!active) e.currentTarget.style.background = 'transparent' }}
               >
                 {p.label}
                 {active && <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
@@ -106,4 +99,4 @@ export function PeriodSelector({ value = 'this-month', onValueChange, custom, on
       )}
     </div>
   )
-}
+})

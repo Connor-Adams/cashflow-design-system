@@ -1,0 +1,70 @@
+/* StatCard — the KPI tile. Layout + the signed-delta chip tones live here,
+   keyed off data-tone on the delta. All colors reach through the token layer. */
+
+.ca-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  font-family: var(--font-sans);
+}
+
+.ca-stat-card__label {
+  margin: 0;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted-foreground);
+}
+
+.ca-stat-card__value {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.ca-stat-card__hint {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  line-height: 1.4;
+  color: var(--muted-foreground);
+}
+
+.ca-stat-card__delta-wrap {
+  margin: 0;
+}
+
+.ca-stat-card__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  padding: 2px 6px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-stat-card__delta[data-tone='positive'] {
+  background: color-mix(in srgb, var(--positive) 16%, transparent);
+  border-color: color-mix(in srgb, var(--positive) 45%, var(--border));
+  color: var(--positive);
+}
+.ca-stat-card__delta[data-tone='negative'] {
+  background: color-mix(in srgb, var(--destructive) 14%, transparent);
+  border-color: color-mix(in srgb, var(--destructive) 45%, var(--border));
+  color: var(--destructive);
+}
+.ca-stat-card__delta[data-tone='neutral'] {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted-foreground);
+}

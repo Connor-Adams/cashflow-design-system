@@ -1,0 +1,11 @@
+/* Label — sits above its control. All colors reach through the semantic token
+   layer; no raw hex. */
+
+.ca-label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.82rem;
+  font-weight: var(--weight-semibold);
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+}

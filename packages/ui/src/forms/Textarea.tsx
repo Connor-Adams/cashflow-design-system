@@ -1,36 +1,26 @@
 import * as React from 'react'
+import './Textarea.css'
 
-/** Multi-line text field. Same treatment as Input, min-height 64px, resizable. */
+/**
+ * Multi-line text field. Same treatment as Input, min-height 64px, resizable.
+ * Interactive states live in `Textarea.css`; the ref forwards to the native
+ * `<textarea>` for react-hook-form / `focus()`.
+ */
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   invalid?: boolean
 }
 
-export function Textarea({ className, style, invalid, ...props }: TextareaProps): React.JSX.Element {
-  const [focus, setFocus] = React.useState(false)
+export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
+  { className, invalid, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <textarea
+      ref={ref}
       data-slot="textarea"
-      aria-invalid={invalid || undefined}
-      className={className}
-      onFocus={(e) => { setFocus(true); props.onFocus?.(e) }}
-      onBlur={(e) => { setFocus(false); props.onBlur?.(e) }}
-      style={{
-        minHeight: 64,
-        width: '100%',
-        borderRadius: 'var(--radius-md)',
-        border: `1px solid ${invalid ? 'var(--destructive)' : focus ? 'var(--ring)' : 'var(--input)'}`,
-        background: 'color-mix(in oklch, var(--background) 70%, transparent)',
-        padding: '8px 12px',
-        fontSize: 'var(--text-body)',
-        fontFamily: 'var(--font-sans)',
-        color: 'var(--foreground)',
-        outline: 'none',
-        resize: 'vertical',
-        boxShadow: focus ? `0 0 0 3px color-mix(in oklch, var(--ring) 35%, transparent)` : 'var(--shadow)',
-        transition: 'border-color 150ms, box-shadow 150ms',
-        ...style,
-      }}
+      aria-invalid={invalid || props['aria-invalid'] || undefined}
+      className={className ? `ca-textarea ${className}` : 'ca-textarea'}
       {...props}
     />
   )
-}
+})

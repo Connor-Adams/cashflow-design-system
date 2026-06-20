@@ -1,0 +1,53 @@
+/* Breadcrumb — interactive states live in CSS (link hover/focus-visible),
+   not JS. All colors reach through the semantic token layer; no raw hex. */
+
+.ca-breadcrumb {
+  font-family: var(--font-sans);
+}
+
+.ca-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--text-body);
+}
+
+.ca-breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Link items — quiet by default, foreground on hover. */
+.ca-breadcrumb a {
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.ca-breadcrumb a:hover {
+  color: var(--foreground);
+}
+.ca-breadcrumb a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Non-link items (plain trail segments + the current page). */
+.ca-breadcrumb [data-slot='breadcrumb-page'] {
+  color: var(--muted-foreground);
+  font-weight: var(--weight-regular);
+}
+.ca-breadcrumb [data-slot='breadcrumb-page'][aria-current='page'] {
+  color: var(--foreground);
+  font-weight: var(--weight-semibold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-breadcrumb a {
+    transition: none;
+  }
+}

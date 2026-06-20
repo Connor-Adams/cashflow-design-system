@@ -1,10 +1,14 @@
 import * as React from 'react'
+import './LetterAvatar.css'
 
 /**
  * Cashflow LetterAvatar. A categorical identity chip — the first character on
  * one of the 12 --avatar-* colors, picked by hashing the text so the same
  * counterparty always gets the same color. Text color is precomputed per slot
  * for contrast. Sizes sm 24 · md 32 · lg 48 · xl 64.
+ *
+ * Sizing lives in `LetterAvatar.css`, keyed off `data-size`; the hashed
+ * background/foreground are passed in as CSS custom properties.
  */
 
 export type LetterAvatarSize = 'sm' | 'md' | 'lg' | 'xl'
@@ -14,8 +18,6 @@ export interface LetterAvatarProps extends React.HTMLAttributes<HTMLSpanElement>
   text: string
   size?: LetterAvatarSize
 }
-
-const SIZE_PX: Record<LetterAvatarSize, number> = { sm: 24, md: 32, lg: 48, xl: 64 }
 
 const PALETTE: Array<{ bg: string; fg: string }> = [
   { bg: 'var(--avatar-grad-1)',  fg: 'var(--avatar-on-light)' },
@@ -38,30 +40,24 @@ function hashCode(s: string): number {
   return Math.abs(h)
 }
 
-export function LetterAvatar({ text = '?', size = 'md', style, ...props }: LetterAvatarProps): React.JSX.Element {
+export const LetterAvatar = React.forwardRef<HTMLSpanElement, LetterAvatarProps>(function LetterAvatar(
+  { text = '?', size = 'md', className, style, ...props },
+  ref,
+): React.JSX.Element {
   const ch = (String(text).trim().charAt(0) || '?').toUpperCase()
   const entry = PALETTE[hashCode(text || '?') % PALETTE.length]
   const { bg, fg } = entry ?? PALETTE[0]!
-  const px = SIZE_PX[size] || SIZE_PX.md
   return (
     <span
+      ref={ref}
       role="img"
       aria-label={`Avatar for ${text}`}
+      data-slot="letter-avatar"
+      data-size={size}
+      className={className ? `ca-letter-avatar ${className}` : 'ca-letter-avatar'}
       style={{
-        width: px,
-        height: px,
-        borderRadius: 6,
-        background: bg,
-        color: fg,
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: Math.floor(px * 0.5),
-        fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
-        fontFamily: 'var(--font-sans)',
-        lineHeight: 1,
-        userSelect: 'none',
-        flexShrink: 0,
+        ['--ca-avatar-bg' as string]: bg,
+        ['--ca-avatar-fg' as string]: fg,
         ...style,
       }}
       {...props}
@@ -69,4 +65,4 @@ export function LetterAvatar({ text = '?', size = 'md', style, ...props }: Lette
       {ch}
     </span>
   )
-}
+})

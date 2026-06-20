@@ -1,0 +1,31 @@
+/* EmptyState — muted, low-key placeholder for empty data views. Soft muted
+   surface, title, optional description + actions. All colors reach through the
+   semantic token layer; no raw hex. */
+
+.ca-empty-state {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: color-mix(in oklch, var(--muted) 20%, transparent);
+  padding: 16px;
+  font-size: var(--text-body);
+  font-family: var(--font-sans);
+}
+
+.ca-empty-state__title {
+  margin: 0 0 4px;
+  font-weight: var(--weight-semibold);
+  color: var(--muted-foreground);
+}
+
+.ca-empty-state__description {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+.ca-empty-state__actions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

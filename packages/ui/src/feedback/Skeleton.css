@@ -1,0 +1,40 @@
+/* Skeleton — loading placeholder with the 1.6s hero-gradient shimmer sweep at
+   ~22% over the muted base. All colors reach through the semantic token layer;
+   no raw hex. Per-instance width/height stay inline (dynamic). */
+
+@keyframes caSkeletonShimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.ca-skeleton {
+  border-radius: var(--radius-md);
+  background-color: var(--muted);
+  background-image: linear-gradient(
+    100deg,
+    transparent 25%,
+    color-mix(in oklch, var(--gradient-hero-from) 22%, transparent) 42%,
+    color-mix(in oklch, var(--gradient-hero-to) 22%, transparent) 58%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: caSkeletonShimmer 1.6s ease-in-out infinite;
+}
+
+.ca-skeleton-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-skeleton {
+    background-image: none;
+    animation: none;
+  }
+}

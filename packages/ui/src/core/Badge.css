@@ -1,0 +1,59 @@
+/* Badge — a small status / count pill. Variants are keyed off data-variant.
+   All colors reach through the semantic token layer; no raw hex. */
+
+.ca-badge {
+  display: inline-flex;
+  width: fit-content;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: var(--radius-md);
+  padding: 2px 8px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-sans);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+/* ---- Variants ---- */
+.ca-badge[data-variant='default'] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 1px solid transparent;
+}
+
+.ca-badge[data-variant='secondary'] {
+  background: var(--muted);
+  color: var(--foreground);
+  border: 1px solid transparent;
+}
+
+.ca-badge[data-variant='destructive'] {
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+  border: 1px solid transparent;
+}
+
+.ca-badge[data-variant='outline'] {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.ca-badge[data-variant='success'] {
+  background: var(--success-bg);
+  color: var(--success-foreground);
+  border: 1px solid transparent;
+}
+
+.ca-badge[data-variant='count'] {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  font-size: 0.68rem;
+  padding: 4px 10px;
+}

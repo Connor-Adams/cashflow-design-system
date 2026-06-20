@@ -1,0 +1,103 @@
+/* DropdownMenu — a trigger that opens a popover menu of items. Open/close is
+   behavior and stays in JS; item hover/focus styling lives here. Menu items get
+   a :focus-visible ring for keyboard users. All colors reach through the
+   semantic token layer; no raw hex. */
+
+.ca-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.ca-dropdown-trigger {
+  display: inline-flex;
+}
+
+.ca-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  z-index: 70;
+  min-width: 180px;
+  padding: 4px;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  font-family: var(--font-sans);
+}
+
+.ca-dropdown-menu[data-align='start'] {
+  left: 0;
+}
+.ca-dropdown-menu[data-align='end'] {
+  right: 0;
+}
+
+.ca-dropdown-separator {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.ca-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  padding: 8px 9px;
+  font-size: var(--text-body);
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+
+.ca-dropdown-item[data-danger='true'] {
+  color: var(--destructive);
+}
+
+/* Hover styling — moved out of JS onMouseEnter/onMouseLeave */
+.ca-dropdown-item:hover:not(:disabled),
+.ca-dropdown-item[data-highlighted]:not(:disabled) {
+  background: var(--muted);
+}
+.ca-dropdown-item[data-danger='true']:hover:not(:disabled),
+.ca-dropdown-item[data-danger='true'][data-highlighted]:not(:disabled) {
+  background: color-mix(in srgb, var(--destructive) 12%, transparent);
+}
+
+/* Keyboard focus ring — WCAG 2.4.7 */
+.ca-dropdown-item:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-dropdown-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ca-dropdown-item-icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.ca-dropdown-item-label {
+  flex: 1;
+}
+
+.ca-dropdown-item-shortcut {
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-dropdown-item {
+    transition: none;
+  }
+}

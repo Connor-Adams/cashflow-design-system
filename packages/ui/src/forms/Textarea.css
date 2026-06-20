@@ -1,0 +1,46 @@
+/* Textarea — same treatment as Input; interactive states live in CSS. All
+   colors reach through the semantic token layer; no raw hex. */
+
+.ca-textarea {
+  min-height: 64px;
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--input);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  padding: 8px 12px;
+  font-size: var(--text-body);
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  outline: none;
+  resize: vertical;
+  box-shadow: var(--shadow);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.ca-textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+.ca-textarea:focus-visible {
+  border-color: var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-textarea[aria-invalid='true'] {
+  border-color: var(--destructive);
+}
+.ca-textarea[aria-invalid='true']:focus-visible {
+  outline-color: var(--destructive);
+}
+
+.ca-textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-textarea {
+    transition: none;
+  }
+}

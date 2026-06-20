@@ -1,0 +1,53 @@
+import { createRef } from 'react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { Toast } from './Toast'
+
+describe('Toast', () => {
+  it('renders with the ca-toast base class', () => {
+    render(<Toast title="Saved" />)
+    expect(screen.getByRole('status')).toHaveClass('ca-toast')
+  })
+
+  it('merges a consumer className onto the base class', () => {
+    render(<Toast title="Saved" className="mt-2" />)
+    const el = screen.getByRole('status')
+    expect(el).toHaveClass('ca-toast')
+    expect(el).toHaveClass('mt-2')
+  })
+
+  it('reflects variant as a data attribute', () => {
+    render(<Toast variant="error" title="Oops" />)
+    expect(screen.getByRole('status')).toHaveAttribute('data-variant', 'error')
+  })
+
+  it('defaults variant to "default"', () => {
+    render(<Toast title="Hi" />)
+    expect(screen.getByRole('status')).toHaveAttribute('data-variant', 'default')
+  })
+
+  it('forwards a ref to the root element', () => {
+    const ref = createRef<HTMLDivElement>()
+    render(<Toast ref={ref} title="Saved" />)
+    expect(ref.current).toBeInstanceOf(HTMLDivElement)
+    expect(ref.current).toHaveAttribute('data-slot', 'toast')
+  })
+
+  it('renders title and body', () => {
+    render(<Toast title="Saved">Your file is uploaded</Toast>)
+    expect(screen.getByText('Saved')).toBeInTheDocument()
+    expect(screen.getByText('Your file is uploaded')).toBeInTheDocument()
+  })
+
+  it('renders a dismiss button when onClose is provided and fires it', () => {
+    const onClose = vi.fn()
+    render(<Toast title="Saved" onClose={onClose} />)
+    const btn = screen.getByRole('button', { name: 'Dismiss' })
+    fireEvent.click(btn)
+    expect(onClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('renders no dismiss button without onClose', () => {
+    render(<Toast title="Saved" />)
+    expect(screen.queryByRole('button', { name: 'Dismiss' })).toBeNull()
+  })
+})

@@ -1,0 +1,49 @@
+/* Tooltip — a small popover bubble shown on hover/focus. Visibility (show/hide)
+   stays in JS because it is behavior; positioning + visuals live here, keyed off
+   data-side. All colors reach through the semantic token layer; no raw hex. */
+
+.ca-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.ca-tooltip-bubble {
+  position: absolute;
+  z-index: 60;
+  white-space: nowrap;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 5px 9px;
+  font-size: var(--text-body-sm);
+  font-family: var(--font-sans);
+  pointer-events: none;
+}
+
+/* ---- Placement (keyed off data-side) ---- */
+.ca-tooltip-bubble[data-side='top'] {
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 8px;
+  transform: translateX(-50%);
+}
+.ca-tooltip-bubble[data-side='bottom'] {
+  top: 100%;
+  left: 50%;
+  margin-top: 8px;
+  transform: translateX(-50%);
+}
+.ca-tooltip-bubble[data-side='left'] {
+  right: 100%;
+  top: 50%;
+  margin-right: 8px;
+  transform: translateY(-50%);
+}
+.ca-tooltip-bubble[data-side='right'] {
+  left: 100%;
+  top: 50%;
+  margin-left: 8px;
+  transform: translateY(-50%);
+}

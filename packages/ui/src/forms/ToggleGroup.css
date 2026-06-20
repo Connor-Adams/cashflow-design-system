@@ -1,0 +1,61 @@
+/* ToggleGroup — segmented control. Interactive states (hover, focus ring,
+   active lift) live in CSS, keyed off data-size / data-state. All colors reach
+   through the semantic token layer; no raw hex. */
+
+.ca-toggle-group {
+  display: inline-flex;
+  gap: 4px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: color-mix(in oklch, var(--muted) 55%, transparent);
+  padding: 4px;
+  font-family: var(--font-sans);
+}
+
+.ca-toggle-group-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+  border: none;
+  padding: 7px 13px;
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: color 150ms, background-color 150ms, box-shadow 150ms;
+  background: transparent;
+  color: color-mix(in oklch, var(--muted-foreground) 80%, var(--foreground));
+  box-shadow: none;
+}
+.ca-toggle-group[data-size='sm'] .ca-toggle-group-item {
+  padding: 5px 10px;
+  font-size: var(--text-body-sm);
+}
+
+.ca-toggle-group-item:hover:not([data-state='on']) {
+  color: var(--foreground);
+}
+
+.ca-toggle-group-item[data-state='on'] {
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: var(--shadow);
+}
+
+.ca-toggle-group-item:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-toggle-group-item-icon {
+  display: inline-flex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-toggle-group-item {
+    transition: none;
+  }
+}

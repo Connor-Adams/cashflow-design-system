@@ -1,0 +1,31 @@
+/* Link — inline anchor. Hover underline + focus-visible ring live here, not JS.
+   Color is keyed off data-variant (default / muted / subtle). All colors reach
+   through the semantic token layer; no raw hex. */
+
+.ca-link {
+  color: var(--text-link);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklch, currentColor 45%, transparent);
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.ca-link[data-variant='muted'] {
+  color: var(--muted-foreground);
+}
+
+.ca-link[data-variant='subtle'] {
+  color: var(--foreground);
+}
+
+.ca-link:hover {
+  text-decoration: underline;
+}
+
+.ca-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}

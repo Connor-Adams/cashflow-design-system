@@ -1,0 +1,65 @@
+/* RadioGroup — single-choice list. Interactive states (focus ring, selected
+   dot, disabled) live in CSS, keyed off data-orientation / data-state. All
+   colors reach through the semantic token layer; no raw hex. */
+
+.ca-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-sans);
+}
+.ca-radio-group[data-orientation='horizontal'] {
+  flex-direction: row;
+  gap: 20px;
+}
+
+.ca-radio-group-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: var(--text-body);
+  color: var(--foreground);
+}
+.ca-radio-group[data-disabled] .ca-radio-group-item {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ca-radio-group-control {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--input);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  cursor: pointer;
+  transition: border-color 150ms;
+}
+.ca-radio-group-control[data-state='checked'] {
+  border-color: var(--primary);
+}
+.ca-radio-group-control:disabled {
+  cursor: not-allowed;
+}
+.ca-radio-group-control:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-radio-group-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-radio-group-control {
+    transition: none;
+  }
+}

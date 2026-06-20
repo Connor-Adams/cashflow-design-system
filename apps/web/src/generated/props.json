@@ -186,7 +186,7 @@
     },
     {
       "name": "tone",
-      "type": "(string & {}) | \"primary\" | \"current\" | \"muted\" | undefined",
+      "type": "(string & {}) | \"primary\" | \"muted\" | \"current\" | undefined",
       "required": false,
       "defaultValue": "current",
       "description": ""
@@ -847,27 +847,6 @@
       "required": false,
       "defaultValue": null,
       "description": ""
-    },
-    {
-      "name": "disabled",
-      "type": "boolean | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
-    },
-    {
-      "name": "className",
-      "type": "string | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
     }
   ],
   "Combobox": [
@@ -993,20 +972,6 @@
     {
       "name": "disabled",
       "type": "boolean | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
-    },
-    {
-      "name": "className",
-      "type": "string | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties | undefined",
       "required": false,
       "defaultValue": null,
       "description": ""
@@ -1165,31 +1130,10 @@
       "description": ""
     },
     {
-      "name": "disabled",
-      "type": "boolean | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
-    },
-    {
       "name": "size",
       "type": "\"sm\" | \"default\" | undefined",
       "required": false,
       "defaultValue": "default",
-      "description": ""
-    },
-    {
-      "name": "className",
-      "type": "string | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties | undefined",
-      "required": false,
-      "defaultValue": null,
       "description": ""
     }
   ],

@@ -1,0 +1,57 @@
+/* Alert — inline status message. Four semantic variants, each a tint of its
+   semantic color mixed into background (~11%) and border (~44%). All colors
+   reach through the semantic token layer; no raw hex. */
+
+.ca-alert {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  padding: 12px;
+  font-size: var(--text-body);
+  font-family: var(--font-sans);
+}
+
+.ca-alert[data-variant='info'] {
+  border-color: color-mix(in srgb, var(--primary) 44%, var(--border));
+  background: color-mix(in srgb, var(--primary) 11%, transparent);
+}
+
+.ca-alert[data-variant='error'] {
+  border-color: color-mix(in srgb, var(--danger) 44%, var(--border));
+  background: color-mix(in srgb, var(--danger) 11%, transparent);
+}
+
+.ca-alert[data-variant='warning'] {
+  border-color: color-mix(in srgb, var(--warning) 44%, var(--border));
+  background: color-mix(in srgb, var(--warning) 11%, transparent);
+}
+
+.ca-alert[data-variant='success'] {
+  border-color: color-mix(in srgb, var(--success) 44%, var(--border));
+  background: color-mix(in srgb, var(--success) 11%, transparent);
+}
+
+.ca-alert__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ca-alert__title {
+  margin: 0;
+  font-weight: var(--weight-semibold);
+}
+
+.ca-alert__action {
+  flex-shrink: 0;
+}
+
+.ca-alert__body {
+  font-size: var(--text-body);
+  line-height: 1.45;
+}

@@ -1,0 +1,8 @@
+/* Text — the typography primitive. Purely presentational: the per-variant size,
+   line-height, weight, tone and tag are computed inline in the .tsx (driven by
+   several props), so this base class is minimal and exists for consumer
+   targeting/overrides. */
+
+.ca-text {
+  margin: 0;
+}

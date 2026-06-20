@@ -1,10 +1,14 @@
 import * as React from 'react'
 import { formatDuration } from './format'
+import './ProgressBar.css'
 
 /**
  * Seekable playback scrubber with elapsed / total time labels. Click anywhere
  * on the track to seek; `onSeek` receives the target position in whole
  * seconds. Distinct from `Progress`, which is a non-interactive display bar.
+ *
+ * The scrub-thumb hover reveal and focus ring live in `ProgressBar.css` — the
+ * click-to-seek handler stays in JS because it's behavior, not styling.
  */
 export interface ProgressBarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> {
   currentTime: number
@@ -12,10 +16,12 @@ export interface ProgressBarProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   onSeek?: (positionSeconds: number) => void
 }
 
-export function ProgressBar({ currentTime, duration, onSeek, className, style, ...props }: ProgressBarProps): React.JSX.Element {
+export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(function ProgressBar(
+  { currentTime, duration, onSeek, className, ...props },
+  ref,
+): React.JSX.Element {
   const pct = duration > 0 ? Math.max(0, Math.min(100, (currentTime / duration) * 100)) : 0
   const seekable = Boolean(onSeek) && duration > 0
-  const [hover, setHover] = React.useState(false)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!seekable) return
@@ -25,26 +31,28 @@ export function ProgressBar({ currentTime, duration, onSeek, className, style, .
   }
 
   return (
-    <div data-slot="progress-bar" className={className} style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%', fontFamily: 'var(--font-sans)', ...style }} {...props}>
+    <div
+      ref={ref}
+      data-slot="progress-bar"
+      className={className ? `ca-progress-bar ${className}` : 'ca-progress-bar'}
+      {...props}
+    >
       <div
+        className="ca-progress-bar__track"
+        data-seekable={seekable}
         role={seekable ? 'slider' : 'progressbar'}
         aria-valuemin={0}
         aria-valuemax={Math.round(duration)}
         aria-valuenow={Math.round(currentTime)}
         onClick={handleClick}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        style={{ position: 'relative', width: '100%', height: 8, borderRadius: 'var(--radius-full)', background: 'var(--muted)', overflow: 'visible', cursor: seekable ? 'pointer' : 'default' }}
       >
-        <div style={{ position: 'absolute', top: 0, left: 0, height: '100%', width: `${pct}%`, borderRadius: 'var(--radius-full)', background: 'var(--primary)', transition: 'width 120ms linear' }} />
-        {seekable && (
-          <div style={{ position: 'absolute', top: '50%', left: `${pct}%`, width: 14, height: 14, transform: 'translate(-50%, -50%)', borderRadius: 'var(--radius-full)', background: 'var(--foreground)', boxShadow: 'var(--shadow)', opacity: hover ? 1 : 0, transition: 'opacity 160ms ease' }} />
-        )}
+        <div className="ca-progress-bar__fill" style={{ width: `${pct}%` }} />
+        {seekable && <div className="ca-progress-bar__thumb" style={{ left: `${pct}%` }} />}
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)', color: 'var(--muted-foreground)' }}>
+      <div className="ca-progress-bar__times">
         <span>{formatDuration(currentTime)}</span>
         <span>{formatDuration(duration)}</span>
       </div>
     </div>
   )
-}
+})

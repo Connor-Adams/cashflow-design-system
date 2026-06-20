@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './Sparkline.css'
 
 /**
  * Tiny inline trend line for KPI tiles and account rows. `data` is a series of
@@ -22,10 +23,26 @@ const TONES: Record<'positive' | 'negative' | 'neutral' | 'primary', string> = {
   primary: 'var(--primary)',
 }
 
-export function Sparkline({ data = [], width = 96, height = 28, tone, area = true, dot = true, strokeWidth = 2, className, style, ...props }: SparklineProps): React.JSX.Element {
+export const Sparkline = React.forwardRef<SVGSVGElement, SparklineProps>(function Sparkline(
+  { data = [], width = 96, height = 28, tone, area = true, dot = true, strokeWidth = 2, className, style, ...props },
+  ref,
+): React.JSX.Element {
+  const base = className ? `ca-sparkline ${className}` : 'ca-sparkline'
+  const fallbackId = React.useId ? React.useId().replace(/:/g, '') : 'sp' + Math.random().toString(36).slice(2, 7)
   const pts = data.filter((n) => typeof n === 'number' && !Number.isNaN(n))
   if (pts.length < 2) {
-    return <span data-slot="sparkline" className={className} style={{ display: 'inline-block', width, height, ...style }} {...(props as React.HTMLAttributes<HTMLSpanElement>)} />
+    return (
+      <svg
+        ref={ref}
+        data-slot="sparkline"
+        className={base}
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        style={style}
+        {...props}
+      />
+    )
   }
 
   const min = Math.min(...pts)
@@ -47,18 +64,19 @@ export function Sparkline({ data = [], width = 96, height = 28, tone, area = tru
   const lastCoord = coords[coords.length - 1]!
   const firstCoord = coords[0]!
   const fill = `${line} L${lastCoord[0].toFixed(1)} ${height} L${firstCoord[0].toFixed(1)} ${height} Z`
-  const gid = React.useId ? React.useId().replace(/:/g, '') : 'sp' + Math.random().toString(36).slice(2, 7)
+  const gid = fallbackId
   const [ex, ey] = lastCoord
 
   return (
     <svg
+      ref={ref}
       data-slot="sparkline"
-      className={className}
+      className={base}
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
-      style={{ display: 'inline-block', verticalAlign: 'middle', overflow: 'visible', ...style }}
+      style={{ overflow: 'visible', ...style }}
       {...props}
     >
       {area && (
@@ -76,4 +94,4 @@ export function Sparkline({ data = [], width = 96, height = 28, tone, area = tru
       {dot && <circle cx={ex} cy={ey} r={strokeWidth + 0.5} fill={color} />}
     </svg>
   )
-}
+})

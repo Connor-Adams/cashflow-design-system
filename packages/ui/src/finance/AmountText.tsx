@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './AmountText.css'
 
 /**
  * Signed currency amount in the mono face, with load-bearing money color:
@@ -36,20 +37,23 @@ function formatAmount(abs: number, currency: string, locale: string, decimals: n
   }
 }
 
-export function AmountText({
-  value = 0,
-  currency = 'CAD',
-  locale = 'en-CA',
-  direction,
-  colored = true,
-  showSign = true,
-  decimals = 2,
-  size = 'default',
-  weight = 'bold',
-  className,
-  style,
-  ...props
-}: AmountTextProps): React.JSX.Element {
+export const AmountText = React.forwardRef<HTMLSpanElement, AmountTextProps>(function AmountText(
+  {
+    value = 0,
+    currency = 'CAD',
+    locale = 'en-CA',
+    direction,
+    colored = true,
+    showSign = true,
+    decimals = 2,
+    size = 'default',
+    weight = 'bold',
+    className,
+    style,
+    ...props
+  },
+  ref,
+): React.JSX.Element {
   const dir = direction || (value > 0 ? 'in' : value < 0 ? 'out' : 'zero')
   const abs = Math.abs(value)
   const sign = dir === 'in' ? '+' : dir === 'out' ? '−' : ''
@@ -57,16 +61,14 @@ export function AmountText({
 
   return (
     <span
+      ref={ref}
       data-slot="amount"
       data-direction={dir}
-      className={className}
+      className={className ? `ca-amount ${className}` : 'ca-amount'}
       style={{
-        fontFamily: 'var(--font-mono)',
         fontSize: typeof size === 'number' ? size : (SIZES[size] || SIZES.default),
         fontWeight: `var(--weight-${weight})` as React.CSSProperties['fontWeight'],
-        fontVariantNumeric: 'tabular-nums',
         color,
-        whiteSpace: 'nowrap',
         ...style,
       }}
       {...props}
@@ -74,4 +76,4 @@ export function AmountText({
       {showSign && sign ? sign : ''}{formatAmount(abs, currency, locale, decimals)}
     </span>
   )
-}
+})

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './Kbd.css'
 
 /**
  * Cashflow Kbd. A small keycap for keyboard shortcuts — mono, bordered, with a
@@ -8,11 +9,15 @@ import * as React from 'react'
 /** A keycap for keyboard shortcuts — mono, bordered, weighted bottom edge. */
 export interface KbdProps extends React.HTMLAttributes<HTMLElement> {}
 
-export function Kbd({ className, style, children, ...props }: KbdProps): React.JSX.Element {
+export const Kbd = React.forwardRef<HTMLElement, KbdProps>(function Kbd(
+  { className, style, children, ...props },
+  ref,
+): React.JSX.Element {
   return (
     <kbd
+      ref={ref}
       data-slot="kbd"
-      className={className}
+      className={className ? `ca-kbd ${className}` : 'ca-kbd'}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
@@ -35,4 +40,4 @@ export function Kbd({ className, style, children, ...props }: KbdProps): React.J
       {children}
     </kbd>
   )
-}
+})

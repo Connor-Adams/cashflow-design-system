@@ -1,0 +1,65 @@
+/* TrackInfo — now-playing title + source line. Interactive states (the source
+   link hover / focus-visible ring) live here, not JS. Colors reach through the
+   semantic token layer; no raw hex. */
+
+.ca-track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-family: var(--font-sans);
+}
+
+.ca-track-info__title {
+  margin: 0;
+  font-size: var(--text-headline);
+  font-weight: var(--weight-bold);
+  color: var(--foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ca-track-info__source {
+  margin: 0;
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-medium);
+  color: var(--muted-foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ca-track-info__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 2px;
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--primary);
+  text-decoration: none;
+  transition: background-color 140ms ease;
+}
+
+.ca-track-info__link:hover {
+  background: var(--accent);
+}
+
+.ca-track-info__link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ca-track-info__link svg {
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-track-info__link {
+    transition: none;
+  }
+}

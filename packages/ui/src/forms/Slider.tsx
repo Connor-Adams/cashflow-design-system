@@ -1,9 +1,14 @@
 import * as React from 'react'
+import './Slider.css'
 
 /**
  * Single-value range slider — oxblood fill, card thumb. Controlled via `value`
  * + `onValueChange`, or uncontrolled via `defaultValue`. `showValue` prints the
  * current value; pass `format` to format it (e.g. as currency).
+ *
+ * Static visuals and the focus-visible ring live in `Slider.css`; only the
+ * dynamic fill/thumb position is set inline via `--ca-slider-pct`. The ref
+ * forwards to the underlying `input[type=range]`.
  */
 export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
   min?: number
@@ -17,7 +22,10 @@ export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   format?: (value: number) => React.ReactNode
 }
 
-export function Slider({ min = 0, max = 100, step = 1, value, defaultValue = 0, onValueChange, disabled, showValue = false, format, className, style, ...props }: SliderProps): React.JSX.Element {
+export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(function Slider(
+  { min = 0, max = 100, step = 1, value, defaultValue = 0, onValueChange, disabled, showValue = false, format, className, style, ...props },
+  ref,
+): React.JSX.Element {
   const [internal, setInternal] = React.useState(defaultValue)
   const isControlled = value !== undefined
   const v = isControlled ? value : internal
@@ -30,23 +38,30 @@ export function Slider({ min = 0, max = 100, step = 1, value, defaultValue = 0, 
   }
 
   return (
-    <div data-slot="slider" className={className} style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%', opacity: disabled ? 0.5 : 1, ...style }} {...props}>
-      {showValue && (
-        <div style={{ fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'], color: 'var(--foreground)', textAlign: 'right' }}>
-          {format ? format(v) : v}
-        </div>
-      )}
-      <div style={{ position: 'relative', height: 18, display: 'flex', alignItems: 'center' }}>
-        <div style={{ position: 'absolute', left: 0, right: 0, height: 5, borderRadius: 99, background: 'var(--muted)' }} />
-        <div style={{ position: 'absolute', left: 0, width: `${pct}%`, height: 5, borderRadius: 99, background: 'var(--primary)' }} />
-        <div style={{ position: 'absolute', left: `calc(${pct}% )`, transform: 'translateX(-50%)', width: 16, height: 16, borderRadius: '50%', background: 'var(--card)', border: '2px solid var(--primary)', boxShadow: 'var(--shadow)', pointerEvents: 'none' }} />
+    <div
+      data-slot="slider"
+      data-disabled={disabled || undefined}
+      className={className ? `ca-slider ${className}` : 'ca-slider'}
+      style={{ ['--ca-slider-pct' as string]: `${pct}%`, ...style }}
+      {...props}
+    >
+      {showValue && <div className="ca-slider-value">{format ? format(v) : v}</div>}
+      <div className="ca-slider-track">
+        <div className="ca-slider-rail" />
+        <div className="ca-slider-fill" />
         <input
+          ref={ref}
+          className="ca-slider-input"
           type="range"
-          min={min} max={max} step={step} value={v} disabled={disabled}
+          min={min}
+          max={max}
+          step={step}
+          value={v}
+          disabled={disabled}
           onChange={onInput}
-          style={{ position: 'absolute', left: 0, right: 0, width: '100%', height: 18, margin: 0, opacity: 0, cursor: disabled ? 'not-allowed' : 'pointer' }}
         />
+        <div className="ca-slider-thumb" />
       </div>
     </div>
   )
-}
+})

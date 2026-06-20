@@ -1,0 +1,12 @@
+/* Avatar — a circular identity chip. The size (px), ring and status dot are
+   dynamic so they stay inline in the .tsx; this base class carries the static
+   shape and exists for consumer targeting/overrides. */
+
+.ca-avatar {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--muted);
+  color: var(--muted-foreground);
+}

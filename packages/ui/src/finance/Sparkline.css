@@ -1,0 +1,7 @@
+/* Sparkline — presentational inline trend svg. No interactive states.
+   Base layout only; geometry + tone colors are computed per-instance. */
+
+.ca-sparkline {
+  display: inline-block;
+  vertical-align: middle;
+}

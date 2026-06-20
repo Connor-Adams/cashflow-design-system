@@ -1,0 +1,65 @@
+/* MoneyInput — currency field: symbol + right-aligned mono amount + code, with
+   an optional in/out toggle. The focus ring is driven by :focus-within on the
+   wrapper (no JS), invalid/disabled keyed off data-attrs. The base class lives
+   on the <input> (the forwarded ref / focusable node). */
+
+.ca-money-input-root {
+  display: inline-flex;
+  align-items: stretch;
+  width: fit-content;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--input);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  overflow: hidden;
+  font-family: var(--font-sans);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.ca-money-input-root[data-size='default'] {
+  height: 36px;
+}
+.ca-money-input-root[data-size='sm'] {
+  height: 32px;
+}
+
+.ca-money-input-root:focus-within {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 35%, transparent);
+}
+
+.ca-money-input-root[data-invalid='true'] {
+  border-color: var(--destructive);
+}
+.ca-money-input-root[data-invalid='true']:focus-within {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive) 35%, transparent);
+}
+
+.ca-money-input-root[data-disabled='true'] {
+  opacity: 0.6;
+}
+
+.ca-money-input {
+  width: 96px;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-align: right;
+  padding: 0 10px 0 2px;
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The amount input drives the wrapper ring; it doesn't need its own outline.
+   The toggle button does — it's separately focusable. */
+.ca-money-input-toggle:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-money-input-root {
+    transition: none;
+  }
+}

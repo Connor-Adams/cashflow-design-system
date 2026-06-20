@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './Avatar.css'
 
 /**
  * Cashflow Avatar. A circular identity image with a graceful initials fallback
@@ -33,26 +34,25 @@ export interface AvatarProps extends Omit<React.HTMLAttributes<HTMLSpanElement>,
   ring?: boolean
 }
 
-export function Avatar({ src, name = '', size = 'md', status, ring = false, className, style, ...props }: AvatarProps): React.JSX.Element {
+export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
+  { src, name = '', size = 'md', status, ring = false, className, style, ...props },
+  ref,
+): React.JSX.Element {
   const [failed, setFailed] = React.useState(false)
   const px = typeof size === 'number' ? size : (SIZE_PX[size] || SIZE_PX['md']!)
   const showImg = src && !failed
 
   return (
     <span
+      ref={ref}
       data-slot="avatar"
-      className={className}
+      data-size={typeof size === 'number' ? undefined : size}
+      className={className ? `ca-avatar ${className}` : 'ca-avatar'}
       role="img"
       aria-label={name ? `Avatar for ${name}` : 'Avatar'}
       style={{
-        position: 'relative',
-        display: 'inline-flex',
         width: px,
         height: px,
-        flexShrink: 0,
-        borderRadius: '50%',
-        background: 'var(--muted)',
-        color: 'var(--muted-foreground)',
         boxShadow: ring ? '0 0 0 2px var(--background), 0 0 0 4px var(--primary)' : 'none',
         ...style,
       }}
@@ -81,4 +81,4 @@ export function Avatar({ src, name = '', size = 'md', status, ring = false, clas
       )}
     </span>
   )
-}
+})

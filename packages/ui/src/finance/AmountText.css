@@ -1,0 +1,9 @@
+/* AmountText — mono signed currency amount. Color is load-bearing money tone,
+   inlined per-instance via style (depends on direction + colored). Base layout
+   tokens live here; no interactive states (presentational inline text). */
+
+.ca-amount {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

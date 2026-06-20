@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './Accordion.css'
 
 export interface AccordionItem {
   value: string
@@ -10,6 +11,9 @@ export interface AccordionItem {
  * Cashflow Accordion. A stack of disclosure rows over hairline dividers.
  * `type="single"` (default) keeps one panel open; `type="multiple"` allows
  * many. Uncontrolled via `defaultValue`; pass `items` as { value, title, content }.
+ *
+ * Trigger focus-visible ring, the chevron rotation and the panel open/close
+ * animation live in `Accordion.css`, keyed off `data-state`.
  */
 
 /**
@@ -24,7 +28,10 @@ export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement
   collapsible?: boolean
 }
 
-export function Accordion({ items = [], type = 'single', defaultValue, collapsible = true, className, style, ...props }: AccordionProps): React.JSX.Element {
+export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
+  { items = [], type = 'single', defaultValue, collapsible = true, className, ...props },
+  ref,
+): React.JSX.Element {
   const initial = defaultValue != null ? (Array.isArray(defaultValue) ? defaultValue : [defaultValue]) : []
   const [open, setOpen] = React.useState<string[]>(initial)
 
@@ -38,28 +45,25 @@ export function Accordion({ items = [], type = 'single', defaultValue, collapsib
   }
 
   return (
-    <div data-slot="accordion" className={className} style={{ borderTop: '1px solid var(--border)', fontFamily: 'var(--font-sans)', ...style }} {...props}>
+    <div ref={ref} data-slot="accordion" className={className ? `ca-accordion ${className}` : 'ca-accordion'} {...props}>
       {items.map((it) => {
         const isOpen = open.includes(it.value)
+        const state = isOpen ? 'open' : 'closed'
         return (
-          <div key={it.value} style={{ borderBottom: '1px solid var(--border)' }}>
+          <div key={it.value} className="ca-accordion__item">
             <button
               type="button"
+              className="ca-accordion__trigger"
+              data-state={state}
               onClick={() => toggle(it.value)}
               aria-expanded={isOpen}
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-                width: '100%', textAlign: 'left', border: 'none', background: 'transparent', cursor: 'pointer',
-                padding: '14px 2px', fontSize: 'var(--text-body-lg)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
-                color: 'var(--foreground)', fontFamily: 'var(--font-sans)',
-              }}
             >
               {it.title}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 200ms' }}><path d="m6 9 6 6 6-6" /></svg>
+              <svg className="ca-accordion__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
             </button>
-            <div style={{ display: 'grid', gridTemplateRows: isOpen ? '1fr' : '0fr', transition: 'grid-template-rows 220ms ease' }}>
-              <div style={{ overflow: 'hidden' }}>
-                <div style={{ padding: '0 2px 16px', fontSize: 'var(--text-body)', color: 'var(--muted-foreground)', lineHeight: 1.5 }}>{it.content}</div>
+            <div className="ca-accordion__panel" data-state={state}>
+              <div className="ca-accordion__panel-inner">
+                <div className="ca-accordion__content">{it.content}</div>
               </div>
             </div>
           </div>
@@ -67,4 +71,4 @@ export function Accordion({ items = [], type = 'single', defaultValue, collapsib
       })}
     </div>
   )
-}
+})

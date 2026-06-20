@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './RadioGroup.css'
 
 export type RadioOption = string | { value: string; label: string }
 
@@ -6,8 +7,13 @@ export type RadioOption = string | { value: string; label: string }
  * Radio group — single-choice list with an oxblood selected dot. Pass
  * `options` (strings or {value,label}); control with `value` + `onValueChange`,
  * or uncontrolled via `defaultValue`. `orientation="horizontal"` for inline.
+ *
+ * Interactive states (focus-visible ring, selected dot, disabled) live in
+ * `RadioGroup.css`, keyed off `data-orientation` / `data-state`. The ref
+ * forwards to the root `div[role=radiogroup]`.
  */
-export interface RadioGroupProps {
+export interface RadioGroupProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
   options: RadioOption[]
   value?: string
   defaultValue?: string
@@ -15,11 +21,12 @@ export interface RadioGroupProps {
   name?: string
   orientation?: 'vertical' | 'horizontal'
   disabled?: boolean
-  className?: string
-  style?: React.CSSProperties
 }
 
-export function RadioGroup({ options = [], value, defaultValue, onValueChange, name, orientation = 'vertical', disabled, className, style, ...props }: RadioGroupProps): React.JSX.Element {
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(function RadioGroup(
+  { options = [], value, defaultValue, onValueChange, name, orientation = 'vertical', disabled, className, ...props },
+  ref,
+): React.JSX.Element {
   const [internal, setInternal] = React.useState(defaultValue)
   const isControlled = value !== undefined
   const selected = isControlled ? value : internal
@@ -33,15 +40,12 @@ export function RadioGroup({ options = [], value, defaultValue, onValueChange, n
 
   return (
     <div
+      ref={ref}
       role="radiogroup"
-      className={className}
-      style={{
-        display: 'flex',
-        flexDirection: orientation === 'horizontal' ? 'row' : 'column',
-        gap: orientation === 'horizontal' ? 20 : 10,
-        fontFamily: 'var(--font-sans)',
-        ...style,
-      }}
+      data-slot="radio-group"
+      data-orientation={orientation}
+      data-disabled={disabled || undefined}
+      className={className ? `ca-radio-group ${className}` : 'ca-radio-group'}
       {...props}
     >
       {options.map((o) => {
@@ -49,41 +53,18 @@ export function RadioGroup({ options = [], value, defaultValue, onValueChange, n
         const label = typeof o === 'string' ? o : o.label
         const on = selected === v
         return (
-          <label
-            key={v}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: disabled ? 'not-allowed' : 'pointer',
-              opacity: disabled ? 0.5 : 1,
-              fontSize: 'var(--text-body)',
-              color: 'var(--foreground)',
-            }}
-          >
+          <label key={v} className="ca-radio-group-item">
             <button
               type="button"
               role="radio"
               name={groupName}
               aria-checked={on}
+              data-state={on ? 'checked' : 'unchecked'}
               disabled={disabled}
               onClick={() => pick(v)}
-              style={{
-                width: 18,
-                height: 18,
-                flex: 'none',
-                padding: 0,
-                borderRadius: '50%',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: `1px solid ${on ? 'var(--primary)' : 'var(--input)'}`,
-                background: 'color-mix(in oklch, var(--background) 70%, transparent)',
-                cursor: disabled ? 'not-allowed' : 'pointer',
-                transition: 'border-color 150ms',
-              }}
+              className="ca-radio-group-control"
             >
-              {on ? <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--primary)' }} /> : null}
+              {on ? <span className="ca-radio-group-dot" /> : null}
             </button>
             {label}
           </label>
@@ -91,4 +72,4 @@ export function RadioGroup({ options = [], value, defaultValue, onValueChange, n
       })}
     </div>
   )
-}
+})
