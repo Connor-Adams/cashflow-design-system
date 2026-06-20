@@ -1,0 +1,32 @@
+<!-- @dsCard group="Media" viewport="640x320" name="NowPlayingArtwork" subtitle="Cover art with gradient fallback and playing equalizer" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 20px; background: var(--card); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: repeat(2, 240px); gap: 20px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { NowPlayingArtwork } = window.CashflowDesignSystem_2cf89d;
+  function Demo() {
+    return (
+      <div className="grid">
+        <NowPlayingArtwork isPlaying thumbnailUrl="https://picsum.photos/seed/cf-art/280/280" />
+        <NowPlayingArtwork isPlaying={false} thumbnailUrl={null} />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>
