@@ -67,8 +67,59 @@
   color: var(--accent-foreground);
 }
 
+.ca-period-selector-cal {
+  flex: none;
+}
+
+.ca-period-selector-chevron {
+  flex: none;
+  transition: transform 200ms;
+}
+
+.ca-period-selector-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 70;
+  min-width: 200px;
+  padding: 4px;
+  background: var(--popover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+}
+
+.ca-period-selector-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 9px 6px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+
+.ca-period-selector-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+}
+
+.ca-period-selector-date {
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--input);
+  padding: 0 8px;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  background: var(--background);
+  color: var(--foreground);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ca-period-selector-trigger {
+  .ca-period-selector-trigger,
+  .ca-period-selector-chevron {
     transition: none;
   }
 }

@@ -60,12 +60,12 @@ export const PeriodSelector = React.forwardRef<HTMLDivElement, PeriodSelectorPro
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }}><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="ca-period-selector-cal"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
         {current!.label}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 200ms' }}><path d="m6 9 6 6 6-6" /></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="ca-period-selector-chevron" style={{ transform: open ? 'rotate(180deg)' : 'none' }}><path d="m6 9 6 6 6-6" /></svg>
       </button>
       {open && (
-        <div role="menu" style={{ position: 'absolute', top: 'calc(100% + 6px)', left: 0, zIndex: 70, minWidth: 200, padding: 4, background: 'var(--popover)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow)' }}>
+        <div role="menu" className="ca-period-selector-menu">
           {presets.map((p) => {
             const active = p.value === value
             return (
@@ -84,14 +84,14 @@ export const PeriodSelector = React.forwardRef<HTMLDivElement, PeriodSelectorPro
             )
           })}
           {value === 'custom' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '10px 9px 6px', borderTop: '1px solid var(--border)', marginTop: 4 }}>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)' }}>
+            <div className="ca-period-selector-custom">
+              <label className="ca-period-selector-field">
                 From
-                <input type="date" value={custom?.from || ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustom('from', e.target.value)} style={{ height: 32, borderRadius: 'var(--radius-sm)', border: '1px solid var(--input)', padding: '0 8px', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body-sm)', background: 'var(--background)', color: 'var(--foreground)' }} />
+                <input type="date" className="ca-period-selector-date" value={custom?.from || ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustom('from', e.target.value)} />
               </label>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)' }}>
+              <label className="ca-period-selector-field">
                 To
-                <input type="date" value={custom?.to || ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustom('to', e.target.value)} style={{ height: 32, borderRadius: 'var(--radius-sm)', border: '1px solid var(--input)', padding: '0 8px', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body-sm)', background: 'var(--background)', color: 'var(--foreground)' }} />
+                <input type="date" className="ca-period-selector-date" value={custom?.to || ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustom('to', e.target.value)} />
               </label>
             </div>
           )}
