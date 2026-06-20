@@ -14,6 +14,8 @@ dist/
 *.log
 .turbo/
 storybook-static/
+.next/
+apps/web/next-env.d.ts
 
 # ─ SDD scratch (briefs, reports, ledger, diffs) ─
 .superpowers/
