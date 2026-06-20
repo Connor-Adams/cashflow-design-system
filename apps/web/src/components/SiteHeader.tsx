@@ -66,6 +66,20 @@ export function SiteHeader() {
           Components
         </Link>
         <a
+          href="https://cashflow-storybook.vercel.app"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            textDecoration: 'none',
+            color: 'var(--muted-foreground)',
+            fontFamily: 'var(--font-sans)',
+            fontSize: 'var(--text-body-sm)',
+            fontWeight: 500,
+          }}
+        >
+          Storybook
+        </a>
+        <a
           href="https://github.com/Connor-Adams/cashflow-design-system"
           target="_blank"
           rel="noreferrer"
