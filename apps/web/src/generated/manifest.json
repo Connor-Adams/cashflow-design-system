@@ -1,17 +1,7 @@
 [
   {
-    "slug": "accordion.test",
-    "name": "Accordion.test",
-    "category": "core"
-  },
-  {
     "slug": "accordion",
     "name": "Accordion",
-    "category": "core"
-  },
-  {
-    "slug": "avatar.test",
-    "name": "Avatar.test",
     "category": "core"
   },
   {
@@ -20,18 +10,8 @@
     "category": "core"
   },
   {
-    "slug": "badge.test",
-    "name": "Badge.test",
-    "category": "core"
-  },
-  {
     "slug": "badge",
     "name": "Badge",
-    "category": "core"
-  },
-  {
-    "slug": "button.test",
-    "name": "Button.test",
     "category": "core"
   },
   {
@@ -40,18 +20,8 @@
     "category": "core"
   },
   {
-    "slug": "card.test",
-    "name": "Card.test",
-    "category": "core"
-  },
-  {
     "slug": "card",
     "name": "Card",
-    "category": "core"
-  },
-  {
-    "slug": "kbd.test",
-    "name": "Kbd.test",
     "category": "core"
   },
   {
@@ -60,18 +30,8 @@
     "category": "core"
   },
   {
-    "slug": "link.test",
-    "name": "Link.test",
-    "category": "core"
-  },
-  {
     "slug": "link",
     "name": "Link",
-    "category": "core"
-  },
-  {
-    "slug": "progress.test",
-    "name": "Progress.test",
     "category": "core"
   },
   {
@@ -80,18 +40,8 @@
     "category": "core"
   },
   {
-    "slug": "separator.test",
-    "name": "Separator.test",
-    "category": "core"
-  },
-  {
     "slug": "separator",
     "name": "Separator",
-    "category": "core"
-  },
-  {
-    "slug": "spinner.test",
-    "name": "Spinner.test",
     "category": "core"
   },
   {
@@ -100,28 +50,13 @@
     "category": "core"
   },
   {
-    "slug": "text.test",
-    "name": "Text.test",
-    "category": "core"
-  },
-  {
     "slug": "text",
     "name": "Text",
     "category": "core"
   },
   {
-    "slug": "letter-avatar.test",
-    "name": "LetterAvatar.test",
-    "category": "data"
-  },
-  {
     "slug": "letter-avatar",
     "name": "LetterAvatar",
-    "category": "data"
-  },
-  {
-    "slug": "stat-card.test",
-    "name": "StatCard.test",
     "category": "data"
   },
   {
@@ -130,18 +65,8 @@
     "category": "data"
   },
   {
-    "slug": "table.test",
-    "name": "Table.test",
-    "category": "data"
-  },
-  {
     "slug": "table",
     "name": "Table",
-    "category": "data"
-  },
-  {
-    "slug": "tabs.test",
-    "name": "Tabs.test",
     "category": "data"
   },
   {
@@ -150,18 +75,8 @@
     "category": "data"
   },
   {
-    "slug": "alert.test",
-    "name": "Alert.test",
-    "category": "feedback"
-  },
-  {
     "slug": "alert",
     "name": "Alert",
-    "category": "feedback"
-  },
-  {
-    "slug": "empty-state.test",
-    "name": "EmptyState.test",
     "category": "feedback"
   },
   {
@@ -170,28 +85,13 @@
     "category": "feedback"
   },
   {
-    "slug": "skeleton.test",
-    "name": "Skeleton.test",
-    "category": "feedback"
-  },
-  {
     "slug": "skeleton",
     "name": "Skeleton",
     "category": "feedback"
   },
   {
-    "slug": "account-card.test",
-    "name": "AccountCard.test",
-    "category": "finance"
-  },
-  {
     "slug": "account-card",
     "name": "AccountCard",
-    "category": "finance"
-  },
-  {
-    "slug": "amount-text.test",
-    "name": "AmountText.test",
     "category": "finance"
   },
   {
@@ -200,18 +100,8 @@
     "category": "finance"
   },
   {
-    "slug": "budget-meter.test",
-    "name": "BudgetMeter.test",
-    "category": "finance"
-  },
-  {
     "slug": "budget-meter",
     "name": "BudgetMeter",
-    "category": "finance"
-  },
-  {
-    "slug": "category-pill.test",
-    "name": "CategoryPill.test",
     "category": "finance"
   },
   {
@@ -220,18 +110,8 @@
     "category": "finance"
   },
   {
-    "slug": "import-dropzone.test",
-    "name": "ImportDropzone.test",
-    "category": "finance"
-  },
-  {
     "slug": "import-dropzone",
     "name": "ImportDropzone",
-    "category": "finance"
-  },
-  {
-    "slug": "money-input.test",
-    "name": "MoneyInput.test",
     "category": "finance"
   },
   {
@@ -240,18 +120,8 @@
     "category": "finance"
   },
   {
-    "slug": "period-selector.test",
-    "name": "PeriodSelector.test",
-    "category": "finance"
-  },
-  {
     "slug": "period-selector",
     "name": "PeriodSelector",
-    "category": "finance"
-  },
-  {
-    "slug": "sparkline.test",
-    "name": "Sparkline.test",
     "category": "finance"
   },
   {
@@ -260,18 +130,8 @@
     "category": "finance"
   },
   {
-    "slug": "checkbox.test",
-    "name": "Checkbox.test",
-    "category": "forms"
-  },
-  {
     "slug": "checkbox",
     "name": "Checkbox",
-    "category": "forms"
-  },
-  {
-    "slug": "combobox.test",
-    "name": "Combobox.test",
     "category": "forms"
   },
   {
@@ -280,18 +140,8 @@
     "category": "forms"
   },
   {
-    "slug": "input.test",
-    "name": "Input.test",
-    "category": "forms"
-  },
-  {
     "slug": "input",
     "name": "Input",
-    "category": "forms"
-  },
-  {
-    "slug": "label.test",
-    "name": "Label.test",
     "category": "forms"
   },
   {
@@ -300,18 +150,8 @@
     "category": "forms"
   },
   {
-    "slug": "native-select.test",
-    "name": "NativeSelect.test",
-    "category": "forms"
-  },
-  {
     "slug": "native-select",
     "name": "NativeSelect",
-    "category": "forms"
-  },
-  {
-    "slug": "radio-group.test",
-    "name": "RadioGroup.test",
     "category": "forms"
   },
   {
@@ -320,18 +160,8 @@
     "category": "forms"
   },
   {
-    "slug": "slider.test",
-    "name": "Slider.test",
-    "category": "forms"
-  },
-  {
     "slug": "slider",
     "name": "Slider",
-    "category": "forms"
-  },
-  {
-    "slug": "stepper.test",
-    "name": "Stepper.test",
     "category": "forms"
   },
   {
@@ -340,18 +170,8 @@
     "category": "forms"
   },
   {
-    "slug": "switch.test",
-    "name": "Switch.test",
-    "category": "forms"
-  },
-  {
     "slug": "switch",
     "name": "Switch",
-    "category": "forms"
-  },
-  {
-    "slug": "textarea.test",
-    "name": "Textarea.test",
     "category": "forms"
   },
   {
@@ -360,28 +180,13 @@
     "category": "forms"
   },
   {
-    "slug": "toggle-group.test",
-    "name": "ToggleGroup.test",
-    "category": "forms"
-  },
-  {
     "slug": "toggle-group",
     "name": "ToggleGroup",
     "category": "forms"
   },
   {
-    "slug": "breadcrumb.test",
-    "name": "Breadcrumb.test",
-    "category": "navigation"
-  },
-  {
     "slug": "breadcrumb",
     "name": "Breadcrumb",
-    "category": "navigation"
-  },
-  {
-    "slug": "pagination.test",
-    "name": "Pagination.test",
     "category": "navigation"
   },
   {
@@ -390,18 +195,8 @@
     "category": "navigation"
   },
   {
-    "slug": "dialog.test",
-    "name": "Dialog.test",
-    "category": "overlays"
-  },
-  {
     "slug": "dialog",
     "name": "Dialog",
-    "category": "overlays"
-  },
-  {
-    "slug": "dropdown-menu.test",
-    "name": "DropdownMenu.test",
     "category": "overlays"
   },
   {
@@ -410,18 +205,8 @@
     "category": "overlays"
   },
   {
-    "slug": "toast.test",
-    "name": "Toast.test",
-    "category": "overlays"
-  },
-  {
     "slug": "toast",
     "name": "Toast",
-    "category": "overlays"
-  },
-  {
-    "slug": "tooltip.test",
-    "name": "Tooltip.test",
     "category": "overlays"
   },
   {

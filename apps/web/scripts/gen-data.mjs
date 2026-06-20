@@ -13,7 +13,7 @@ const manifest = []
 const filePaths = []
 for (const category of CATEGORIES) {
   const dir = join(UI_SRC, category)
-  for (const f of readdirSync(dir).filter((x) => x.endsWith('.tsx'))) {
+  for (const f of readdirSync(dir).filter((x) => x.endsWith('.tsx') && !x.endsWith('.test.tsx'))) {
     const name = f.replace(/\.tsx$/, '')
     manifest.push({ slug: kebab(name), name, category })
     filePaths.push(join(dir, f))
