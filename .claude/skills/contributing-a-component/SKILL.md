@@ -102,6 +102,28 @@ existing `<group>.*` files**, don't add per-component ones.
    excluded from the build tsconfig and from `validate.mjs`, so they don't need a
    barrel export or a story. Follow TDD — write the failing test first.
 
+7. **`apps/web/src/previews/index.tsx`** — register the gallery preview. **This is
+   NOT optional and NOT auto-generated.** `apps/web/scripts/gen-data.mjs` auto-discovers
+   your component into the gallery LIST (manifest/props/usage, by scanning `.tsx` +
+   `.prompt.md`), but the rendered **preview panel stays BLANK** unless an entry exists
+   here. Two edits in this file:
+   - Add the import to the **correct group comment block** in the top
+     `import { … } from '@connor-adams/designsystem'` (`// core`, `// finance`, etc.).
+   - Add a `'<slug>': Variant[]` entry to
+     `export const previews: Record<string, Variant[]>`, keyed by the **kebab-case slug**
+     (`'category-breakdown'`), under the matching group divider. `Variant` is
+     `{ label: string; node: React.ReactNode }`, so each value is an array of labeled
+     variants:
+     ```tsx
+     '<slug>': [
+       { label: 'Default', node: <<Name> … /> },
+       { label: 'Variants', node: (<div>…</div>) },
+     ],
+     ```
+     Mirror a sibling already in the map. **Registry shape changed in PR #18** from a
+     flat `Record<string, ReactNode>` to `Record<string, Variant[]>` — values are arrays
+     now, not bare nodes. Then verify: `pnpm --filter @connor-adams/web typecheck`.
+
 ## Versioning
 
 Add a changeset — this drives the version bump and publish. `pnpm changeset` is
@@ -125,6 +147,7 @@ node scripts/validate.mjs                                   # contract gate (mus
 pnpm --filter @connor-adams/designsystem typecheck          # inline types compile
 pnpm --filter @connor-adams/designsystem test               # vitest (your *.test.tsx must pass)
 pnpm --filter @connor-adams/designsystem build              # tsup → dist (grep dist for <Name>)
+pnpm --filter @connor-adams/web typecheck                   # gallery preview entry compiles (step 7)
 pnpm typecheck                                              # repo-wide (ui + storybook + web)
 pnpm exec changeset status                                  # bump is queued
 ```
@@ -148,3 +171,4 @@ expected, not your doing.)
 | Focusable element with no focus ring | WCAG 2.4.7 fail. Add `:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px }`. |
 | `export function <Name>` (no ref) | Use `React.forwardRef` — overlays/focus need the node. |
 | Shipped a component with no `*.test.tsx` | Every component needs a render + ref-forward test (vitest + RTL). |
+| Component shows in the gallery list but the preview panel is blank | No entry in `apps/web/src/previews/index.tsx` — the list auto-discovers, the preview does not. Add the import + `'<slug>': Variant[]` entry (step 7). |
