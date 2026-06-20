@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Give every one of the 43 `@connoradams/designsystem` components a Storybook story (so the preview site shows the whole library), add a contract-validate script that asserts the library's invariants, and wire a GitHub Actions CI workflow that gates every PR on typecheck + build + validate + Storybook build.
+**Goal:** Give every one of the 43 `@connor-adams/designsystem` components a Storybook story (so the preview site shows the whole library), add a contract-validate script that asserts the library's invariants, and wire a GitHub Actions CI workflow that gates every PR on typecheck + build + validate + Storybook build.
 
-**Architecture:** Stories live in `apps/storybook/src/<category>/<Name>.stories.tsx`, auto-discovered by the existing `../src/**/*.stories.@(ts|tsx)` glob. They import components from the built `@connoradams/designsystem` package (bare specifier). A Node script (`scripts/validate.mjs`, run via `pnpm validate`) asserts every component `.tsx` is barrel-exported and has a story, and reports skill-sidecar coverage. CI runs install → typecheck → build → validate on push/PR.
+**Architecture:** Stories live in `apps/storybook/src/<category>/<Name>.stories.tsx`, auto-discovered by the existing `../src/**/*.stories.@(ts|tsx)` glob. They import components from the built `@connor-adams/designsystem` package (bare specifier). A Node script (`scripts/validate.mjs`, run via `pnpm validate`) asserts every component `.tsx` is barrel-exported and has a story, and reports skill-sidecar coverage. CI runs install → typecheck → build → validate on push/PR.
 
 **Tech Stack:** Storybook 8 (react-vite), TypeScript 5.6, Node 22, pnpm 10, turborepo, GitHub Actions. No new runtime deps.
 
@@ -18,7 +18,7 @@ These bind every story task. They are the story recipe.
 1. Import types from Storybook and the component from the package bare specifier:
    ```tsx
    import type { Meta, StoryObj } from '@storybook/react'
-   import { Name } from '@connoradams/designsystem'
+   import { Name } from '@connor-adams/designsystem'
    ```
 2. `title: '<Category>/<Name>'` with the category capitalized (`Core`, `Data`, `Feedback`, `Finance`, `Forms`, `Navigation`, `Overlays`) — matches the existing `'Core/Button'`.
 3. Use the exact shape of the reference (`Button.stories.tsx`):
@@ -40,7 +40,7 @@ These bind every story task. They are the story recipe.
 6. Keep stories minimal and dependency-free — no extra libraries, no network, no app context. A story's job is to render the component with representative props.
 7. One `.stories.tsx` per component file. Compound components (Card, Table, Skeleton) get ONE story file named after the primary export, composing the sub-components in `render`.
 
-**Per-task gate:** after writing a category's stories, `pnpm --filter @connoradams/designsystem build` then `pnpm --filter @connoradams/storybook typecheck` exits 0 (stories compile and their props type-check against the package).
+**Per-task gate:** after writing a category's stories, `pnpm --filter @connor-adams/designsystem build` then `pnpm --filter @connor-adams/storybook typecheck` exits 0 (stories compile and their props type-check against the package).
 
 **Out of scope:** authoring missing `prompt.md`/`card.html` skill sidecars (validate only REPORTS their coverage), visual-regression snapshots, the Next.js docs site (Plan 4), `foundations`/`templates`/`ui_kits`.
 
@@ -54,7 +54,7 @@ Add a `typecheck` script to the Storybook app and relocate the existing Button s
 - Modify: `apps/storybook/package.json` (add `typecheck` script)
 - Move: `apps/storybook/src/Button.stories.tsx` → `apps/storybook/src/core/Button.stories.tsx`
 
-**Interfaces:** Produces `pnpm --filter @connoradams/storybook typecheck` (= `tsc --noEmit`) as the per-task gate for all story tasks; establishes `apps/storybook/src/<cat>/` as the story location.
+**Interfaces:** Produces `pnpm --filter @connor-adams/storybook typecheck` (= `tsc --noEmit`) as the per-task gate for all story tasks; establishes `apps/storybook/src/<cat>/` as the story location.
 
 - [ ] **Step 1: Add the `typecheck` script** to `apps/storybook/package.json` scripts (the app already has `apps/storybook/tsconfig.json` with `noEmit: true` from Plan 1):
 
@@ -72,7 +72,7 @@ git mv apps/storybook/src/Button.stories.tsx apps/storybook/src/core/Button.stor
 
 - [ ] **Step 3: Build the library, then typecheck Storybook**
 
-Run: `pnpm --filter @connoradams/designsystem build && pnpm --filter @connoradams/storybook typecheck`
+Run: `pnpm --filter @connor-adams/designsystem build && pnpm --filter @connor-adams/storybook typecheck`
 Expected: both exit 0. (Confirms the moved story still resolves and the new typecheck script works.)
 
 - [ ] **Step 4: Commit**
@@ -96,7 +96,7 @@ Write stories for all 11 core components (Button already done — leave it) and 
 
 - [ ] **Step 2: Build lib + typecheck Storybook**
 
-Run: `pnpm --filter @connoradams/designsystem build && pnpm --filter @connoradams/storybook typecheck`
+Run: `pnpm --filter @connor-adams/designsystem build && pnpm --filter @connor-adams/storybook typecheck`
 Expected: exit 0.
 
 - [ ] **Step 3: Commit** — `git add -A && git commit -m "feat(storybook): stories for core and feedback components"`
@@ -165,7 +165,7 @@ A Node ESM script asserting the library's structural invariants, wired as `pnpm 
 - [ ] **Step 1: Write `scripts/validate.mjs`**
 
 ```js
-// Validate @connoradams/designsystem structural contract.
+// Validate @connor-adams/designsystem structural contract.
 // FATAL: every component .tsx must be (a) exported from the barrel and (b) have a Storybook story.
 // INFO (non-fatal): skill-sidecar (.prompt.md / .card.html) coverage.
 import { readFileSync, readdirSync, existsSync } from 'node:fs'

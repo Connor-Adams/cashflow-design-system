@@ -1,6 +1,6 @@
-# @connoradams/web — Design System docs site
+# @connor-adams/web — Design System docs site
 
-The public documentation site for [`@connoradams/designsystem`](../../packages/ui): a Next.js (App Router) app with a landing page, a components index, and per-component pages (live preview, generated props table, usage notes, import snippet).
+The public documentation site for [`@connor-adams/designsystem`](../../packages/ui): a Next.js (App Router) app with a landing page, a components index, and per-component pages (live preview, generated props table, usage notes, import snippet).
 
 ## Local development
 
@@ -8,8 +8,8 @@ From the **repo root**:
 
 ```bash
 pnpm install
-pnpm --filter @connoradams/designsystem build   # the site consumes the built package
-pnpm --filter @connoradams/web dev               # http://localhost:3001
+pnpm --filter @connor-adams/designsystem build   # the site consumes the built package
+pnpm --filter @connor-adams/web dev               # http://localhost:3001
 ```
 
 `pnpm build` (root) builds the whole workspace via turbo (library → Storybook → this site, in dependency order).

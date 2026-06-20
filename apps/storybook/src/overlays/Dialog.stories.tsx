@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Dialog } from '@connoradams/designsystem'
+import { Dialog } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Dialog> = {
   title: 'Overlays/Dialog',

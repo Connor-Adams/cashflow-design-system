@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { PeriodSelector } from '@connoradams/designsystem'
+import { PeriodSelector } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof PeriodSelector> = {
   title: 'Finance/PeriodSelector',

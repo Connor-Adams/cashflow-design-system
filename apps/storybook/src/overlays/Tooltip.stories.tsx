@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Tooltip } from '@connoradams/designsystem'
+import { Tooltip } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Overlays/Tooltip',

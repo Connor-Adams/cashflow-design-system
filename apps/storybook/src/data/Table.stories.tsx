@@ -7,7 +7,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
-} from '@connoradams/designsystem'
+} from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Table> = {
   title: 'Data/Table',

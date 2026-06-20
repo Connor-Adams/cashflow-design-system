@@ -20,7 +20,7 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@connoradams/designsystem':
+      '@connor-adams/designsystem':
         specifier: workspace:*
         version: link:../../packages/ui
       react:
@@ -63,7 +63,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@connoradams/designsystem':
+      '@connor-adams/designsystem':
         specifier: workspace:*
         version: link:../../packages/ui
       next:
@@ -99,7 +99,7 @@ importers:
 
   packages/ui:
     dependencies:
-      '@connoradams/tokens':
+      '@connor-adams/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:

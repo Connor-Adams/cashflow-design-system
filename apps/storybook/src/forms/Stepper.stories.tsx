@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Stepper } from '@connoradams/designsystem'
+import { Stepper } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Stepper> = {
   title: 'Forms/Stepper',

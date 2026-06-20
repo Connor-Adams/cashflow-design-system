@@ -1,4 +1,4 @@
-// Validate @connoradams/designsystem structural contract.
+// Validate @connor-adams/designsystem structural contract.
 // FATAL: every component .tsx must be (a) exported from the barrel and (b) have a Storybook story.
 // INFO (non-fatal): skill-sidecar (.prompt.md / .card.html) coverage.
 import { readFileSync, readdirSync, existsSync } from 'node:fs'

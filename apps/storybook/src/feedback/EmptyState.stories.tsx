@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { EmptyState } from '@connoradams/designsystem'
+import { EmptyState } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof EmptyState> = {
   title: 'Feedback/EmptyState',

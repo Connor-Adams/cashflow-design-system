@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Skeleton, SkeletonText } from '@connoradams/designsystem'
+import { Skeleton, SkeletonText } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Skeleton> = {
   title: 'Feedback/Skeleton',

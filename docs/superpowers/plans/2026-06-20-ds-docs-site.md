@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** A branded, public Next.js docs site (`apps/web`) for `@connoradams/designsystem` — landing page plus per-component pages with a live React preview, an auto-generated props table, usage notes from each component's `prompt.md`, and a copy-paste import snippet. Vercel-ready.
+**Goal:** A branded, public Next.js docs site (`apps/web`) for `@connor-adams/designsystem` — landing page plus per-component pages with a live React preview, an auto-generated props table, usage notes from each component's `prompt.md`, and a copy-paste import snippet. Vercel-ready.
 
-**Architecture:** Next.js App Router app in the monorepo, consuming the built `@connoradams/designsystem` package (`workspace:*`) and its tokens stylesheet. A build-time data pipeline produces three artifacts: a **props JSON** (via `react-docgen-typescript` over the component `.tsx`, filtered to each component's own props), a **component manifest** (slug/name/category), and **usage notes** read from each `prompt.md`. Pages are statically generated (`generateStaticParams`). Live previews are client components (DS components use hooks); the docs `[slug]` page is a Server Component that composes the generated data + a client `<Preview>`. Storybook stays the exhaustive variant playground; this site is the polished public face with ONE representative preview per component.
+**Architecture:** Next.js App Router app in the monorepo, consuming the built `@connor-adams/designsystem` package (`workspace:*`) and its tokens stylesheet. A build-time data pipeline produces three artifacts: a **props JSON** (via `react-docgen-typescript` over the component `.tsx`, filtered to each component's own props), a **component manifest** (slug/name/category), and **usage notes** read from each `prompt.md`. Pages are statically generated (`generateStaticParams`). Live previews are client components (DS components use hooks); the docs `[slug]` page is a Server Component that composes the generated data + a client `<Preview>`. Storybook stays the exhaustive variant playground; this site is the polished public face with ONE representative preview per component.
 
 **Tech Stack:** Next.js 15 (App Router), React 18, TypeScript 5.6, `react-docgen-typescript` (build-time props), `react-markdown` (usage notes), pnpm/turbo. Deploy: Vercel (zero-config Next; Connor sets the project root to `apps/web`).
 
@@ -12,9 +12,9 @@
 
 ## Global Constraints
 
-- App lives at `apps/web`, package name `@connoradams/web`, `private: true`, `version: 0.0.0`.
-- Consume the DS package via `@connoradams/designsystem` (`workspace:*`) — the BUILT package (turbo `^build` builds it first). Import the tokens stylesheet once in the root layout: `import '@connoradams/designsystem/styles.css'`.
-- Next config: `transpilePackages: ['@connoradams/designsystem', '@connoradams/tokens']` and `output: 'export'` is NOT used (we want SSG via `generateStaticParams`, default output).
+- App lives at `apps/web`, package name `@connor-adams/web`, `private: true`, `version: 0.0.0`.
+- Consume the DS package via `@connor-adams/designsystem` (`workspace:*`) — the BUILT package (turbo `^build` builds it first). Import the tokens stylesheet once in the root layout: `import '@connor-adams/designsystem/styles.css'`.
+- Next config: `transpilePackages: ['@connor-adams/designsystem', '@connor-adams/tokens']` and `output: 'export'` is NOT used (we want SSG via `generateStaticParams`, default output).
 - Any component that renders a DS component (previews) must be a **client component** (`'use client'`) — DS components use React hooks.
 - Brand: use the design tokens (CSS variables already loaded) for ALL site chrome — oxblood `--primary`, zinc greys, the hero gradient `--gradient-hero`. No raw hex in site code; reach through the token vars. The site should look like it's built WITH the design system.
 - Props tables are generated, never hand-authored. Usage notes come from `prompt.md`, never duplicated.
@@ -32,13 +32,13 @@ Stand up a minimal Next App Router app in the workspace that builds and renders 
 - Create: `apps/web/src/app/layout.tsx`, `apps/web/src/app/page.tsx` (temporary placeholder)
 - Create: `apps/web/.gitignore` (or rely on root — ensure `.next/` ignored)
 
-**Interfaces:** Produces a buildable Next app consuming `@connoradams/designsystem` + `styles.css`; root layout loads the tokens globally.
+**Interfaces:** Produces a buildable Next app consuming `@connor-adams/designsystem` + `styles.css`; root layout loads the tokens globally.
 
 - [ ] **Step 1: Create `apps/web/package.json`**
 
 ```json
 {
-  "name": "@connoradams/web",
+  "name": "@connor-adams/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -50,7 +50,7 @@ Stand up a minimal Next App Router app in the workspace that builds and renders 
     "gen": "node scripts/gen-data.mjs"
   },
   "dependencies": {
-    "@connoradams/designsystem": "workspace:*",
+    "@connor-adams/designsystem": "workspace:*",
     "next": "^15.0.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
@@ -71,7 +71,7 @@ Stand up a minimal Next App Router app in the workspace that builds and renders 
 ```js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@connoradams/designsystem', '@connoradams/tokens'],
+  transpilePackages: ['@connor-adams/designsystem', '@connor-adams/tokens'],
 }
 export default nextConfig
 ```
@@ -106,7 +106,7 @@ console.log('gen-data: placeholder (no-op)')
 ```tsx
 import * as React from 'react'
 import type { Metadata } from 'next'
-import '@connoradams/designsystem/styles.css'
+import '@connor-adams/designsystem/styles.css'
 
 export const metadata: Metadata = {
   title: 'Connor Adams Design System',
@@ -127,7 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 - [ ] **Step 6: Create a temporary `apps/web/src/app/page.tsx`** (proves the package renders)
 
 ```tsx
-import { Button } from '@connoradams/designsystem'
+import { Button } from '@connor-adams/designsystem'
 
 export default function Home() {
   return (
@@ -141,8 +141,8 @@ export default function Home() {
 
 - [ ] **Step 7: Install, build the package, build the web app**
 
-Run: `pnpm install && pnpm --filter @connoradams/designsystem build && pnpm --filter @connoradams/web build`
-Expected: `pnpm install` links `@connoradams/web`; `next build` completes, statically generating `/`. The Button renders (server-rendered; Button is a client-capable component — if `next build` errors that Button uses `useState` in a Server Component, add `'use client'` to a thin wrapper or render Button inside a client component. Note the resolution in the report.)
+Run: `pnpm install && pnpm --filter @connor-adams/designsystem build && pnpm --filter @connor-adams/web build`
+Expected: `pnpm install` links `@connor-adams/web`; `next build` completes, statically generating `/`. The Button renders (server-rendered; Button is a client-capable component — if `next build` errors that Button uses `useState` in a Server Component, add `'use client'` to a thin wrapper or render Button inside a client component. Note the resolution in the report.)
 
 - [ ] **Step 8: Ensure `.next/` is gitignored** (add to root `.gitignore` if absent) and **Commit**
 
@@ -224,7 +224,7 @@ console.log(`gen-data: ${manifest.length} components, ${docs.length} with props`
 
 - [ ] **Step 2: Run the generator**
 
-Run: `pnpm --filter @connoradams/web gen`
+Run: `pnpm --filter @connor-adams/web gen`
 Expected: prints `gen-data: 43 components, N with props`; writes the three JSON files under `apps/web/src/generated/`.
 
 - [ ] **Step 3: Verify Button's extracted props are clean**
@@ -255,7 +255,7 @@ A client-side registry mapping slug → a representative live preview node. This
 ```tsx
 'use client'
 import * as React from 'react'
-import { Button } from '@connoradams/designsystem'
+import { Button } from '@connor-adams/designsystem'
 
 // slug → representative live preview. One curated render per component.
 // (Storybook holds the exhaustive variant matrices; this is the docs-site showcase.)
@@ -272,7 +272,7 @@ export const previews: Record<string, React.ReactNode> = {
 
 - [ ] **Step 2: Typecheck the web app**
 
-Run: `pnpm --filter @connoradams/designsystem build && pnpm --filter @connoradams/web typecheck`
+Run: `pnpm --filter @connor-adams/designsystem build && pnpm --filter @connor-adams/web typecheck`
 Expected: exit 0.
 
 - [ ] **Step 3: Commit**
@@ -394,7 +394,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       <section style={{ marginTop: 40 }}>
         <h2>Import</h2>
         <pre style={{ background: 'var(--muted)', padding: 16, borderRadius: 'var(--radius-md)', overflowX: 'auto', fontFamily: 'var(--font-mono)', fontSize: 'var(--text-body-sm)' }}>
-          <code>{`import { ${entry.name} } from '@connoradams/designsystem'`}</code>
+          <code>{`import { ${entry.name} } from '@connor-adams/designsystem'`}</code>
         </pre>
       </section>
 
@@ -416,7 +416,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
 - [ ] **Step 5: Build the site and confirm the Button page generates**
 
-Run: `pnpm --filter @connoradams/designsystem build && pnpm --filter @connoradams/web build`
+Run: `pnpm --filter @connor-adams/designsystem build && pnpm --filter @connor-adams/web build`
 Expected: `next build` statically generates `/components/button` (and all 43 slugs). No errors. (If RSC complains the `[slug]` page imports a client module transitively — `Preview` is `'use client'`, so it's fine; the page itself is a server component importing JSON + the client `Preview`.)
 
 - [ ] **Step 6: Commit**
@@ -437,11 +437,11 @@ Add a representative live preview for every remaining component to `previews/ind
 
 **Interfaces:** Every manifest slug has an entry in `previews`.
 
-- [ ] **Step 1: Add a preview entry for each of the other 42 components**, importing them from `@connoradams/designsystem` and rendering one representative example with realistic props/fixtures (mirror the Storybook stories' Default/fixtures — e.g. Combobox with an `options` array, Table composing rows, Sparkline with `data`, overlays with their visible/open state). Keep each preview compact. Read each component's Props (or its story) for correct props.
+- [ ] **Step 1: Add a preview entry for each of the other 42 components**, importing them from `@connor-adams/designsystem` and rendering one representative example with realistic props/fixtures (mirror the Storybook stories' Default/fixtures — e.g. Combobox with an `options` array, Table composing rows, Sparkline with `data`, overlays with their visible/open state). Keep each preview compact. Read each component's Props (or its story) for correct props.
 
 - [ ] **Step 2: Typecheck**
 
-Run: `pnpm --filter @connoradams/designsystem build && pnpm --filter @connoradams/web typecheck`
+Run: `pnpm --filter @connor-adams/designsystem build && pnpm --filter @connor-adams/web typecheck`
 Expected: exit 0.
 
 - [ ] **Step 3: Verify every slug has a preview**
@@ -451,7 +451,7 @@ Expected: `all 43 have previews`.
 
 - [ ] **Step 4: Build to confirm all previews render in SSG**
 
-Run: `pnpm --filter @connoradams/web build`
+Run: `pnpm --filter @connor-adams/web build`
 Expected: `next build` succeeds; all 43 `/components/<slug>` pages generated.
 
 - [ ] **Step 5: Commit** — `git add -A && git commit -m "feat(web): live previews for all 43 components"`
@@ -475,7 +475,7 @@ A browsable index grouping all components by category, plus shared site navigati
 
 - [ ] **Step 3: Render `<SiteHeader/>` in the root layout** above `{children}`.
 
-- [ ] **Step 4: Build** — `pnpm --filter @connoradams/web build` → `/components` and all pages generate, exit 0.
+- [ ] **Step 4: Build** — `pnpm --filter @connor-adams/web build` → `/components` and all pages generate, exit 0.
 
 - [ ] **Step 5: Commit** — `git add -A && git commit -m "feat(web): components index and site header"`
 
@@ -493,7 +493,7 @@ Replace the placeholder home with a branded landing: hero (wordmark, tagline, th
 
 - [ ] **Step 1: Build the landing page** — hero using `--gradient-hero` and brand type tokens; a one-paragraph value prop ("A portable React design system — typed components, design tokens, one import"); a showcase row rendering a few real components (Button, Badge, a Card, etc. — via a client showcase component); CTA buttons linking to `/components`, the GitHub repo, and noting Storybook for the variant playground. All styled through token vars.
 
-- [ ] **Step 2: Build** — `pnpm --filter @connoradams/web build` → `/` generates, exit 0.
+- [ ] **Step 2: Build** — `pnpm --filter @connor-adams/web build` → `/` generates, exit 0.
 
 - [ ] **Step 3: Commit** — `git add -A && git commit -m "feat(web): branded landing page"`
 
@@ -510,7 +510,7 @@ Make the app Vercel-deployable and verify the full build green; ensure the new a
 - [ ] **Step 1: Confirm turbo picks up the web build**
 
 Run: `pnpm build`
-Expected: turbo runs `@connoradams/web#build` (the `gen-data.mjs` + `next build`) alongside the library and Storybook builds; all tasks successful. (`@connoradams/designsystem#build` runs first via `^build`.)
+Expected: turbo runs `@connor-adams/web#build` (the `gen-data.mjs` + `next build`) alongside the library and Storybook builds; all tasks successful. (`@connor-adams/designsystem#build` runs first via `^build`.)
 
 - [ ] **Step 2: Confirm the web app typechecks in the workspace**
 
@@ -524,7 +524,7 @@ Expected: `✓ Contract OK`, 43 components.
 
 - [ ] **Step 4: Add a deploy note** — create `apps/web/README.md` documenting: deploy on Vercel with **Root Directory = `apps/web`**, build command `pnpm build` (or Vercel's monorepo detection), output `.next`. No secret env needed. (A `vercel.json` is optional since Vercel auto-detects Next; only add one if pinning the build command.)
 
-- [ ] **Step 5: Final build sanity** — `pnpm --filter @connoradams/web build` and confirm the static route list includes `/`, `/components`, and `/components/[slug]` (43 pages).
+- [ ] **Step 5: Final build sanity** — `pnpm --filter @connor-adams/web build` and confirm the static route list includes `/`, `/components`, and `/components/[slug]` (43 pages).
 
 - [ ] **Step 6: Commit** — `git add -A && git commit -m "docs(web): vercel deploy notes; verify full workspace build"`
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { CategoryPill } from '@connoradams/designsystem'
+import { CategoryPill } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof CategoryPill> = {
   title: 'Finance/CategoryPill',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Switch } from '@connoradams/designsystem'
+import { Switch } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Switch> = {
   title: 'Forms/Switch',

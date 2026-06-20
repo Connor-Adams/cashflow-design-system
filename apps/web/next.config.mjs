@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@connoradams/designsystem', '@connoradams/tokens'],
+  transpilePackages: ['@connor-adams/designsystem', '@connor-adams/tokens'],
 }
 export default nextConfig

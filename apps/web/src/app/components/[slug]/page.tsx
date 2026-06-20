@@ -30,7 +30,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       <section style={{ marginTop: 40 }}>
         <h2>Import</h2>
         <pre style={{ background: 'var(--muted)', padding: 16, borderRadius: 'var(--radius-md)', overflowX: 'auto', fontFamily: 'var(--font-mono)', fontSize: 'var(--text-body-sm)' }}>
-          <code>{`import { ${entry.name} } from '@connoradams/designsystem'`}</code>
+          <code>{`import { ${entry.name} } from '@connor-adams/designsystem'`}</code>
         </pre>
       </section>
 

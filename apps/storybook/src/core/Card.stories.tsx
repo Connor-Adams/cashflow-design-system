@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@connoradams/designsystem'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@connor-adams/designsystem'
 
 const meta: Meta<typeof Card> = {
   title: 'Core/Card',

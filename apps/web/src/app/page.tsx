@@ -86,7 +86,7 @@ export default function Home() {
               color: 'var(--foreground)',
             }}
           >
-            @connoradams/designsystem
+            @connor-adams/designsystem
           </code>
         </p>
 

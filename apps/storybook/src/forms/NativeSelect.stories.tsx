@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { NativeSelect } from '@connoradams/designsystem'
+import { NativeSelect } from '@connor-adams/designsystem'
 
 const CATEGORY_OPTIONS = [
   { value: 'food', label: 'Food & Dining' },
