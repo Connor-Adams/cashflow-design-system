@@ -63,7 +63,7 @@ export const QueueList = React.forwardRef<HTMLDivElement, QueueListProps>(functi
       <CardContent>
         {nowPlaying && (
           <div className="ca-queue-list__now-playing">
-            <div style={{ minWidth: 0 }}>
+            <div className="ca-queue-list__now-playing-text">
               <div className="ca-queue-list__now-playing-label">Now playing</div>
               <div className="ca-queue-list__track-title" title={nowPlaying.title}>{nowPlaying.title}</div>
             </div>
