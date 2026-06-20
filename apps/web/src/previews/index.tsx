@@ -136,9 +136,13 @@ export const previews: Record<string, Variant[]> = {
   button: [
     { label: 'Variants', node: (
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <Button variant="primary">Add transaction</Button>
-        <Button variant="secondary">Cancel</Button>
-        <Button variant="destructive">Delete</Button>
+        <Button variant="default">default</Button>
+        <Button variant="primary">primary</Button>
+        <Button variant="secondary">secondary</Button>
+        <Button variant="outline">outline</Button>
+        <Button variant="ghost">ghost</Button>
+        <Button variant="destructive">destructive</Button>
+        <Button variant="link">link</Button>
       </div>
     )},
     { label: 'Sizes', node: (
