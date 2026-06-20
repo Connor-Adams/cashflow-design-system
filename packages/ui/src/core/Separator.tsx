@@ -31,7 +31,7 @@ export const Separator = React.forwardRef<HTMLElement, SeparatorProps>(function 
         role="separator"
         aria-orientation="vertical"
         className={cls}
-        style={{ display: 'inline-block', width: 1, alignSelf: 'stretch', minHeight: '1em', background: 'var(--border)', ...style }}
+        style={style}
         {...props}
       />
     )
@@ -44,13 +44,13 @@ export const Separator = React.forwardRef<HTMLElement, SeparatorProps>(function 
         data-slot="separator"
         data-orientation="horizontal"
         role="separator"
-        className={cls}
-        style={{ display: 'flex', alignItems: 'center', gap: 12, ...style }}
+        className={`${cls} ca-separator--labeled`}
+        style={style}
         {...props}
       >
-        <span style={{ flex: 1, height: 1, background: 'var(--border)' }} />
-        <span style={{ fontSize: 'var(--text-body-sm)', color: 'var(--muted-foreground)', fontFamily: 'var(--font-sans)', whiteSpace: 'nowrap' }}>{label}</span>
-        <span style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+        <span className="ca-separator__rule" />
+        <span className="ca-separator__label">{label}</span>
+        <span className="ca-separator__rule" />
       </div>
     )
   }
@@ -61,7 +61,7 @@ export const Separator = React.forwardRef<HTMLElement, SeparatorProps>(function 
       data-slot="separator"
       data-orientation="horizontal"
       className={cls}
-      style={{ border: 0, height: 1, width: '100%', background: 'var(--border)', margin: 0, ...style }}
+      style={style}
       {...props}
     />
   )

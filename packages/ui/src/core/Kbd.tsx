@@ -18,23 +18,7 @@ export const Kbd = React.forwardRef<HTMLElement, KbdProps>(function Kbd(
       ref={ref}
       data-slot="kbd"
       className={className ? `ca-kbd ${className}` : 'ca-kbd'}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth: 20,
-        height: 20,
-        padding: '0 5px',
-        borderRadius: 'var(--radius-sm)',
-        border: '1px solid var(--border)',
-        borderBottomWidth: 2,
-        background: 'var(--muted)',
-        color: 'var(--muted-foreground)',
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.72rem',
-        lineHeight: 1,
-        ...style,
-      }}
+      style={style}
       {...props}
     >
       {children}

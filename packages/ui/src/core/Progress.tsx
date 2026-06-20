@@ -49,9 +49,9 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(function
       {...props}
     >
       {(label || showValue) && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-sans)' }}>
-          {label && <span style={{ color: 'var(--muted-foreground)' }}>{label}</span>}
-          {showValue && !indeterminate && <span style={{ color: 'var(--foreground)', fontFamily: 'var(--font-mono)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{Math.round(pct)}%</span>}
+        <div className="ca-progress__head">
+          {label && <span className="ca-progress__label">{label}</span>}
+          {showValue && !indeterminate && <span className="ca-progress__value">{Math.round(pct)}%</span>}
         </div>
       )}
       <div
@@ -65,7 +65,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(function
         {indeterminate ? (
           <span className="ca-progress__sweep" style={{ background: fill }} />
         ) : (
-          <span style={{ display: 'block', height: '100%', width: `${pct}%`, borderRadius: 99, background: fill, transition: 'width 300ms ease' }} />
+          <span className="ca-progress__fill" style={{ width: `${pct}%`, background: fill }} />
         )}
       </div>
     </div>

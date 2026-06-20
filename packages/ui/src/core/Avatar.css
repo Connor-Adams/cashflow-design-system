@@ -10,3 +10,33 @@
   background: var(--muted);
   color: var(--muted-foreground);
 }
+
+.ca-avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.ca-avatar__fallback {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-sans);
+  line-height: 1;
+  user-select: none;
+}
+
+/* Status dot — position and ring are static; size and color stay inline
+   (they scale with the avatar px / status tone). */
+.ca-avatar__status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 2px solid var(--background);
+}

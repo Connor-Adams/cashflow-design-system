@@ -22,6 +22,11 @@ describe('Separator', () => {
     expect(el).toHaveClass('my-2')
   })
 
+  it('keeps static styling in CSS, not the inline style attribute', () => {
+    const { container } = render(<Separator />)
+    expect(container.querySelector('[data-slot="separator"]')!.getAttribute('style')).toBeNull()
+  })
+
   it('renders a vertical separator', () => {
     const { container } = render(<Separator orientation="vertical" />)
     const el = container.querySelector('[data-slot="separator"]')!

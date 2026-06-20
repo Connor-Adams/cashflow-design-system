@@ -10,6 +10,30 @@
   width: 100%;
 }
 
+.ca-progress__head {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-body-sm);
+  font-family: var(--font-sans);
+}
+
+.ca-progress__label {
+  color: var(--muted-foreground);
+}
+
+.ca-progress__value {
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  transition: width 300ms ease;
+}
+
 .ca-progress__track {
   position: relative;
   overflow: hidden;
