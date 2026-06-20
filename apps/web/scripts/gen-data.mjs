@@ -46,6 +46,10 @@ for (const d of docs) {
     description: p.description ?? '',
   }))
 }
+// Keep only the primary components (drop compound sub-component entries like
+// CardHeader/TableRow that docgen also returns — they have no manifest entry/route).
+const manifestNames = new Set(manifest.map((e) => e.name))
+for (const k of Object.keys(props)) if (!manifestNames.has(k)) delete props[k]
 
 // Usage notes from prompt.md
 const usage = {}

@@ -19,3 +19,6 @@ apps/web/next-env.d.ts
 
 # ─ SDD scratch (briefs, reports, ledger, diffs) ─
 .superpowers/
+
+# TypeScript incremental build cache
+*.tsbuildinfo

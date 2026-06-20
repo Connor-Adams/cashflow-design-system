@@ -92,10 +92,6 @@
     }
   ],
   "Card": [],
-  "CardHeader": [],
-  "CardTitle": [],
-  "CardDescription": [],
-  "CardContent": [],
   "Kbd": [],
   "Link": [
     {
@@ -316,19 +312,6 @@
       "description": ""
     }
   ],
-  "TableHeader": [],
-  "TableBody": [],
-  "TableRow": [
-    {
-      "name": "selected",
-      "type": "boolean | undefined",
-      "required": false,
-      "defaultValue": null,
-      "description": ""
-    }
-  ],
-  "TableHead": [],
-  "TableCell": [],
   "Tabs": [
     {
       "name": "items",
@@ -411,15 +394,6 @@
       "type": "string | number | undefined",
       "required": false,
       "defaultValue": "16",
-      "description": ""
-    }
-  ],
-  "SkeletonText": [
-    {
-      "name": "lines",
-      "type": "number | undefined",
-      "required": false,
-      "defaultValue": "3",
       "description": ""
     }
   ],
