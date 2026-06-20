@@ -1,5 +1,11 @@
 # @connor-adams/designsystem
 
+## 0.3.0
+
+### Minor Changes
+
+- 30af5a0: Add CategoryBreakdown component — a card with a ranked horizontal-bar breakdown of money by category, composed from existing primitives.
+
 ## 0.2.0
 
 ### Minor Changes
