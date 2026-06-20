@@ -22,12 +22,13 @@ pnpm --filter @connor-adams/web dev               # http://localhost:3001
 
 ## Deploy (Vercel)
 
-This is a Next.js app in a pnpm/turbo monorepo. On Vercel:
+This is a Next.js app in a pnpm/turbo monorepo. The build is pinned in [`vercel.json`](./vercel.json) — **do not** rely on Vercel's Next.js auto-detection. Auto-detection runs only this package's `build` script (`gen-data.mjs && next build`), which does **not** build the `@connor-adams/designsystem` workspace dependency first, so the import of its `dist` fails. The build must go through turbo so `^build` builds `tokens → ui → web` in order.
 
-- **Root Directory:** `apps/web`
-- **Build Command:** `pnpm build` (or leave Vercel's Next.js auto-detection — it runs the `build` script, which runs `gen-data.mjs` then `next build`)
-- **Install Command:** `pnpm install` (Vercel detects pnpm from the lockfile)
-- **Output:** `.next` (auto-detected)
+Vercel project settings:
+
+- **Root Directory:** `apps/web` (Vercel reads `apps/web/vercel.json` from here)
+- **Include files outside the Root Directory:** ON (needed to reach `../../packages`)
+- **Node.js Version:** 22.x (matches `.nvmrc`)
+- **Build / Install Command:** pinned in `vercel.json` (turbo filter build; install runs from the repo root)
+- **Output:** `.next` (auto-detected from `framework: nextjs`)
 - No environment variables required.
-
-Vercel auto-detects Next.js, so no `vercel.json` is needed unless you want to pin the build command.
