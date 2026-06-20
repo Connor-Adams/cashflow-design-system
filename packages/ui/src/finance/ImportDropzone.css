@@ -24,6 +24,47 @@
   background: color-mix(in oklch, var(--ring) 8%, var(--card));
 }
 
+.ca-import-dropzone-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in oklch, var(--primary) 12%, transparent);
+  color: var(--primary);
+}
+
+.ca-import-dropzone-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ca-import-dropzone-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ca-import-dropzone-title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+}
+
+.ca-import-dropzone-sub {
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+}
+
+.ca-import-dropzone-sub--mono {
+  font-family: var(--font-mono);
+}
+
+.ca-import-dropzone-browse {
+  color: var(--text-link);
+}
+
 .ca-import-dropzone:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
