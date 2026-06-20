@@ -1,9 +1,9 @@
 'use client'
 
 import * as React from 'react'
+import type { ManifestEntry } from './Gallery'
 
-type Entry = { slug: string; name: string; category: string }
-type Group = { category: string; items: Entry[] }
+type Group = { category: string; items: ManifestEntry[] }
 
 export function GallerySidebar({
   groups,
