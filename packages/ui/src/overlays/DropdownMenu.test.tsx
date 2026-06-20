@@ -23,6 +23,21 @@ describe('DropdownMenu', () => {
     expect(root).toHaveClass('inline-x')
   })
 
+  it('keeps static styling in CSS so a className can override it (no inline style attr)', () => {
+    render(<DropdownMenu trigger={<button>Open</button>} items={items} className="inline-x" />)
+    // Root carries only ...style (none here) — no static inline style competes with the class.
+    expect(document.querySelector('[data-slot="dropdown-menu"]')).not.toHaveAttribute('style')
+    // Open the menu: the menu surface and its items are CSS-classed, no static inline style.
+    fireEvent.click(screen.getByText('Open'))
+    expect(screen.getByRole('menu')).not.toHaveAttribute('style')
+    expect(screen.getByRole('menuitem', { name: 'Edit' })).not.toHaveAttribute('style')
+  })
+
+  it('still honours a consumer style prop via the ...style spread', () => {
+    render(<DropdownMenu trigger={<button>Open</button>} items={items} style={{ opacity: 0.5 }} />)
+    expect(document.querySelector('[data-slot="dropdown-menu"]')).toHaveStyle({ opacity: '0.5' })
+  })
+
   it('forwards a ref to the root element', () => {
     const ref = createRef<HTMLSpanElement>()
     render(<DropdownMenu ref={ref} trigger={<button>Open</button>} items={items} />)
