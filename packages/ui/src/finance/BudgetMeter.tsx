@@ -34,16 +34,16 @@ export const BudgetMeter = React.forwardRef<HTMLDivElement, BudgetMeterProps>(fu
 
   return (
     <div ref={ref} data-slot="budget-meter" data-tone={tone} className={className ? `ca-budget-meter ${className}` : 'ca-budget-meter'} style={style} {...props}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8 }}>
-        <span style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{label}</span>
-        <span style={{ fontSize: 'var(--text-body-sm)', fontFamily: 'var(--font-mono)', color: 'var(--muted-foreground)' }}>
-          <span style={{ color: over ? 'var(--negative)' : 'var(--foreground)', fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'] }}>{fmt(spent)}</span> / {fmt(limit)}
+      <div className="ca-budget-meter-head">
+        <span className="ca-budget-meter-label">{label}</span>
+        <span className="ca-budget-meter-readout">
+          <span className="ca-budget-meter-spent">{fmt(spent)}</span> / {fmt(limit)}
         </span>
       </div>
-      <div style={{ position: 'relative', overflow: 'hidden', height: 8, width: '100%', borderRadius: 99, background: 'var(--muted)' }}>
-        <span data-slot="budget-meter-fill" style={{ display: 'block', height: '100%', width: `${pct}%`, borderRadius: 99, background: fill, transition: 'width 300ms ease' }} />
+      <div className="ca-budget-meter-track">
+        <span data-slot="budget-meter-fill" style={{ width: `${pct}%`, background: fill }} />
       </div>
-      <span style={{ fontSize: 'var(--text-body-sm)', color: over ? 'var(--negative)' : 'var(--muted-foreground)' }}>
+      <span className="ca-budget-meter-foot">
         {over ? `${fmt(Math.abs(remaining))} over budget` : `${fmt(remaining)} left`}
       </span>
     </div>
