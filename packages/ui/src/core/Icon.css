@@ -1,0 +1,9 @@
+/* Icon — stroke glyph that inherits `currentColor`. No variants; sizing comes
+   from the `size` prop. Base class only keeps it from disturbing inline flow. */
+
+.ca-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  color: inherit;
+}

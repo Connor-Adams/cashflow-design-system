@@ -7,6 +7,7 @@ import {
   Badge,
   Button,
   Card, CardHeader, CardTitle, CardDescription, CardContent,
+  Icon, iconNames,
   Kbd,
   Link,
   Progress,
@@ -169,6 +170,24 @@ export const previews: Record<string, Variant[]> = {
           </p>
         </CardContent>
       </Card>
+    )},
+  ],
+
+  icon: [
+    { label: 'Color & size', node: (
+      <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+        <span style={{ color: 'var(--positive)' }}><Icon name="trending-up" size={28} /></span>
+        <span style={{ color: 'var(--destructive)' }}><Icon name="trending-down" size={28} /></span>
+        <span style={{ color: 'var(--muted-foreground)' }}><Icon name="settings" size={28} /></span>
+        <Icon name="wallet" size={16} />
+        <Icon name="wallet" size={24} />
+        <Icon name="wallet" size={32} />
+      </div>
+    )},
+    { label: 'Registry', node: (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 16, color: 'var(--foreground)' }}>
+        {iconNames.map((name) => <Icon key={name} name={name} size={22} />)}
+      </div>
     )},
   ],
 
