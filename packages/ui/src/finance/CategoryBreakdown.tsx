@@ -21,7 +21,7 @@ export interface CategoryBreakdownRow {
   color?: string
 }
 
-export interface CategoryBreakdownProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CategoryBreakdownProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'onSelect'> {
   rows: CategoryBreakdownRow[]
   title?: React.ReactNode
   subtitle?: React.ReactNode
