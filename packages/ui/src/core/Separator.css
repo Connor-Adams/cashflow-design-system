@@ -1,8 +1,44 @@
-/* Separator — a hairline divider. Purely presentational; the per-variant layout
-   and fill stay inline in the .tsx (the label variant's root is a flex container,
-   not a rule), so this base class is intentionally minimal and exists for
-   consumer targeting/overrides. */
+/* Separator — a hairline divider. All static styling lives here in classes
+   keyed off data-orientation (and the labeled variant) so a consumer's
+   className can override it; the .tsx keeps only the `...style` spread. */
 
 .ca-separator {
   border: 0;
+}
+
+/* Plain horizontal rule (the <hr> default variant). */
+hr.ca-separator {
+  height: 1px;
+  width: 100%;
+  margin: 0;
+  background: var(--border);
+}
+
+/* Vertical divider — stretches to its flex parent's height. */
+.ca-separator[data-orientation='vertical'] {
+  display: inline-block;
+  width: 1px;
+  align-self: stretch;
+  min-height: 1em;
+  background: var(--border);
+}
+
+/* Labeled "text between rules" divider — root is a flex container, not a rule. */
+.ca-separator--labeled {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ca-separator__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.ca-separator__label {
+  font-size: var(--text-body-sm);
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+  white-space: nowrap;
 }
