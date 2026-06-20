@@ -1,2 +1,10 @@
-@import "@connor-adams/tokens/styles.css";
-@import "./dist/index.css";
+/* Layer order, lowest → highest priority: base (token resets + variables) <
+   components < anything unlayered. Declaring the order up front means a
+   component's own CSS beats the token base element resets — notably
+   `button, input, select, textarea { font: inherit }`, which otherwise (when
+   components were layered but the base was not) wiped out every component's
+   font-weight/font-size. Consumer styles and Tailwind utilities stay unlayered,
+   so they still override components via className. */
+@layer base, components;
+@import "@connor-adams/tokens/styles.css" layer(base);
+@import "./dist/index.css" layer(components);
