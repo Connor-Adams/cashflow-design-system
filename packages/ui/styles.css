@@ -1,6 +1,2 @@
 @import "@connor-adams/tokens/styles.css";
-/* Component CSS in @layer components so consumer styles (Tailwind utilities live
-   in @layer utilities, which comes after components; or any unlayered consumer
-   rule) override a component's own styling via className. Without the layer the
-   unlayered component classes would beat consumer utilities. */
-@import "./dist/index.css" layer(components);
+@import "./dist/index.css";
