@@ -20,6 +20,12 @@ describe('Kbd', () => {
     expect(el).toHaveClass('ml-1')
   })
 
+  it('keeps static styling in CSS, not the inline style attribute', () => {
+    const { container } = render(<Kbd>Esc</Kbd>)
+    const el = container.querySelector('[data-slot="kbd"]')!
+    expect(el.getAttribute('style')).toBeNull()
+  })
+
   it('forwards a ref to the underlying kbd element', () => {
     const ref = createRef<HTMLElement>()
     render(<Kbd ref={ref}>Esc</Kbd>)
