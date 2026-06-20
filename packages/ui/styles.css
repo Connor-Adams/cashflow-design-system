@@ -1,2 +1,4 @@
-@import "@connor-adams/tokens/styles.css";
+/* Back-compat entry. The JS bundle now imports its own CSS (tokens included),
+   so `import '@connor-adams/designsystem'` alone is enough. This file remains
+   for consumers that link the stylesheet directly. */
 @import "./dist/index.css";

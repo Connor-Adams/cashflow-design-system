@@ -1,3 +1,7 @@
+// Token layer (CSS custom properties) is folded into the bundle so a single
+// `import { ... } from '@connor-adams/designsystem'` pulls in all styling.
+import '@connor-adams/tokens/styles.css'
+
 export { Button } from './core/Button'
 export type { ButtonProps, ButtonVariant, ButtonSize } from './core/Button'
 export { Accordion } from './core/Accordion'
