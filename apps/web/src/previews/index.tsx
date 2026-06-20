@@ -219,6 +219,20 @@ export const previews: Record<string, Variant[]> = {
         <Spinner size="lg" />
       </div>
     )},
+    { label: 'Gradient trail', node: (
+      <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+        <Spinner size="lg" tone="gradient-current" />
+        <Spinner size="lg" tone="gradient-primary" />
+        <Spinner size="lg" tone="gradient-muted" />
+      </div>
+    )},
+    { label: 'Hero', node: (
+      <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+        <Spinner size="sm" tone="hero" />
+        <Spinner size="default" tone="hero" />
+        <Spinner size="lg" tone="hero" />
+      </div>
+    )},
   ],
 
   text: [
