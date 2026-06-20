@@ -4,4 +4,5 @@
 .ca-sparkline {
   display: inline-block;
   vertical-align: middle;
+  overflow: visible;
 }

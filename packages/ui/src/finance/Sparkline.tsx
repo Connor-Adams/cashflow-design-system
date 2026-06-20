@@ -76,7 +76,7 @@ export const Sparkline = React.forwardRef<SVGSVGElement, SparklineProps>(functio
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
-      style={{ overflow: 'visible', ...style }}
+      style={style}
       {...props}
     >
       {area && (
