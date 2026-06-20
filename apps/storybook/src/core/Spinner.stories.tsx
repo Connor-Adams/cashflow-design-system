@@ -15,7 +15,15 @@ const meta: Meta<typeof Spinner> = {
     },
     tone: {
       control: 'select',
-      options: ['current', 'primary', 'muted'],
+      options: [
+        'current',
+        'primary',
+        'muted',
+        'gradient-current',
+        'gradient-primary',
+        'gradient-muted',
+        'hero',
+      ],
     },
   },
 }
@@ -26,3 +34,5 @@ type Story = StoryObj<typeof Spinner>
 export const Default: Story = {}
 export const Small: Story = { args: { size: 'sm', tone: 'muted' } }
 export const Large: Story = { args: { size: 'lg' } }
+export const Gradient: Story = { args: { size: 'lg', tone: 'gradient-primary' } }
+export const Hero: Story = { args: { size: 'lg', tone: 'hero' } }
