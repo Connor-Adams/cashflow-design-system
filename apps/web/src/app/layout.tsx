@@ -2,6 +2,7 @@ import * as React from 'react'
 import type { Metadata } from 'next'
 import '@connor-adams/designsystem/styles.css'
 import { SiteHeader } from '../components/SiteHeader'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: 'Connor Adams Design System',
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body style={{ margin: 0, background: 'var(--background)', color: 'var(--foreground)', fontFamily: 'var(--font-sans)' }}>
         <SiteHeader />
         {children}
+        <Analytics />
       </body>
     </html>
   )
