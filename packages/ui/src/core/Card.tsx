@@ -23,15 +23,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
       ref={ref}
       data-slot="card"
       className={className ? `ca-card ${className}` : 'ca-card'}
-      style={{
-        borderRadius: 'var(--radius-lg)',
-        border: '1px solid var(--border)',
-        background: 'var(--card)',
-        color: 'var(--card-foreground)',
-        boxShadow: 'var(--shadow)',
-        padding: 20,
-        ...style,
-      }}
+      style={style}
       {...props}
     >
       {children}
@@ -48,7 +40,7 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardProps>(function C
       ref={ref}
       data-slot="card-header"
       className={className ? `ca-card-header ${className}` : 'ca-card-header'}
-      style={{ display: 'grid', gap: 6, marginBottom: 12, ...style }}
+      style={style}
       {...props}
     >
       {children}
@@ -65,13 +57,7 @@ export const CardTitle = React.forwardRef<HTMLDivElement, CardProps>(function Ca
       ref={ref}
       data-slot="card-title"
       className={className ? `ca-card-title ${className}` : 'ca-card-title'}
-      style={{
-        fontWeight: 'var(--weight-semibold)' as React.CSSProperties['fontWeight'],
-        letterSpacing: '-0.01em',
-        fontSize: 'var(--text-headline-sm)',
-        color: 'var(--foreground)',
-        ...style,
-      }}
+      style={style}
       {...props}
     >
       {children}
@@ -88,7 +74,7 @@ export const CardDescription = React.forwardRef<HTMLDivElement, CardProps>(funct
       ref={ref}
       data-slot="card-description"
       className={className ? `ca-card-description ${className}` : 'ca-card-description'}
-      style={{ fontSize: 'var(--text-body)', color: 'var(--muted-foreground)', lineHeight: 1.5, ...style }}
+      style={style}
       {...props}
     >
       {children}
