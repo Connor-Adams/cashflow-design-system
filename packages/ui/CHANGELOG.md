@@ -1,5 +1,15 @@
 # @connor-adams/designsystem
 
+## 0.3.1
+
+### Patch Changes
+
+- 8dc5f2d: Ship component CSS in `@layer components` (via the `styles.css` import) so a
+  consumer's styles — Tailwind utilities (which sit in `@layer utilities`, after
+  `components`) or any unlayered rule — override a component's own styling through
+  `className`. Without the layer, the unlayered component classes won the cascade
+  against consumer utilities.
+
 ## 0.3.0
 
 ### Minor Changes
