@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Link from 'next/link'
+import { ThemeToggle } from './ThemeToggle'
 
 export function SiteHeader() {
   return (
@@ -93,6 +94,7 @@ export function SiteHeader() {
         >
           GitHub
         </a>
+        <ThemeToggle />
       </nav>
     </header>
   )
