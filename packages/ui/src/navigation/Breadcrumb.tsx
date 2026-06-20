@@ -27,7 +27,7 @@ export function Breadcrumb({ items = [], className, style, ...props }: Breadcrum
           return (
             <li key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
               {last || !it.href ? (
-                <span aria-current={last ? 'page' : undefined} style={{ color: last ? 'var(--foreground)' : 'var(--muted-foreground)', fontWeight: last ? 'var(--weight-semibold)' : 'var(--weight-regular)' }}>{it.label}</span>
+                <span aria-current={last ? 'page' : undefined} style={{ color: last ? 'var(--foreground)' : 'var(--muted-foreground)', fontWeight: (last ? 'var(--weight-semibold)' : 'var(--weight-regular)') as React.CSSProperties['fontWeight'] }}>{it.label}</span>
               ) : (
                 <a href={it.href} style={{ color: 'var(--muted-foreground)', textDecoration: 'none' }} onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = 'var(--foreground)' }} onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = 'var(--muted-foreground)' }}>{it.label}</a>
               )}
