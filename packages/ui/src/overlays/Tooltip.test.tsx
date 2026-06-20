@@ -25,6 +25,28 @@ describe('Tooltip', () => {
     expect(root).toHaveClass('inline-x')
   })
 
+  it('keeps static styling in CSS so a className can override it (no inline style attr)', () => {
+    render(
+      <Tooltip content="Hi" className="inline-x" side="right">
+        <button>Trigger</button>
+      </Tooltip>,
+    )
+    // Root carries only ...style (none here) — no static inline style competes with the class.
+    expect(document.querySelector('[data-slot="tooltip"]')).not.toHaveAttribute('style')
+    // Bubble placement is CSS-driven off data-side; no static inline style on it either.
+    fireEvent.mouseEnter(document.querySelector('[data-slot="tooltip"]')!)
+    expect(screen.getByRole('tooltip')).not.toHaveAttribute('style')
+  })
+
+  it('still honours a consumer style prop via the ...style spread', () => {
+    render(
+      <Tooltip content="Hi" style={{ opacity: 0.5 }}>
+        <button>Trigger</button>
+      </Tooltip>,
+    )
+    expect(document.querySelector('[data-slot="tooltip"]')).toHaveStyle({ opacity: '0.5' })
+  })
+
   it('forwards a ref to the root element', () => {
     const ref = createRef<HTMLSpanElement>()
     render(

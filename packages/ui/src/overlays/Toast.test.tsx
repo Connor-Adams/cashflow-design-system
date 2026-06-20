@@ -15,6 +15,18 @@ describe('Toast', () => {
     expect(el).toHaveClass('mt-2')
   })
 
+  it('keeps static styling in CSS so a className can override it (no inline style attr)', () => {
+    render(<Toast title="Saved" className="mt-2" onClose={() => {}} />)
+    // No static inline style competing with the class — the consumer className wins.
+    expect(screen.getByRole('status')).not.toHaveAttribute('style')
+    expect(screen.getByRole('button', { name: 'Dismiss' })).not.toHaveAttribute('style')
+  })
+
+  it('still honours a consumer style prop via the ...style spread', () => {
+    render(<Toast title="Saved" style={{ opacity: 0.5 }} />)
+    expect(screen.getByRole('status')).toHaveStyle({ opacity: '0.5' })
+  })
+
   it('reflects variant as a data attribute', () => {
     render(<Toast variant="error" title="Oops" />)
     expect(screen.getByRole('status')).toHaveAttribute('data-variant', 'error')
