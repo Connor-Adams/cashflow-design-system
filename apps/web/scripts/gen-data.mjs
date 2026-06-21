@@ -77,15 +77,15 @@ const { json, llmsTxt } = buildInventory({
   packageName: '@connor-adams/designsystem',
 })
 
-const PUB = join(process.cwd(), 'public')
-if (!existsSync(PUB)) mkdirSync(PUB, { recursive: true })
-writeFileSync(join(PUB, 'components.json'), JSON.stringify(json, null, 2))
-writeFileSync(join(PUB, 'llms.txt'), llmsTxt)
-
 if (json.components.length !== manifest.length) {
   throw new Error(`inventory mismatch: components.json has ${json.components.length}, manifest has ${manifest.length}`)
 }
 if (!llmsTxt.trim()) throw new Error('llms.txt is empty')
+
+const PUB = join(process.cwd(), 'public')
+if (!existsSync(PUB)) mkdirSync(PUB, { recursive: true })
+writeFileSync(join(PUB, 'components.json'), JSON.stringify(json, null, 2) + '\n')
+writeFileSync(join(PUB, 'llms.txt'), llmsTxt)
 
 console.log(
   `gen-data: ${manifest.length} components, ${docs.length} with props` +
