@@ -98,7 +98,7 @@
       "name": "Badge",
       "category": "core",
       "docs": "/components/badge",
-      "summary": "One-line: Small pill for status, category, and counts — `default` is oxblood brand fill, `secondary` the neutral workhorse.",
+      "summary": "Small pill for status, category, and counts — `default` is oxblood brand fill, `secondary` the neutral workhorse.",
       "props": [
         {
           "name": "variant",
@@ -114,7 +114,7 @@
       "name": "Button",
       "category": "core",
       "docs": "/components/button",
-      "summary": "One-line: Cashflow's action button — solid oxblood `primary` for the main CTA, neutral variants for the rest, tinted `destructive` for deletes.",
+      "summary": "Cashflow's action button — solid oxblood `primary` for the main CTA, neutral variants for the rest, tinted `destructive` for deletes.",
       "props": [
         {
           "name": "variant",
@@ -137,7 +137,7 @@
       "name": "Card",
       "category": "core",
       "docs": "/components/card",
-      "summary": "One-line: The default raised surface — white card, hairline border, light shadow, rounded-lg. Everything sits in one.",
+      "summary": "The default raised surface — white card, hairline border, light shadow, rounded-lg. Everything sits in one.",
       "props": []
     },
     {
@@ -145,7 +145,7 @@
       "name": "Icon",
       "category": "core",
       "docs": "/components/icon",
-      "summary": "One-line: Stroke glyph from the built-in registry — lucide-style, renders in `currentColor`, sized by the `size` prop.",
+      "summary": "Stroke glyph from the built-in registry — lucide-style, renders in `currentColor`, sized by the `size` prop.",
       "props": [
         {
           "name": "name",

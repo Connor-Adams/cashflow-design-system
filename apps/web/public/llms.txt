@@ -7,10 +7,10 @@ Full inventory with prop schemas: /components.json
 ## Core
 - [Accordion](/components/accordion): A disclosure stack for FAQs, settings groups, and statement breakdowns. Props: items, type, defaultValue, collapsible.
 - [Avatar](/components/avatar): A circular person avatar (account holder, shared-ledger member) with an initials fallback when the image is missing. Props: src, name, size, status, ring.
-- [Badge](/components/badge): One-line: Small pill for status, category, and counts — `default` is oxblood brand fill, `secondary` the neutral workhorse. Props: variant.
-- [Button](/components/button): One-line: Cashflow's action button — solid oxblood `primary` for the main CTA, neutral variants for the rest, tinted `destructive` for deletes. Props: variant, size.
-- [Card](/components/card): One-line: The default raised surface — white card, hairline border, light shadow, rounded-lg. Everything sits in one.
-- [Icon](/components/icon): One-line: Stroke glyph from the built-in registry — lucide-style, renders in `currentColor`, sized by the `size` prop. Props: name, size, strokeWidth, title.
+- [Badge](/components/badge): Small pill for status, category, and counts — `default` is oxblood brand fill, `secondary` the neutral workhorse. Props: variant.
+- [Button](/components/button): Cashflow's action button — solid oxblood `primary` for the main CTA, neutral variants for the rest, tinted `destructive` for deletes. Props: variant, size.
+- [Card](/components/card): The default raised surface — white card, hairline border, light shadow, rounded-lg. Everything sits in one.
+- [Icon](/components/icon): Stroke glyph from the built-in registry — lucide-style, renders in `currentColor`, sized by the `size` prop. Props: name, size, strokeWidth, title.
 - [Kbd](/components/kbd): A keycap for documenting shortcuts in menus, tooltips, and command hints.
 - [Link](/components/link): An inline anchor for body copy and table cells. Defaults to the oxblood-leaning `--text-link`; underline appears on hover only. Props: muted, subtle, external.
 - [Progress](/components/progress): A determinate bar for budgets, savings goals, and import progress. Use `tone` to signal state (e.g. `danger` when a category is over budget). Props: value, tone, size, indeterminate, label, showValue.

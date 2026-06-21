@@ -8,6 +8,8 @@ test('summaryFromUsage: strips heading markers and picks first non-empty line', 
   assert.equal(summaryFromUsage('   \n  ## Heading two  \n'), 'Heading two')
   assert.equal(summaryFromUsage(''), '')
   assert.equal(summaryFromUsage('   \n  '), '')
+  assert.equal(summaryFromUsage('One-line: Small pill for status.'), 'Small pill for status.')
+  assert.equal(summaryFromUsage('one-line:   tight spacing'), 'tight spacing')
 })
 
 const FIXTURE = {

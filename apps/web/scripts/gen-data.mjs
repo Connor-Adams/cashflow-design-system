@@ -80,7 +80,7 @@ const { json, llmsTxt } = buildInventory({
 if (json.components.length !== manifest.length) {
   throw new Error(`inventory mismatch: components.json has ${json.components.length}, manifest has ${manifest.length}`)
 }
-if (!llmsTxt.trim()) throw new Error('llms.txt is empty')
+if (!/\n- \[/.test(llmsTxt)) throw new Error('llms.txt has no component entries')
 
 const PUB = join(process.cwd(), 'public')
 if (!existsSync(PUB)) mkdirSync(PUB, { recursive: true })

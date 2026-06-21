@@ -4,7 +4,12 @@
 export function summaryFromUsage(md) {
   for (const line of (md ?? '').split('\n')) {
     const trimmed = line.trim()
-    if (trimmed) return trimmed.replace(/^#+\s*/, '').trim()
+    if (trimmed) {
+      return trimmed
+        .replace(/^#+\s*/, '')
+        .replace(/^one-line:\s*/i, '')
+        .trim()
+    }
   }
   return ''
 }
