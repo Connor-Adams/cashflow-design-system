@@ -1,6 +1,6 @@
 {
   "name": "@connor-adams/tokens",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Design tokens (CSS custom properties) for the Connor Adams design system.",
   "license": "SEE LICENSE FILE",
   "type": "module",
@@ -13,10 +13,15 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "exports": {
     "./styles.css": "./styles.css",
     "./src/*": "./src/*"
   },
-  "files": ["styles.css", "src/"]
+  "files": [
+    "styles.css",
+    "src/"
+  ]
 }
