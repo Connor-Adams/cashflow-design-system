@@ -1,5 +1,11 @@
 # @connor-adams/designsystem
 
+## 0.6.0
+
+### Minor Changes
+
+- c1ccc83: Expand Icon registry (wave 7) — add the 13 CategoryIcon glyphs still on lucide: baby, bed, flower-2, gamepad-2, keyboard, mountain, paintbrush, parking-square, party-popper, plug, recycle, stethoscope, trees.
+
 ## 0.5.0
 
 ### Minor Changes
