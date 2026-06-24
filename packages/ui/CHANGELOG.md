@@ -1,5 +1,11 @@
 # @connor-adams/designsystem
 
+## 0.9.0
+
+### Minor Changes
+
+- 85e7b0a: Expand BrandLogo registry from 34 to ~230 brands — broad coverage across payments/fintech, streaming, food & delivery, travel, retail, gaming, crypto, telecom, auto, and tech/SaaS (all from Simple Icons, CC0). Enumerate via `brandNames`; per-brand hexes in `brandColors`.
+
 ## 0.8.0
 
 ### Minor Changes
