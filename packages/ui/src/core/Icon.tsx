@@ -15,7 +15,7 @@ import './Icon.css'
 // Each entry is the inner SVG geometry for a 24×24 `viewBox`, stroked with
 // `currentColor`. Paths are lucide-derived (MIT). Keep alphabetised within
 // each group so the set stays scannable.
-const GLYPHS = {
+export const GLYPHS = {
   // --- money ----------------------------------------------------------------
   wallet: <><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></>,
   'credit-card': <><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></>,
