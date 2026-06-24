@@ -1,5 +1,6 @@
 import * as React from 'react'
 import './Icon.css'
+import { LOGOS, brandColors, brandSlugs, type BrandSlug } from './brandGlyphs'
 
 /**
  * Stroke-based glyph from the built-in registry. Lucide-style outlines on a
@@ -311,11 +312,14 @@ const GLYPHS = {
   'chevron-right': <><path d="m9 18 6-6-6-6" /></>,
 } satisfies Record<string, React.JSX.Element>
 
-/** Every glyph name available to `<Icon name>`. */
-export type IconName = keyof typeof GLYPHS
+/** Every glyph name available to `<Icon name>` — stroke glyphs and `brand:` marks. */
+export type IconName = keyof typeof GLYPHS | `brand:${BrandSlug}`
 
-/** All registered icon names, in registry order — handy for galleries/pickers. */
-export const iconNames = Object.keys(GLYPHS) as IconName[]
+/** All registered icon names — stroke glyphs first, then `brand:`-prefixed marks. */
+export const iconNames = [
+  ...(Object.keys(GLYPHS) as (keyof typeof GLYPHS)[]),
+  ...brandSlugs.map((s) => `brand:${s}` as const),
+] as IconName[]
 
 export interface IconProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'children'> {
   /** Which glyph to render. */
@@ -324,6 +328,8 @@ export interface IconProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'chi
   size?: number
   /** Stroke weight. Default 2. */
   strokeWidth?: number
+  /** Render a `brand:` glyph in its official color instead of `currentColor`. No-op on stroke glyphs. */
+  brand?: boolean
   /**
    * Accessible label. When set, the icon is exposed to assistive tech as an
    * image with this name; when omitted, the icon is `aria-hidden` (decorative).
@@ -332,10 +338,33 @@ export interface IconProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'chi
 }
 
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(function Icon(
-  { name, size = 20, strokeWidth = 2, title, className, ...props },
+  { name, size = 20, strokeWidth = 2, brand = false, title, className, ...props },
   ref,
 ): React.JSX.Element {
-  const glyph = GLYPHS[name]
+  if (name.startsWith('brand:')) {
+    const slug = name.slice(6) as BrandSlug
+    return (
+      <svg
+        ref={ref}
+        data-slot="icon"
+        data-icon={name}
+        data-brand={slug}
+        className={className ? `ca-icon ${className}` : 'ca-icon'}
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill={brand ? brandColors[slug] : 'currentColor'}
+        role={title ? 'img' : undefined}
+        aria-hidden={title ? undefined : true}
+        aria-label={title}
+        {...props}
+      >
+        {title ? <title>{title}</title> : null}
+        <path d={LOGOS[slug]} />
+      </svg>
+    )
+  }
+  const glyph = GLYPHS[name as keyof typeof GLYPHS]
   return (
     <svg
       ref={ref}
