@@ -173,24 +173,6 @@ export const previews: Record<string, Variant[]> = {
     )},
   ],
 
-  'brand-logo': [
-    { label: 'Official color', node: (
-      <div style={{ display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
-        <Icon name="brand:spotify" size={34} brand />
-        <Icon name="brand:netflix" size={34} brand />
-        <Icon name="brand:visa" size={34} brand />
-        <Icon name="brand:paypal" size={34} brand />
-        <Icon name="brand:cash-app" size={34} brand />
-        <Icon name="brand:starbucks" size={34} brand />
-      </div>
-    )},
-    { label: 'Registry', node: (
-      <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', color: 'var(--foreground)' }}>
-        {iconNames.filter((n) => n.startsWith('brand:')).map((name) => <Icon key={name} name={name} size={26} />)}
-      </div>
-    )},
-  ],
-
   icon: [
     { label: 'Color & size', node: (
       <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
@@ -200,6 +182,16 @@ export const previews: Record<string, Variant[]> = {
         <Icon name="wallet" size={16} />
         <Icon name="wallet" size={24} />
         <Icon name="wallet" size={32} />
+      </div>
+    )},
+    { label: 'Brand marks', node: (
+      <div style={{ display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
+        <Icon name="brand:spotify" size={34} brand />
+        <Icon name="brand:netflix" size={34} brand />
+        <Icon name="brand:visa" size={34} brand />
+        <Icon name="brand:paypal" size={34} brand />
+        <Icon name="brand:cash-app" size={34} brand />
+        <Icon name="brand:starbucks" size={34} brand />
       </div>
     )},
     { label: 'Registry', node: (
