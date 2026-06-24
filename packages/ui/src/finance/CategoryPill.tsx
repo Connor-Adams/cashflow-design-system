@@ -1,31 +1,42 @@
 import * as React from 'react'
 import './CategoryPill.css'
-import { GLYPHS } from '../core/Icon'
-import { categoryVisual } from './categoryIcon'
+import { GLYPHS, type IconName } from '../core/Icon'
+import { categoryVisual, type CategoryOverrides } from './categoryIcon'
 
 /**
  * Transaction-category chip — tinted icon + label. The icon and tint are
  * inferred from the category/merchant text by keyword (see {@link categoryVisual}),
  * so arbitrary names ("Eating Out", "Spotify", "cc fees") get sensible glyphs
- * instead of falling to a generic default. Override with `icon` and `color`.
+ * instead of falling to a generic default.
+ *
+ * Precedence for the glyph: `icon` (raw node) › `iconName` (registry name —
+ * the seam for a stored "icon per category") › `overrides` map › keyword
+ * inference. `color` overrides the tint.
+ *
  * `interactive` renders a button for filtering/reassigning.
  */
 export interface CategoryPillProps extends React.HTMLAttributes<HTMLElement> {
   category?: string
   label?: React.ReactNode
+  /** Raw SVG geometry to render instead of any inferred/registry glyph. */
   icon?: React.ReactNode
+  /** A glyph from the icon registry by name — e.g. an app's stored category icon. */
+  iconName?: IconName
+  /** App-supplied category→icon map; wins over keyword inference. */
+  overrides?: CategoryOverrides
   color?: string
   interactive?: boolean
   size?: 'sm' | 'default'
 }
 
 export const CategoryPill = React.forwardRef<HTMLElement, CategoryPillProps>(function CategoryPill(
-  { category = 'default', label, icon, color, interactive = false, size = 'default', className, style, onClick, ...props },
+  { category = 'default', label, icon, iconName, overrides, color, interactive = false, size = 'default', className, style, onClick, ...props },
   ref,
 ): React.JSX.Element {
-  const visual = categoryVisual(category)
+  const visual = categoryVisual(category, overrides)
+  const resolvedIcon = iconName ?? visual.icon
   const tint = color || visual.tint
-  const glyph = icon !== undefined ? icon : GLYPHS[visual.icon]
+  const glyph = icon !== undefined ? icon : GLYPHS[resolvedIcon]
   const text = label != null ? label : (category.charAt(0).toUpperCase() + category.slice(1))
   const sm = size === 'sm'
   const Tag = interactive ? 'button' : 'span'
@@ -45,7 +56,7 @@ export const CategoryPill = React.forwardRef<HTMLElement, CategoryPillProps>(fun
       }}
       {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLSpanElement>)}
     >
-      <svg data-icon={icon === undefined ? visual.icon : undefined} width={sm ? 12 : 13} height={sm ? 12 : 13} viewBox="0 0 24 24" fill="none" stroke={tint} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="ca-category-pill-icon">{glyph}</svg>
+      <svg data-icon={icon === undefined ? resolvedIcon : undefined} width={sm ? 12 : 13} height={sm ? 12 : 13} viewBox="0 0 24 24" fill="none" stroke={tint} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="ca-category-pill-icon">{glyph}</svg>
       {text}
     </Tag>
   )

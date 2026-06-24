@@ -6,6 +6,8 @@ import { CategoryPill } from './CategoryPill'
 import { Progress } from '../core/Progress'
 import { AmountText } from './AmountText'
 import { Sparkline } from './Sparkline'
+import type { CategoryOverrides } from './categoryIcon'
+import type { IconName } from '../core/Icon'
 
 /**
  * Ranked horizontal-bar breakdown of money by transaction category — the
@@ -19,6 +21,8 @@ export interface CategoryBreakdownRow {
   label?: React.ReactNode
   amount: number
   color?: string
+  /** Stored icon for this category, by registry name — overrides inference. */
+  iconName?: IconName
 }
 
 export interface CategoryBreakdownProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'onSelect'> {
@@ -30,6 +34,8 @@ export interface CategoryBreakdownProps extends Omit<React.HTMLAttributes<HTMLDi
   max?: number
   currency?: string
   locale?: string
+  /** App-supplied category→icon map applied to every row's pill. */
+  iconOverrides?: CategoryOverrides
   onSelect?: (category: string, row: CategoryBreakdownRow) => void
 }
 
@@ -52,6 +58,7 @@ export const CategoryBreakdown = React.forwardRef<HTMLDivElement, CategoryBreakd
       max,
       currency = 'CAD',
       locale = 'en-CA',
+      iconOverrides,
       onSelect,
       className,
       ...props
@@ -85,7 +92,7 @@ export const CategoryBreakdown = React.forwardRef<HTMLDivElement, CategoryBreakd
               const pct = denom > 0 ? (Math.abs(row.amount) / denom) * 100 : 0
               const inner = (
                 <>
-                  <CategoryPill category={row.category ?? 'default'} label={row.label} color={row.color} />
+                  <CategoryPill category={row.category ?? 'default'} label={row.label} color={row.color} iconName={row.iconName} overrides={iconOverrides} />
                   <Progress value={pct} tone={BAR_GRADIENT} size="lg" aria-hidden />
                   <AmountText value={row.amount} currency={currency} locale={locale} className="ca-category-breakdown__amount" />
                 </>

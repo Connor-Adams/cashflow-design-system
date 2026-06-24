@@ -46,4 +46,30 @@ describe('categoryVisual', () => {
   it('returns a tint token alongside the icon', () => {
     expect(categoryVisual('Groceries').tint).toMatch(/^var\(--/)
   })
+
+  describe('overrides', () => {
+    it('a bare icon-name override swaps the icon, keeps the inferred tint', () => {
+      const groceriesTint = categoryVisual('Groceries').tint
+      const v = categoryVisual('Groceries', { Groceries: 'store' })
+      expect(v.icon).toBe('store')
+      expect(v.tint).toBe(groceriesTint)
+    })
+
+    it('a full visual override sets icon and tint', () => {
+      const v = categoryVisual('Clublink', { Clublink: { icon: 'trophy', tint: 'var(--positive)' } })
+      expect(v).toEqual({ icon: 'trophy', tint: 'var(--positive)' })
+    })
+
+    it('wins even when no keyword rule matched', () => {
+      expect(categoryIconName('Zorblax', { Zorblax: 'rocket' })).toBe('rocket')
+    })
+
+    it('matches override keys case/punctuation-insensitively', () => {
+      expect(categoryIconName('CLUB-LINK', { 'club link': 'trophy' })).toBe('trophy')
+    })
+
+    it('ignores overrides that do not match the category', () => {
+      expect(categoryIconName('Groceries', { Rent: 'home' })).toBe('shopping-cart')
+    })
+  })
 })

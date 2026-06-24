@@ -133,22 +133,54 @@ const RULES: ReadonlyArray<readonly [RegExp, IconName, string]> = [
   [/\b(uncategorized|uncategorised|misc|other|unknown|default)\b/, 'help-circle', T.muted],
 ]
 
+/**
+ * App-supplied overrides, keyed by category/merchant name (matched
+ * case/punctuation-insensitively). A bare {@link IconName} swaps the icon and
+ * keeps the inferred tint; a full {@link CategoryVisual} sets both. This is the
+ * seam for a stored "icon per category" in the consuming app — keyword
+ * inference is only the default suggestion.
+ */
+export type CategoryOverrides = Record<string, IconName | CategoryVisual>
+
 /** Lowercase, replace punctuation with spaces, collapse, and pad for `\b`. */
 function normalize(category: string): string {
   return ` ${category.toLowerCase().replace(/[^a-z0-9&]+/g, ' ').replace(/\s+/g, ' ').trim()} `
 }
 
+function pickOverride(overrides: CategoryOverrides, text: string): IconName | CategoryVisual | undefined {
+  for (const key in overrides) {
+    if (normalize(key) === text) return overrides[key]
+  }
+  return undefined
+}
+
 /** Resolve a free-text category/merchant to its icon + tint. */
-export function categoryVisual(category: string | undefined | null): CategoryVisual {
+export function categoryVisual(
+  category: string | undefined | null,
+  overrides?: CategoryOverrides,
+): CategoryVisual {
   if (!category) return DEFAULT
   const text = normalize(category)
+
+  let result = DEFAULT
   for (const [matcher, icon, tint] of RULES) {
-    if (matcher.test(text)) return { icon, tint }
+    if (matcher.test(text)) {
+      result = { icon, tint }
+      break
+    }
   }
-  return DEFAULT
+
+  // App overrides win — and win even when no keyword rule matched.
+  const ov = overrides && pickOverride(overrides, text)
+  if (ov) result = typeof ov === 'string' ? { ...result, icon: ov } : ov
+
+  return result
 }
 
 /** Just the icon name for a category — convenience over {@link categoryVisual}. */
-export function categoryIconName(category: string | undefined | null): IconName {
-  return categoryVisual(category).icon
+export function categoryIconName(
+  category: string | undefined | null,
+  overrides?: CategoryOverrides,
+): IconName {
+  return categoryVisual(category, overrides).icon
 }
