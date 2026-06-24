@@ -1,0 +1,9 @@
+/* BrandLogo — filled single-path brand glyph. Fills with currentColor by
+   default (or the brand color via the `brand` prop). Base class only keeps it
+   from disturbing inline flow. */
+
+.ca-brand-logo {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}

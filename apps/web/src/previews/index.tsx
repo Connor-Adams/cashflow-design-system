@@ -7,6 +7,7 @@ import {
   Badge,
   Button,
   Card, CardHeader, CardTitle, CardDescription, CardContent,
+  BrandLogo, brandNames,
   Icon, iconNames,
   Kbd,
   Link,
@@ -170,6 +171,24 @@ export const previews: Record<string, Variant[]> = {
           </p>
         </CardContent>
       </Card>
+    )},
+  ],
+
+  'brand-logo': [
+    { label: 'Official color', node: (
+      <div style={{ display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
+        <BrandLogo name="spotify" size={34} brand />
+        <BrandLogo name="netflix" size={34} brand />
+        <BrandLogo name="visa" size={34} brand />
+        <BrandLogo name="paypal" size={34} brand />
+        <BrandLogo name="cash-app" size={34} brand />
+        <BrandLogo name="starbucks" size={34} brand />
+      </div>
+    )},
+    { label: 'Monochrome', node: (
+      <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', color: 'var(--foreground)' }}>
+        {brandNames.map((name) => <BrandLogo key={name} name={name} size={26} />)}
+      </div>
     )},
   ],
 
