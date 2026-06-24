@@ -1,16 +1,3 @@
-import * as React from 'react'
-import './BrandLogo.css'
-
-/**
- * Single-path brand/merchant logo (Spotify, Visa, PayPal…). Renders in
- * `currentColor` by default — tintable and theme-safe like text — or in the
- * brand's official color when `brand` is set. Sized via `size`.
- *
- * Logos are filled glyphs (unlike the stroke-based `Icon`). Paths are from
- * Simple Icons (CC0); the trademarks remain the property of their owners — use
- * to mark a merchant/payment method, not to imply endorsement.
- */
-
 // name → single SVG path on a 24×24 viewBox, filled. Source: Simple Icons (CC0).
 const LOGOS = {
   'adidas': "m24 19.535-8.697-15.07-4.659 2.687 7.145 12.383Zm-8.287 0L9.969 9.59 5.31 12.277l4.192 7.258ZM4.658 14.723l2.776 4.812H1.223L0 17.41Z",
@@ -267,8 +254,11 @@ const LOGOS = {
   'zoom': "M5.033 14.649H.743a.74.74 0 0 1-.686-.458.74.74 0 0 1 .16-.808L3.19 10.41H1.06A1.06 1.06 0 0 1 0 9.35h3.957c.301 0 .57.18.686.458a.74.74 0 0 1-.161.808L1.51 13.59h2.464c.585 0 1.06.475 1.06 1.06zM24 11.338c0-1.14-.927-2.066-2.066-2.066-.61 0-1.158.265-1.537.686a2.061 2.061 0 0 0-1.536-.686c-1.14 0-2.066.926-2.066 2.066v3.311a1.06 1.06 0 0 0 1.06-1.06v-2.251a1.004 1.004 0 0 1 2.013 0v2.251c0 .586.474 1.06 1.06 1.06v-3.311a1.004 1.004 0 0 1 2.012 0v2.251c0 .586.475 1.06 1.06 1.06zM16.265 12a2.728 2.728 0 1 1-5.457 0 2.728 2.728 0 0 1 5.457 0zm-1.06 0a1.669 1.669 0 1 0-3.338 0 1.669 1.669 0 0 0 3.338 0zm-4.82 0a2.728 2.728 0 1 1-5.458 0 2.728 2.728 0 0 1 5.457 0zm-1.06 0a1.669 1.669 0 1 0-3.338 0 1.669 1.669 0 0 0 3.338 0z",
 } satisfies Record<string, string>
 
-/** Official brand colors (hex). Use via the `brand` prop or directly. */
-export const brandColors: Record<BrandName, string> = {
+/** Every brand slug available as `brand:<slug>` on `<Icon>`. */
+export type BrandSlug = keyof typeof LOGOS
+
+/** Official brand colors, keyed by slug. */
+export const brandColors: Record<BrandSlug, string> = {
   'adidas': '#000000',
   'adobe': '#FF0000',
   'adyen': '#0ABF53',
@@ -523,48 +513,7 @@ export const brandColors: Record<BrandName, string> = {
   'zoom': '#0B5CFF',
 }
 
-/** Every brand available to `<BrandLogo name>`. */
-export type BrandName = keyof typeof LOGOS
+/** All brand slugs, alphabetical — handy for galleries/pickers. */
+export const brandSlugs = Object.keys(LOGOS) as BrandSlug[]
 
-/** All registered brand names, alphabetical — handy for galleries/pickers. */
-export const brandNames = Object.keys(LOGOS) as BrandName[]
-
-export interface BrandLogoProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'children'> {
-  /** Which brand to render. */
-  name: BrandName
-  /** Edge length in px (square). Default 20. */
-  size?: number
-  /** Render in the brand's official color instead of `currentColor`. */
-  brand?: boolean
-  /**
-   * Accessible label. When set, the logo is exposed as an image with this name;
-   * when omitted, it is `aria-hidden` (decorative).
-   */
-  title?: string
-}
-
-export const BrandLogo = React.forwardRef<SVGSVGElement, BrandLogoProps>(function BrandLogo(
-  { name, size = 20, brand = false, title, className, style, ...props },
-  ref,
-): React.JSX.Element {
-  return (
-    <svg
-      ref={ref}
-      data-slot="brand-logo"
-      data-brand={name}
-      className={className ? `ca-brand-logo ${className}` : 'ca-brand-logo'}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill={brand ? brandColors[name] : 'currentColor'}
-      style={style}
-      role={title ? 'img' : undefined}
-      aria-hidden={title ? undefined : true}
-      aria-label={title}
-      {...props}
-    >
-      {title ? <title>{title}</title> : null}
-      <path d={LOGOS[name]} />
-    </svg>
-  )
-})
+export { LOGOS }

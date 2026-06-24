@@ -1,6 +1,7 @@
 import { createRef } from 'react'
 import { render, screen } from '@testing-library/react'
 import { Icon, iconNames } from './Icon'
+import { brandColors } from './brandGlyphs'
 
 describe('Icon', () => {
   it('applies the ca-icon base class', () => {
@@ -57,5 +58,31 @@ describe('Icon', () => {
     expect(iconNames).toContain('wallet')
     expect(iconNames).toContain('chevron-right')
     expect(iconNames.length).toBeGreaterThan(20)
+  })
+
+  it('renders a brand glyph as a filled path with currentColor by default', () => {
+    const { container } = render(<Icon name="brand:spotify" />)
+    const svg = container.querySelector('svg')!
+    expect(svg).toHaveClass('ca-icon')
+    expect(svg).toHaveAttribute('data-icon', 'brand:spotify')
+    expect(svg).toHaveAttribute('data-brand', 'spotify')
+    expect(svg).toHaveAttribute('fill', 'currentColor')
+    expect(svg.querySelector('path')).toBeInTheDocument()
+  })
+
+  it('fills a brand glyph with its official color when brand is set', () => {
+    const { container } = render(<Icon name="brand:spotify" brand />)
+    expect(container.querySelector('svg')).toHaveAttribute('fill', brandColors.spotify)
+  })
+
+  it('leaves stroke glyphs unfilled and brand-prop-agnostic', () => {
+    const { container } = render(<Icon name="wallet" brand />)
+    const svg = container.querySelector('svg')!
+    expect(svg).toHaveAttribute('fill', 'none')
+    expect(svg).toHaveAttribute('stroke', 'currentColor')
+  })
+
+  it('includes brand names in iconNames', () => {
+    expect(iconNames).toContain('brand:spotify')
   })
 })

@@ -9,6 +9,7 @@ const meta: Meta<typeof Icon> = {
     name: { control: 'select', options: iconNames },
     size: { control: { type: 'number', min: 12, max: 64, step: 2 } },
     strokeWidth: { control: { type: 'number', min: 1, max: 3, step: 0.25 } },
+    brand: { control: 'boolean' },
   },
 }
 export default meta
@@ -34,6 +35,19 @@ export const InheritsColor: Story = {
       <span style={{ color: 'var(--positive)' }}><Icon name="trending-up" size={28} /></span>
       <span style={{ color: 'var(--destructive)' }}><Icon name="trending-down" size={28} /></span>
       <span style={{ color: 'var(--muted-foreground)' }}><Icon name="settings" size={28} /></span>
+    </div>
+  ),
+}
+
+export const BrandMarks: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+      <Icon name="brand:spotify" size={36} brand />
+      <Icon name="brand:netflix" size={36} brand />
+      <Icon name="brand:visa" size={36} brand />
+      <Icon name="brand:paypal" size={36} brand />
+      <Icon name="brand:cash-app" size={36} brand />
+      <Icon name="brand:starbucks" size={36} brand />
     </div>
   ),
 }
