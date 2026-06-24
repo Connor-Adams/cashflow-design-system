@@ -37,4 +37,16 @@ describe('CategoryPill', () => {
     render(<CategoryPill category="dining" />)
     expect(screen.getByText('Dining')).toBeInTheDocument()
   })
+
+  it('infers a sensible icon from free-text category names', () => {
+    const { container, rerender } = render(<CategoryPill category="Eating Out" />)
+    expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'utensils')
+    rerender(<CategoryPill category="Spotify" />)
+    expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'music')
+  })
+
+  it('drops the inferred data-icon when a custom icon is supplied', () => {
+    const { container } = render(<CategoryPill category="dining" icon={<circle />} />)
+    expect(container.querySelector('svg')).not.toHaveAttribute('data-icon')
+  })
 })
