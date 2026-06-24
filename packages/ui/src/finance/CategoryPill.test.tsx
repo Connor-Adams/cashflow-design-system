@@ -49,4 +49,14 @@ describe('CategoryPill', () => {
     const { container } = render(<CategoryPill category="dining" icon={<circle />} />)
     expect(container.querySelector('svg')).not.toHaveAttribute('data-icon')
   })
+
+  it('renders a registry glyph by name via iconName, over inference', () => {
+    const { container } = render(<CategoryPill category="dining" iconName="trophy" />)
+    expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'trophy')
+  })
+
+  it('applies an overrides map to the inferred icon', () => {
+    const { container } = render(<CategoryPill category="Clublink" overrides={{ Clublink: 'trophy' }} />)
+    expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'trophy')
+  })
 })
