@@ -46,7 +46,7 @@ const RULES: ReadonlyArray<readonly [RegExp, IconName, string]> = [
   [/\b(airbnb|expedia|marriott|hilton)\b/, 'bed', T.physical],
   [/\b(steam|playstation|xbox|nintendo|epic games)\b/, 'gamepad-2', T.digital],
   [/\b(clublink|golf)\b/, 'flag', T.physical],
-  [/\b(zara|nike|adidas|uniqlo|biba|lululemon)\b/, 'shirt', T.physical],
+  [/\b(zara|nike|adidas|uniqlo|biba|lululemon|lulu lemon)\b/, 'shirt', T.physical],
   [/\b(rogers|telus|bell|fido|koodo|verizon|at&t)\b/, 'smartphone', T.digital],
 
   // --- income & money movement ----------------------------------------------
@@ -82,7 +82,7 @@ const RULES: ReadonlyArray<readonly [RegExp, IconName, string]> = [
   [/\b(hosting|server|cloud|aws|vps|domain|vercel|railway)\b/, 'server', T.digital],
   [/\b(phone|mobile|cellular|wireless)\b/, 'smartphone', T.digital],
   [/\b(ai|llm|ml)\b/, 'sparkles', T.digital],
-  [/\b(software|saas|app|license|subscription)\b/, 'monitor', T.digital],
+  [/\b(software|saas|app|license|subscriptions?)\b/, 'monitor', T.digital],
 
   // --- utilities -------------------------------------------------------------
   [/\b(electric|hydro|power)\b/, 'zap', T.energy],
@@ -93,7 +93,7 @@ const RULES: ReadonlyArray<readonly [RegExp, IconName, string]> = [
   // --- entertainment & media -------------------------------------------------
   [/\b(streaming|video)\b/, 'tv', T.digital],
   [/\b(movie|cinema|theatre|theater)\b/, 'film', T.digital],
-  [/\b(game|gaming)\b/, 'gamepad-2', T.digital],
+  [/\b(games?|gaming)\b/, 'gamepad-2', T.digital],
   [/\b(book|kindle|audible|reading)\b/, 'book-open', T.digital],
   [/\b(music|audio)\b/, 'music', T.digital],
   [/\b(ticket|event|concert|show)\b/, 'ticket', T.digital],
