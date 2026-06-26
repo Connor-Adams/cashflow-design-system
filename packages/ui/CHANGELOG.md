@@ -1,5 +1,27 @@
 # @connor-adams/designsystem
 
+## 1.0.0
+
+### Major Changes
+
+- 680bab8: Remove `BrandLogo`; brand/merchant marks now ship through `Icon`.
+
+  Brand logos are addressed with a `brand:` name prefix — `<Icon name="brand:spotify" />`, or `<Icon name="brand:visa" brand />` for the official color. The `brand` boolean moved onto `Icon` (no-op on stroke glyphs), and `iconNames` now includes the `brand:`-prefixed names.
+
+  **Breaking:** the `BrandLogo` component and the `brandNames`, `brandColors`, `BrandName`, and `BrandLogoProps` exports are removed. Migrate `<BrandLogo name="spotify" brand />` → `<Icon name="brand:spotify" brand />`. Brand marks now render with `data-slot="icon"` (was `data-slot="brand-logo"`) and the `.ca-icon` class (was `.ca-brand-logo`) — update any CSS/test selectors targeting the old values.
+
+### Minor Changes
+
+- 8c38e2e: Add an override seam for category icons so consumers can supply a stored "icon per category" instead of relying solely on keyword inference. `categoryVisual()` / `categoryIconName()` take an optional `overrides` map (category name → `IconName` or full `CategoryVisual`, matched case/punctuation-insensitively); a bare icon name swaps the glyph and keeps the inferred tint. `CategoryPill` gains `iconName` (render a registry glyph by name) and `overrides` props, and `CategoryBreakdown` gains a per-row `iconName` plus a tile-wide `iconOverrides`. Precedence: `icon` (raw node) › `iconName` › `overrides` › keyword inference.
+- 69b6c52: CategoryPill now infers its icon and tint from free-text category/merchant names by keyword instead of an exact-match lookup over 8 fixed keys. Names like "Eating Out", "cc fees", "Vape", "Office Equipment", "Spotify", and "Amazon" now get sensible glyphs (brand names resolve ahead of generic words) rather than falling to a generic default. Exposes `categoryVisual()` and `categoryIconName()` for consumers that need the mapping directly, and exports the `GLYPHS` registry from the icon module.
+
+### Patch Changes
+
+- 0e7fbd5: Fix category-icon coverage gaps and the brand-mark path in `CategoryPill`:
+
+  - The keyword matcher (`categoryVisual`/`categoryIconName`) wrote rules in the singular against word-boundary anchors, so naturally-plural and spaced names silently fell to the default `tag` glyph. Real misses now resolved: **Games** (`game` → `games?`), **Subscriptions** (`subscription` → `subscriptions?`), and **LuLu Lemon** (added a `lulu lemon` spaced alternative beside `lululemon`).
+  - `CategoryPill` indexed the stroke-glyph `GLYPHS` registry with an `IconName` that now includes `brand:` marks, which both failed typecheck and would have rendered an empty glyph for a brand category icon. Brand names now render through `Icon` (filled mark in its official color); stroke glyphs keep their inline, tinted rendering.
+
 ## 0.11.0
 
 ### Minor Changes
