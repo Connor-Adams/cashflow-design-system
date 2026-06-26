@@ -1,6 +1,6 @@
 import * as React from 'react'
 import './CategoryPill.css'
-import { GLYPHS, type IconName } from '../core/Icon'
+import { GLYPHS, Icon, type IconName } from '../core/Icon'
 import { categoryVisual, type CategoryOverrides } from './categoryIcon'
 
 /**
@@ -36,7 +36,10 @@ export const CategoryPill = React.forwardRef<HTMLElement, CategoryPillProps>(fun
   const visual = categoryVisual(category, overrides)
   const resolvedIcon = iconName ?? visual.icon
   const tint = color || visual.tint
-  const glyph = icon !== undefined ? icon : GLYPHS[resolvedIcon]
+  // brand: marks are filled logos resolved by Icon; stroke glyphs render inline
+  // here so they pick up the category tint as their stroke.
+  const isBrand = icon === undefined && resolvedIcon.startsWith('brand:')
+  const glyph = icon !== undefined ? icon : GLYPHS[resolvedIcon as keyof typeof GLYPHS]
   const text = label != null ? label : (category.charAt(0).toUpperCase() + category.slice(1))
   const sm = size === 'sm'
   const Tag = interactive ? 'button' : 'span'
@@ -56,7 +59,11 @@ export const CategoryPill = React.forwardRef<HTMLElement, CategoryPillProps>(fun
       }}
       {...(props as React.HTMLAttributes<HTMLButtonElement & HTMLSpanElement>)}
     >
-      <svg data-icon={icon === undefined ? resolvedIcon : undefined} width={sm ? 12 : 13} height={sm ? 12 : 13} viewBox="0 0 24 24" fill="none" stroke={tint} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="ca-category-pill-icon">{glyph}</svg>
+      {isBrand ? (
+        <Icon name={resolvedIcon} brand size={sm ? 12 : 13} className="ca-category-pill-icon" />
+      ) : (
+        <svg data-icon={icon === undefined ? resolvedIcon : undefined} width={sm ? 12 : 13} height={sm ? 12 : 13} viewBox="0 0 24 24" fill="none" stroke={tint} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="ca-category-pill-icon">{glyph}</svg>
+      )}
       {text}
     </Tag>
   )

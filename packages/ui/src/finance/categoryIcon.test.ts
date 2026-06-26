@@ -24,6 +24,15 @@ describe('categoryVisual', () => {
     ['Accounting', 'calculator'],
     ['Spotify', 'music'],
     ['Hosting', 'server'],
+    ['Clublink', 'flag'],
+    ['Golf', 'flag'],
+    ['Clothing', 'shirt'],
+    ['Dentist', 'tooth'],
+    ['Games', 'gamepad-2'],
+    ['Subscriptions', 'monitor'],
+    ['Biba', 'shirt'],
+    // Multi-word merchant name — must match despite the space.
+    ['LuLu Lemon', 'shirt'],
   ])('maps %s → %s', (category, icon) => {
     expect(categoryIconName(category)).toBe(icon)
   })
